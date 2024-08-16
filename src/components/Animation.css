@@ -1,0 +1,64 @@
+.underline-animation {
+  position: relative;
+  display: inline-block;
+  color: #333; /* Adjust color to fit your design */
+}
+
+.underline-animation::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: currentColor; /* Use currentColor to inherit text color */
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out; /* Adjust the timing if needed */
+}
+
+.underline-animation:hover::after,
+.underline-animation.active::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.moving-text-container {
+  display: flex;
+  align-items: center; /* Vertically center the text */
+  width: 200%; /* Double the width to accommodate scrolling */
+  position: absolute;
+  justify-content: center;
+  animation: moveText 10s linear infinite;
+}
+
+@keyframes moveText {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-moveText {
+  animation: moveText 10s linear infinite;
+}
+
+.image-container {
+  overflow: hidden;
+  display: inline-block;
+}
+
+.image-container img {
+  transition: transform 0.5s ease;
+}
+
+.image-container:hover img {
+  transform: scale(1.1);
+}
+
+.shadow-top {
+  box-shadow: 0 -6px 10px -2px rgba(0, 0, 0, 0.15),
+    0 -4px 6px -3px rgba(0, 0, 0, 0.1);
+}

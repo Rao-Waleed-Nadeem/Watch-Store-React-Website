@@ -1,0 +1,12 @@
+/* Initial transparent header */
+.header {
+  background: transparent;
+  border-bottom: none;
+  transition: background 0.3s ease, border-bottom 0.3s ease;
+}
+
+/* Scrolled header with white background and border */
+.header.scrolled {
+  background: white;
+  border-bottom: 1px solid black;
+}

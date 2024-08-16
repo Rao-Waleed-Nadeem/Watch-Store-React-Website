@@ -1,0 +1,21 @@
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-250px * 2)); /* Adjusted to scroll two slides */
+  }
+}
+
+.slide-track {
+  animation: scroll 10s linear infinite; /* Adjusted animation duration */
+  width: calc(250px * 8); /* Adjusted width for seamless scrolling */
+}
+
+.slide {
+  height: 100px;
+  width: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

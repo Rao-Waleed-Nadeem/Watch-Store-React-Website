@@ -1,0 +1,57 @@
+.custom-textfield .MuiInputLabel-root {
+  text-align: center; /* Center the label text */
+  width: 100%; /* Ensure the label takes up the full width of the input */
+  left: 0; /* Ensure label aligns with the input field */
+  transform: translateY(-50%); /* Adjust positioning if necessary */
+}
+/* Cart.css */
+
+/* Cart.css */
+
+/* Ensure all step content divs have a fixed height */
+.step-content {
+  /* or a fixed height if preferred */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Rightward transition on Next button */
+.fade-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+.fade-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.fade-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+.fade-exit-active {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 300ms, transform 300ms;
+}
+
+/* Leftward transition on Back button */
+.fade-back-enter {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.fade-back-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.fade-back-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+.fade-back-exit-active {
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 300ms, transform 300ms;
+}

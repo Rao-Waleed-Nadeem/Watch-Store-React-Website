@@ -1,0 +1,25 @@
+.bell-notification::after {
+  content: attr(current-count);
+  position: absolute;
+  top: 0;
+  right: -10%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  border: 10px solid #01111b;
+}
+
+.fa-bell {
+  font-size: 10px;
+}
+.bell-notification {
+  color: #fff;
+  position: relative;
+  animation: bell 1s linear infinite alternate-reverse;
+  transform-origin: top;
+}
