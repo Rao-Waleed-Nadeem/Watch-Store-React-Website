@@ -105,11 +105,12 @@ function Header() {
     }
   };
 
-  const handleSubmitSearch = (id) => {
-    setSearchItem("");
-    setShowList(false);
-    setIsSearch(!isSearch);
-    navigate(`/cart/${id}`);
+  const handleSubmitSearch = (e, id) => {
+    e.preventDefault(); // Prevent default action
+    setSearchItem(""); // Clear search item
+    navigate(`/cart/${id}`); // Navigate to the product page
+    setShowList(false); // Hide the list
+    setIsSearch(false); // Close the search bar
   };
 
   const handleLeftDrawer = (condition) => () => {
@@ -128,7 +129,7 @@ function Header() {
   const handleCloseDialog = () => {
     setOpenDialog(false);
   };
-  console.log("photoURL: ", photoURL);
+  // console.log("photoURL: ", photoURL);
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -280,11 +281,15 @@ function Header() {
                     {filteredProducts.length > 0 ? (
                       filteredProducts.map((product) => (
                         <li
+                          onMouseDown={() => handleSubmitSearch(product.id)}
                           className="flex flex-row justify-between w-full px-3 py-1 rounded-md cursor-pointer hover:bg-slate-200"
                           key={product.id}
                         >
                           <button
-                            onClick={() => handleSubmitSearch(product.id)}
+                            onClick={() => {
+                              // (e) => handleSubmitSearch(e, product.id);
+                              () => navigate(`/cart/${product.id}`);
+                            }}
                             className="hover:bg-zinc-200"
                           >
                             {product.name}
