@@ -26,7 +26,7 @@ function NewsPage() {
     <div className="relative w-full max-h-full">
       <div className="relative w-full max-h-full bg-black">
         <img
-          src="news1.jpg"
+          src="../images/news1.jpg"
           className="object-cover w-full h-full opacity-50"
           alt="news"
         />

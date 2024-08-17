@@ -87,7 +87,7 @@ const router = createBrowserRouter([
         loader: productLoader,
       },
       {
-        path: "/newsage",
+        path: "/newspage",
         element: <NewsPage />,
       },
       {

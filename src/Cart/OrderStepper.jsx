@@ -37,27 +37,28 @@ export default function OrderStepper() {
   const { userLoggedIn } = useAuthStore();
 
   useEffect(() => {
-    fetch("https://www.universal-tutorial.com/api/getaccesstoken", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "api-token":
-          "Njl3bsqrDkfOe_Lk4SRUveGNV2g7Kndm5CEbo6M948EG6oflbW6QI33kbVTFmTjDNKw",
-        "user-email": "waleedhafiz702@gmail.com",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // console.log("Response:", data);
-        setAuthToken(data.auth_token);
+    const fetchData = () => {
+      fetch("https://www.universal-tutorial.com/api/getaccesstoken", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "api-token":
+            "Njl3bsqrDkfOe_Lk4SRUveGNV2g7Kndm5CEbo6M948EG6oflbW6QI33kbVTFmTjDNKw",
+          "user-email": "waleedhafiz702@gmail.com",
+        },
       })
-      .catch((error) => console.log("Error:", error));
-  }, [setAuthToken]);
+        .then((response) => response.json())
+        .then((data) => {
+          // console.log("Response:", data);
+          setAuthToken(data.auth_token);
+        })
+        .catch((error) => console.log("Error:", error));
+    };
+    fetchData();
+  }, [setAuthToken, authToken]);
 
   useEffect(() => {
-    if (authToken) {
-      // console.log("auth_token: ", authToken);
-
+    const fetchData = () => {
       fetch("https://www.universal-tutorial.com/api/countries/", {
         method: "GET",
         headers: {
@@ -70,7 +71,8 @@ export default function OrderStepper() {
           setCountries(data);
         })
         .catch((error) => console.error("Error:", error));
-    }
+    };
+    fetchData();
   }, [setCountries, countries]);
 
   const initialBillingAddress = {
