@@ -50,7 +50,7 @@ function Home() {
   useEffect(() => {
     const fetchData = () => {
       getCarts();
-      // getProducts();
+      getProducts();
       console.log("products: ", products);
     };
     fetchData;
@@ -378,54 +378,58 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-center phone:flex-col tabletLandscape:flex-row bg-zinc-100 phone:py-7 tabletLandscape:py-12 tabletLandscape:px-10">
-        <div className="flex flex-col my-10 ml-6 basis-1/2 tabletLandscape:pr-8 space-y-7 tabletLandscape:px-5">
-          <p className="text-lg">HAND PICKED</p>
-          <h1 className="phone:text-5xl tabletLandscape:text-6xl">
-            Product Of The Week
-          </h1>
-          <p className="text-base tabletLandscape:text-lg">
-            {flare_glaciers.definition}
-          </p>
-          {/* {`/cart/${trending.id}`} */}
-          <Link to={`/cart/${flare_glaciers.id}`} className="underline">
-            View Product
-          </Link>
-        </div>
-        <div className="flex flex-col pb-6 mx-5 space-y-4 border border-black basis-1/2">
-          <div className="relative">
-            <img
-              // src={trendingProduct.image}
-              src="../images/home-glasses.png"
-              alt="Home-Glasses"
-              className="phone:w-full"
-            />
-            <div className="absolute flex flex-col space-y-3 left-7 bottom-7">
-              <span className="text-base">${flare_glaciers.newPrice}</span>
-              <span className="text-2xl font-light">{flare_glaciers.name}</span>
+      {flare_glaciers !== undefined && (
+        <div className="flex items-center justify-center phone:flex-col tabletLandscape:flex-row bg-zinc-100 phone:py-7 tabletLandscape:py-12 tabletLandscape:px-10">
+          <div className="flex flex-col my-10 ml-6 basis-1/2 tabletLandscape:pr-8 space-y-7 tabletLandscape:px-5">
+            <p className="text-lg">HAND PICKED</p>
+            <h1 className="phone:text-5xl tabletLandscape:text-6xl">
+              Product Of The Week
+            </h1>
+            <p className="text-base tabletLandscape:text-lg">
+              {flare_glaciers.definition}
+            </p>
+            {/* {`/cart/${trending.id}`} */}
+            <Link to={`/cart/${flare_glaciers.id}`} className="underline">
+              View Product
+            </Link>
+          </div>
+          <div className="flex flex-col pb-6 mx-5 space-y-4 border border-black basis-1/2">
+            <div className="relative">
+              <img
+                // src={trendingProduct.image}
+                src="../images/home-glasses.png"
+                alt="Home-Glasses"
+                className="phone:w-full"
+              />
+              <div className="absolute flex flex-col space-y-3 left-7 bottom-7">
+                <span className="text-base">${flare_glaciers.newPrice}</span>
+                <span className="text-2xl font-light">
+                  {flare_glaciers.name}
+                </span>
+              </div>
+            </div>
+            <div className="px-5">
+              <button
+                onClick={() => navigate(`/cart/${flare_glaciers.id}`)}
+                className="w-full h-10 font-sans text-xl font-light text-black transition-colors duration-300 border border-black tabletLandscape:h-12 hover:bg-black hover:text-white"
+              >
+                Flare Glaciers
+              </button>
+            </div>
+            <div className="px-5">
+              <Button
+                onClick={handleViewProduct}
+                type="button"
+                variant="contained"
+                style={{ backgroundColor: "#0F0703", height: "42px" }}
+                fullWidth
+              >
+                View Product
+              </Button>
             </div>
           </div>
-          <div className="px-5">
-            <button
-              onClick={() => navigate(`/cart/${flare_glaciers.id}`)}
-              className="w-full h-10 font-sans text-xl font-light text-black transition-colors duration-300 border border-black tabletLandscape:h-12 hover:bg-black hover:text-white"
-            >
-              Flare Glaciers
-            </button>
-          </div>
-          <div className="px-5">
-            <Button
-              onClick={handleViewProduct}
-              type="button"
-              variant="contained"
-              style={{ backgroundColor: "#0F0703", height: "42px" }}
-              fullWidth
-            >
-              View Product
-            </Button>
-          </div>
         </div>
-      </div>
+      )}
       <div
         className="flex items-center justify-center min-h-screen px-8 text-white bg-center bg-cover phone:flex-col tabletLandscape:flex-row"
         style={{ backgroundImage: "url('./images/home-banner.jpg')" }}
@@ -511,62 +515,64 @@ function Home() {
           </button>
         </div>
         <div className="flex flex-col py-4 mx-5 space-y-5 border border-black laptop:w-2/3 bg-zinc-100 ">
-          <div className="flex flex-row items-center pr-4 space-x-5 tabletLandscape:justify-center tabletLandscape:ml-44 tabletLandscape:space-x-28 phone:justify-end ">
-            <div className="flex flex-row h-96 hover:shadow-2xl hover:cursor-pointer">
-              <Link
-                to={`/cart/${digitaledge.id}`}
-                className="flex flex-col items-center justify-start"
-              >
-                <img
-                  src={digitaledge.image}
-                  alt="watch"
-                  className="h-auto w-60"
-                />
-                <div className="flex flex-col text-center">
-                  <h4 className="mt-2 text-xl hover:text-yellow-700">
-                    {digitaledge.name}
-                  </h4>
-                  <span className="text-sm">${digitaledge.newPrice}</span>
-                  <div className="my-5">
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      style={{ backgroundColor: "#0F0703" }}
-                    >
-                      ADD TO CART
-                    </Button>
+          {digitaledge !== undefined && (
+            <div className="flex flex-row items-center pr-4 space-x-5 tabletLandscape:justify-center tabletLandscape:ml-44 tabletLandscape:space-x-28 phone:justify-end ">
+              <div className="flex flex-row h-96 hover:shadow-2xl hover:cursor-pointer">
+                <Link
+                  to={`/cart/${digitaledge.id}`}
+                  className="flex flex-col items-center justify-start"
+                >
+                  <img
+                    src={digitaledge.image}
+                    alt="watch"
+                    className="h-auto w-60"
+                  />
+                  <div className="flex flex-col text-center">
+                    <h4 className="mt-2 text-xl hover:text-yellow-700">
+                      {digitaledge.name}
+                    </h4>
+                    <span className="text-sm">${digitaledge.newPrice}</span>
+                    <div className="my-5">
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        style={{ backgroundColor: "#0F0703" }}
+                      >
+                        ADD TO CART
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            </div>
-            <div className="flex flex-row h-96 hover:shadow-2xl hover:cursor-pointer">
-              <Link
-                to={`/cart/${smartsync.id}`}
-                className="flex flex-col items-center justify-start"
-              >
-                <img
-                  src={smartsync.image}
-                  alt="watch"
-                  className="h-auto w-60"
-                />
-                <div className="flex flex-col text-center">
-                  <h4 className="mt-2 text-xl hover:text-yellow-700">
-                    {smartsync.name}
-                  </h4>
-                  <span className="text-sm">${smartsync.newPrice}</span>
-                  <div className="my-5">
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      style={{ backgroundColor: "#0F0703" }}
-                    >
-                      ADD TO CART
-                    </Button>
+                </Link>
+              </div>
+              <div className="flex flex-row h-96 hover:shadow-2xl hover:cursor-pointer">
+                <Link
+                  to={`/cart/${smartsync.id}`}
+                  className="flex flex-col items-center justify-start"
+                >
+                  <img
+                    src={smartsync.image}
+                    alt="watch"
+                    className="h-auto w-60"
+                  />
+                  <div className="flex flex-col text-center">
+                    <h4 className="mt-2 text-xl hover:text-yellow-700">
+                      {smartsync.name}
+                    </h4>
+                    <span className="text-sm">${smartsync.newPrice}</span>
+                    <div className="my-5">
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        style={{ backgroundColor: "#0F0703" }}
+                      >
+                        ADD TO CART
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              </div>
             </div>
-          </div>
+          )}
 
           <table className="mx-5 border-collapse table-fixed">
             <tbody>
