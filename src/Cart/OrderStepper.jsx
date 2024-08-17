@@ -36,6 +36,43 @@ export default function OrderStepper() {
 
   const { userLoggedIn } = useAuthStore();
 
+  useEffect(() => {
+    fetch("https://www.universal-tutorial.com/api/getaccesstoken", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "api-token":
+          "Njl3bsqrDkfOe_Lk4SRUveGNV2g7Kndm5CEbo6M948EG6oflbW6QI33kbVTFmTjDNKw",
+        "user-email": "waleedhafiz702@gmail.com",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log("Response:", data);
+        setAuthToken(data.auth_token);
+      })
+      .catch((error) => console.log("Error:", error));
+  }, [setAuthToken]);
+
+  useEffect(() => {
+    if (authToken) {
+      // console.log("auth_token: ", authToken);
+
+      fetch("https://www.universal-tutorial.com/api/countries/", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          Accept: "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setCountries(data);
+        })
+        .catch((error) => console.error("Error:", error));
+    }
+  }, [setCountries, countries]);
+
   const initialBillingAddress = {
     fname: "",
     lname: "",
@@ -241,42 +278,7 @@ export default function OrderStepper() {
     dispatch({ type: "SET_city", city: selectedCity });
   };
 
-  useEffect(() => {
-    fetch("https://www.universal-tutorial.com/api/getaccesstoken", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "api-token":
-          "Njl3bsqrDkfOe_Lk4SRUveGNV2g7Kndm5CEbo6M948EG6oflbW6QI33kbVTFmTjDNKw",
-        "user-email": "waleedhafiz702@gmail.com",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // console.log("Response:", data);
-        setAuthToken(data.auth_token);
-      })
-      .catch((error) => console.log("Error:", error));
-  }, []);
-
-  useEffect(() => {
-    if (authToken) {
-      // console.log("auth_token: ", authToken);
-
-      fetch("https://www.universal-tutorial.com/api/countries/", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-          Accept: "application/json",
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setCountries(data);
-        })
-        .catch((error) => console.error("Error:", error));
-    }
-  }, [authToken]);
+  console.log("countries: ", countries);
 
   // useEffect(() => {
   //   if (authToken) {
@@ -306,7 +308,7 @@ export default function OrderStepper() {
   // const selectArray = [];
 
   const stepContents = [
-    <div className="step-content flex flex-col space-y-6 px-5 py-10">
+    <div className="flex flex-col px-5 py-10 space-y-6 step-content">
       <h3 className="text-3xl">Contact Information</h3>
       <p>
         We'll use this email to send you details and updates about your order.
@@ -324,10 +326,10 @@ export default function OrderStepper() {
         variant="outlined"
       />
     </div>,
-    <div className="step-content flex flex-col space-y-6 px-5 py-10">
+    <div className="flex flex-col px-5 py-10 space-y-6 step-content">
       <h3 className="text-3xl">Shipping address</h3>
       <p>Enter the address where you want your order delivered.</p>
-      <div className="w-full flex space-x-4">
+      <div className="flex w-full space-x-4">
         <TextField
           fullWidth
           id="first-name"
@@ -390,7 +392,7 @@ export default function OrderStepper() {
           </Select>
         }
       </FormControl>
-      <div className="w-full flex space-x-4">
+      <div className="flex w-full space-x-4">
         <FormControl fullWidth sx={{ m: 1, minWidth: 120 }} size="medium">
           <InputLabel id="">State</InputLabel>
           <Select
@@ -432,7 +434,7 @@ export default function OrderStepper() {
           </Select>
         </FormControl>
       </div>
-      <div className="w-full flex space-x-4">
+      <div className="flex w-full space-x-4">
         <TextField
           fullWidth
           type="number"
@@ -460,10 +462,10 @@ export default function OrderStepper() {
         />
       </div>
     </div>,
-    <div className="step-content flex flex-col space-y-6 px-5 py-10">
+    <div className="flex flex-col px-5 py-10 space-y-6 step-content">
       <h3 className="text-3xl">Billing address</h3>
       <p>Enter the billing address that matches your payment method.</p>
-      <div className="w-full flex space-x-4">
+      <div className="flex w-full space-x-4">
         <TextField
           fullWidth
           id="outlined-basic"
@@ -526,7 +528,7 @@ export default function OrderStepper() {
           </Select>
         }
       </FormControl>
-      <div className="w-full flex space-x-4">
+      <div className="flex w-full space-x-4">
         <FormControl fullWidth sx={{ m: 1, minWidth: 120 }} size="medium">
           <InputLabel id="">State</InputLabel>
           <Select
@@ -568,7 +570,7 @@ export default function OrderStepper() {
           </Select>
         </FormControl>
       </div>
-      <div className="w-full flex space-x-4">
+      <div className="flex w-full space-x-4">
         <TextField
           fullWidth
           id="zip-code"
@@ -590,12 +592,12 @@ export default function OrderStepper() {
         />
       </div>
     </div>,
-    <div className="step-content  flex flex-col space-y-6 px-5 py-10">
+    <div className="flex flex-col px-5 py-10 space-y-6 step-content">
       <h3 className="text-3xl">Shipping options</h3>
       <p>Free shipping</p>
     </div>,
-    <div className="step-content flex flex-col space-y-6 px-5 py-10">
-      <div className="w-full px-4 py-4 border rounded-md border-black">
+    <div className="flex flex-col px-5 py-10 space-y-6 step-content">
+      <div className="w-full px-4 py-4 border border-black rounded-md">
         <h4 className="text-2xl font-semibold">Payment Options</h4>
         <p>
           Please send a check to Store Name, Store Street, Store Town, Store
@@ -635,12 +637,12 @@ export default function OrderStepper() {
       city === "" ||
       zip === ""
     ) {
-      console.log("fname: ", fname);
-      console.log("address: ", address);
-      console.log("country: ", country);
-      console.log("state: ", state);
-      console.log("city: ", city);
-      console.log("zip: ", zip);
+      // console.log("fname: ", fname);
+      // console.log("address: ", address);
+      // console.log("country: ", country);
+      // console.log("state: ", state);
+      // console.log("city: ", city);
+      // console.log("zip: ", zip);
       return false;
     }
     dispatch({
@@ -708,7 +710,7 @@ export default function OrderStepper() {
   };
 
   return (
-    <div className="w-full h-auto flex flex-col space-y-9 justify-center items-center">
+    <div className="flex flex-col items-center justify-center w-full h-auto space-y-9">
       {userLoggedIn ? (
         <>
           <Stepper activeStep={activeStep} alternativeLabel>
@@ -759,7 +761,7 @@ export default function OrderStepper() {
           </form>
         </>
       ) : (
-        <div className="text-3xl font-medium italic flex justify-center items-center pt-48">
+        <div className="flex items-center justify-center pt-48 text-3xl italic font-medium">
           <span>Sign In for order checking</span>
         </div>
       )}
