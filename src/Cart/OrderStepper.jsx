@@ -32,33 +32,40 @@ export default function OrderStepper() {
   const [city, setCity] = useState("");
   const [zip, setZip] = useState("");
   const [phone, setPhone] = useState("");
-  const [authToken, setAuthToken] = useState(null);
+  const [authToken, setAuthToken] = useState(localStorage.getItem("authToken"));
 
   const { userLoggedIn } = useAuthStore();
 
-  useEffect(() => {
-    const fetchData = () => {
-      fetch("https://www.universal-tutorial.com/api/getaccesstoken", {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "api-token":
-            "Njl3bsqrDkfOe_Lk4SRUveGNV2g7Kndm5CEbo6M948EG6oflbW6QI33kbVTFmTjDNKw",
-          "user-email": "waleedhafiz702@gmail.com",
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // console.log("Response:", data);
-          setAuthToken(data.auth_token);
-        })
-        .catch((error) => console.log("Error:", error));
-    };
-    fetchData();
-  }, [setAuthToken, authToken]);
+  const saveToLocalStorage = (key, value) => {
+    localStorage.setItem(key, JSON.stringify(value));
+  };
 
   useEffect(() => {
-    const fetchData = () => {
+    fetch("https://www.universal-tutorial.com/api/getaccesstoken", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "api-token":
+          "Njl3bsqrDkfOe_Lk4SRUveGNV2g7Kndm5CEbo6M948EG6oflbW6QI33kbVTFmTjDNKw",
+        "user-email": "waleedhafiz702@gmail.com",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log("Response:", data);
+        setAuthToken(data.auth_token);
+        saveToLocalStorage("authToken", data.auth_token);
+      })
+      .catch((error) => console.log("Error:", error));
+  }, [setAuthToken]);
+
+  useEffect(() => {
+    const storedCountries = localStorage.getItem("countries");
+    if (authToken && storedCountries) {
+      setCountries(JSON.parse(storedCountries));
+    } else if (authToken) {
+      // console.log("auth_token: ", authToken);
+
       fetch("https://www.universal-tutorial.com/api/countries/", {
         method: "GET",
         headers: {
@@ -69,11 +76,11 @@ export default function OrderStepper() {
         .then((response) => response.json())
         .then((data) => {
           setCountries(data);
+          saveToLocalStorage("countries", data);
         })
         .catch((error) => console.error("Error:", error));
-    };
-    fetchData();
-  }, [setCountries, countries]);
+    }
+  }, [setCountries]);
 
   const initialBillingAddress = {
     fname: "",
