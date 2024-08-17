@@ -244,20 +244,22 @@ function Home() {
       </div>
 
       <div className="flex w-full phone:flex-col tabletLandscape:space-x-7 tabletLandscape:flex-row phone:px-7 phone:space-y-7 ">
-        <div className="relative overflow-hidden phone:basis-1/3 pt-7 tabletLandscape:basis-1/2 aspect-video">
+        <div className="relative overflow-hidden phone:basis-1/3 mt-7 tabletLandscape:basis-1/2 aspect-video">
           <img
             src="../images/home-menwatch1.png"
             className="object-cover w-full h-full transition-transform duration-1000 ease-in-out transform hover:scale-110"
             alt=""
           />
-          <div className="absolute inset-0 flex flex-col items-center justify-end pb-8 space-y-5">
-            <h4 className="text-3xl text-white">SUNGLASSES</h4>
-            <button
-              onClick={() => navigate("/shop/1/Sunglasses")}
-              className="text-white transition-colors duration-300 border border-white phone:w-40 phone:h-10 tabletLandscape:w-40 tabletLandscape:h-12 hover:bg-white hover:text-black"
-            >
-              VIEW COLLECTION
-            </button>
+          <div className="absolute w-48 mb-8 transform -translate-x-1/2 h-28 bottom-7 left-1/2">
+            <div className="flex flex-col items-center justify-end space-y-5 ">
+              <h4 className="text-3xl text-white">SUNGLASSES</h4>
+              <button
+                onClick={() => navigate("/shop/1/Sunglasses")}
+                className="text-white transition-colors duration-300 border border-white phone:w-40 phone:h-10 tabletLandscape:w-40 tabletLandscape:h-12 hover:bg-white hover:text-black"
+              >
+                VIEW COLLECTION
+              </button>
+            </div>
           </div>
         </div>
 
@@ -265,37 +267,42 @@ function Home() {
           <div className="relative overflow-hidden phone:basis-1/2 aspect-video">
             <img
               src="../images/home-watch.png"
-              className="object-cover w-full h-full "
+              className="object-cover w-full h-full transition-transform duration-1000 ease-in-out transform hover:scale-110"
               alt=""
             />
-            <div className="absolute inset-0 flex flex-col items-center justify-end pb-8 space-y-5">
-              <h4 className="text-3xl text-white">WATCHES</h4>
-              <button
-                onClick={() => navigate("/shop/1/Watch")}
-                className="text-white transition-colors duration-300 border border-white phone:w-40 phone:h-10 tabletLandscape:w-40 tabletLandscape:h-12 hover:bg-white hover:text-black"
-              >
-                VIEW COLLECTION
-              </button>
+            <div className="absolute w-48 mb-8 transform -translate-x-1/2 h-28 bottom-7 left-1/2">
+              <div className="flex flex-col items-center justify-end space-y-5 ">
+                <h4 className="text-3xl text-white">WATCHES</h4>
+                <button
+                  onClick={() => navigate("/shop/1/Watch")}
+                  className="text-white transition-colors duration-300 border border-white phone:w-40 phone:h-10 tabletLandscape:w-40 tabletLandscape:h-12 hover:bg-white hover:text-black"
+                >
+                  VIEW COLLECTION
+                </button>
+              </div>
             </div>
           </div>
           <div className="relative overflow-hidden phone:basis-1/2 aspect-video">
             <img
               src="../images/brecelete.png"
-              className="object-cover w-full h-full "
+              className="object-cover w-full h-full transition-transform duration-1000 ease-in-out transform hover:scale-110"
               alt=""
             />
-            <div className="absolute inset-0 flex flex-col items-center justify-end pb-8 space-y-5">
-              <h4 className="text-3xl text-white">BRACELETES</h4>
-              <button
-                onClick={() => navigate("/shop/1/Bracelet")}
-                className="text-white transition-colors duration-300 border border-white phone:w-40 phone:h-10 tabletLandscape:w-40 tabletLandscape:h-12 hover:bg-white hover:text-black"
-              >
-                VIEW COLLECTION
-              </button>
+            <div className="absolute w-48 mb-8 transform -translate-x-1/2 h-28 bottom-7 left-1/2">
+              <div className="flex flex-col items-center justify-end space-y-5 ">
+                <h4 className="text-3xl text-white">BRACELETS</h4>
+                <button
+                  onClick={() => navigate("/shop/1/Bracelet")}
+                  className="text-white transition-colors duration-300 border border-white phone:w-40 phone:h-10 tabletLandscape:w-40 tabletLandscape:h-12 hover:bg-white hover:text-black"
+                >
+                  VIEW COLLECTION
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
       <div className="relative flex items-center justify-center w-full h-32 my-10 overflow-hidden bg-black">
         <div className="moving-text-container">
           <h3 className="text-4xl text-white moving-text">
