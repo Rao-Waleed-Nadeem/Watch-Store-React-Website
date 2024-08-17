@@ -61,6 +61,7 @@ export const doSignInWithGoogle = async () => {
       setIsGoogleUser,
       setLoading,
       getGmailInfo,
+      setPhotoURL,
       // loading,
       setIsEmailUser,
     } = useAuthStore.getState();
@@ -69,6 +70,7 @@ export const doSignInWithGoogle = async () => {
     setUserLoggedIn(true);
     setIsGoogleUser(true);
     setIsEmailUser(false);
+    setPhotoURL(user.photoURL);
     console.log("user: ", user);
     getGmailInfo();
 

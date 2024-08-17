@@ -33,6 +33,7 @@ const useAuthStore = create((set, get) => ({
   setIsEmailUser: (status) => set({ isEmailUser: status }),
   setIsGoogleUser: (status) => set({ isGoogleUser: status }),
   setLoading: (status) => set({ loading: status }),
+  setPhotoURL: (status) => set({ photoURL: status }),
   // setIsLoginError: (status) => set({ isLoginError: status }),
 
   getGmailInfo: () => {
@@ -59,7 +60,7 @@ const useAuthStore = create((set, get) => ({
         (provider) => provider.providerId === GoogleAuthProvider.PROVIDER_ID
       );
       set({ isGoogleUser: isGoogle });
-
+      if (isGoogle) set({ photoURL: user.photoURL });
       set({ userLoggedIn: true });
 
       // Persist user data to localStorage
