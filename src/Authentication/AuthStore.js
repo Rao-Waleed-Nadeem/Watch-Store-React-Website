@@ -10,15 +10,6 @@ const loadUserFromLocalStorage = () => {
   return storedUser ? JSON.parse(storedUser) : null;
 };
 
-// const loadIsEmailUserFromLocalStorage = () => {
-//   const EmailCollectionRef = collection(db, "authInfo");
-//   const EmailCollection = getDocs(EmailCollectionRef);
-//   const emailData = EmailCollection.docs.map((doc) => doc.data());
-//   const storedIsEmailUser = localStorage.getItem("isEmailUser");
-//   return emailData[0].isEmailUser; // Ensure it returns a boolean
-//   // return storedIsEmailUser === emailData[0].isEmailUser; // Ensure it returns a boolean
-// };
-
 const loadIsEmailUserFromLocalStorage = async () => {
   try {
     const EmailCollectionRef = collection(db, "authInfo");
@@ -27,8 +18,10 @@ const loadIsEmailUserFromLocalStorage = async () => {
     // Assuming there's only one document in the collection
     const emailData = EmailCollection.docs[0]?.data(); // Safely access the first doc
     if (emailData && emailData.hasOwnProperty("isEmailUser")) {
+      console.log("retrieve emailuser from firebase: ", emailData.isEmailUser);
       return emailData.isEmailUser; // Ensure it returns a boolean
     }
+    console.log("not found emailuser from firebase: ", emailData.isEmailUser);
 
     return false; // Fallback if there's no valid data
   } catch (error) {
@@ -39,36 +32,26 @@ const loadIsEmailUserFromLocalStorage = async () => {
 
 const useAuthStore = create((set, get) => ({
   currentUser: loadUserFromLocalStorage(),
-  // isLoginUser: loadUserFromLocalStorage(),
   userLoggedIn: !!loadUserFromLocalStorage(),
 
-  // isEmailUser:loadUserFromLocalStorage()?
-
-  isEmailUser: loadIsEmailUserFromLocalStorage() || false,
-  isGoogleUser: loadUserFromLocalStorage()?.providerData.some(
-    (provider) => provider.providerId === GoogleAuthProvider.PROVIDER_ID
-  ),
+  isGoogleUser:
+    loadUserFromLocalStorage()?.providerData?.some(
+      (provider) => provider.providerId === GoogleAuthProvider.PROVIDER_ID
+    ) || false, // Safely access providerData
+  isEmailUser: loadIsEmailUserFromLocalStorage(), // Initialized as false, updated later asynchronously
   loading: true,
   displayName: loadUserFromLocalStorage()?.displayName || "",
   email: loadUserFromLocalStorage()?.email || "",
   photoURL: loadUserFromLocalStorage()?.photoURL || "",
 
   setCurrentUser: (user) => {
-    // Save user to localStorage
     localStorage.setItem("currentUser", JSON.stringify(user));
-    set({ currentUser: user });
-    // const isEmail = user?.providerData?.some(
-    //   (provider) => provider.providerId === "password"
-    // );
-    // localStorage.setItem("isEmailUser", isEmail);
     set({ currentUser: user });
   },
   setUserLoggedIn: (status) => set({ userLoggedIn: status }),
   setIsEmailUser: (status) => set({ isEmailUser: status }),
   setIsGoogleUser: (status) => set({ isGoogleUser: status }),
   setLoading: (status) => set({ loading: status }),
-  setPhotoURL: (status) => set({ photoURL: status }),
-  // setIsLoginError: (status) => set({ isLoginError: status }),
 
   getGmailInfo: () => {
     const { isGoogleUser, currentUser } = get();
@@ -85,20 +68,21 @@ const useAuthStore = create((set, get) => ({
     if (user) {
       set({ currentUser: user });
 
-      // const isEmail = user.providerData.some(
-      //   (provider) => provider.providerId === "password"
-      // );
-      // set({ isEmailUser: isEmail });
-
-      const isGoogle = user.providerData.some(
-        (provider) => provider.providerId === GoogleAuthProvider.PROVIDER_ID
-      );
+      const isGoogle =
+        user.providerData?.some(
+          (provider) => provider.providerId === GoogleAuthProvider.PROVIDER_ID
+        ) || false;
       set({ isGoogleUser: isGoogle });
+
       if (isGoogle) set({ photoURL: user.photoURL });
       set({ userLoggedIn: true });
 
       // Persist user data to localStorage
       localStorage.setItem("currentUser", JSON.stringify(user));
+
+      // Load `isEmailUser` from Firestore asynchronously
+      const emailUser = await loadIsEmailUserFromLocalStorage();
+      set({ isEmailUser: emailUser });
     } else {
       // Clear user data from Zustand and localStorage
       set({

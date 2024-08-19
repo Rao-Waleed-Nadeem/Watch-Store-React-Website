@@ -1,6 +1,6 @@
 import useAuthStore from "../Authentication/AuthStore";
 // import { auth, db } from "./Firebase";
-import { db } from "../config/Firebase";
+import { auth, db } from "../config/Firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -20,7 +20,8 @@ import { addDoc, collection } from "firebase/firestore";
 // };
 
 export const doCreateUserWithEmailAndPassword = async (email, password) => {
-  const { setCurrentUser, setIsEmailUser } = useAuthStore.getState();
+  const { setCurrentUser, setIsEmailUser, isEmailUser } =
+    useAuthStore.getState();
   try {
     const userCredentials = await createUserWithEmailAndPassword(
       auth,
@@ -33,6 +34,7 @@ export const doCreateUserWithEmailAndPassword = async (email, password) => {
     const EmailRef = await addDoc(collection(db, "authInfo"), {
       isEmailUser: true,
     });
+    console.log("isEmailUser in auth: ", isEmailUser);
     console.log("authInfo id: ", EmailRef.id);
     return userCredentials.user;
   } catch (error) {
