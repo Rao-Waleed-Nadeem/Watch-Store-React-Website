@@ -87,7 +87,7 @@ const Signup = () => {
 
       {isEmailUser ? (
         <div className="flex flex-col items-center justify-center min-h-screen px-4 py-16">
-          <div className="max-w-md mx-auto bg-[#fff9f0] p-8 rounded-lg shadow-lg">
+          <div className="max-w-md mx-auto bg-[#fff9f0] p-8 rounded-xl shadow-lg">
             <h1 className="text-4xl font-bold text-center text-[#724e2d]">
               You have already created an account
             </h1>
@@ -112,22 +112,22 @@ const Signup = () => {
       ) : (
         <>
           <div className="flex items-center justify-center min-h-screen">
-            <div className="w-full p-6 rounded-lg max-w-screen-tabletPortrait">
-              <h1 className="my-3 text-6xl text-center pb-7">Account</h1>
-              <h2 className="py-5 pl-4 my-4 text-5xl border shadow-sm border-slate-100">
+            <div className="w-full p-6 pt-0 rounded-lg max-w-screen-tabletPortrait">
+              <h1 className="pb-3 text-6xl text-center">Account</h1>
+              <h2 className="py-5 pl-4 my-2 text-5xl border rounded-lg shadow-md border-slate-100">
                 Sign Up
               </h2>
               <form
                 action=""
                 onSubmit={onSubmit}
-                className="flex flex-col p-4 mb-8 shadow-xl"
+                className="flex flex-col px-4 pt-2 mb-8 shadow-xl rounded-xl"
               >
                 {showAlert && (
                   <Alert severity="error">
                     Password should match to confirm password
                   </Alert>
                 )}
-                <label htmlFor="username" className="mt-3 mb-7">
+                <label htmlFor="username" className="mt-3 mb-5">
                   <TextField
                     id="email"
                     type="email"
@@ -140,7 +140,7 @@ const Signup = () => {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </label>
-                <label htmlFor="password" className="mb-8">
+                <label htmlFor="password" className="mb-6">
                   <TextField
                     id="standard-password-input"
                     label="Password"
@@ -154,7 +154,7 @@ const Signup = () => {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </label>
-                <label htmlFor="password" className="mb-8">
+                <label htmlFor="password" className="mb-7">
                   <TextField
                     id="standard-password-input"
                     label="Confirm Password"
@@ -168,7 +168,7 @@ const Signup = () => {
                     onChange={(e) => setconfirmPassword(e.target.value)}
                   />
                 </label>
-                <div className="flex items-center justify-center mb-5">
+                <div className="flex items-center justify-center mb-4">
                   <div className="w-full max-w-xs">
                     <Button
                       variant="contained"

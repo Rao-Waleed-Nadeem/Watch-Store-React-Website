@@ -90,19 +90,19 @@ function Login() {
       <div className="flex items-center justify-center min-h-screen">
         {userLoggedIn && <Navigate to={"/"} replace={true} />}
         <div className="w-full p-6 rounded-lg max-w-screen-tabletPortrait">
-          <h1 className="my-3 text-6xl text-center pb-7">Account</h1>
-          <h2 className="py-5 pl-4 my-4 text-5xl border shadow-sm border-slate-100">
+          <h1 className="pb-3 text-6xl text-center">Account</h1>
+          <h2 className="py-5 pl-4 my-3 text-5xl border shadow-md rounded-xl border-slate-100">
             Login
           </h2>
           <form
             action=""
             onSubmit={onSubmit}
-            className="flex flex-col p-4 mb-8 shadow-xl"
+            className="flex flex-col p-4 mb-8 shadow-xl rounded-xl"
           >
             {showAlert && (
               <Alert severity="error">Incorrect Email or Password</Alert>
             )}
-            <label htmlFor="username" className="mt-3 mb-7">
+            <label htmlFor="username" className="mt-3 mb-4">
               <TextField
                 id="email"
                 type="email"
@@ -114,7 +114,7 @@ function Login() {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </label>
-            <label htmlFor="password" className="mb-8">
+            <label htmlFor="password" className="mb-5">
               <TextField
                 id="standard-password-input"
                 label="Password"
@@ -127,7 +127,7 @@ function Login() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </label>
-            <div className="flex justify-between px-4 mb-6">
+            <div className="flex justify-between px-4 mb-3">
               <label htmlFor="rememberme" className="flex items-center -mt-2">
                 <FormControlLabel
                   control={<Checkbox size="small" />}
@@ -142,7 +142,7 @@ function Login() {
                 Forgot password
               </Link>
             </div>
-            <div className="flex items-center justify-center mb-5">
+            <div className="flex items-center justify-center mb-3">
               <div className="w-full max-w-xs">
                 <Button
                   variant="contained"
@@ -160,7 +160,7 @@ function Login() {
                 </Button>
               </div>
             </div>
-            <div className="flex items-center justify-center px-6 mt-2 mb-5">
+            <div className="flex items-center justify-center px-6 mt-1 mb-3">
               <span className="mr-1 -mt-0.5">Don't have an account</span>
               <Link
                 className="mx-1 text-yellow-600 hover:text-yellow-800 hover:underline"
@@ -171,11 +171,11 @@ function Login() {
               </Link>
             </div>
             <div className="flex flex-row w-full text-center">
-              <div className="border-b-2 mb-2.5 mr-2 w-full"></div>
+              <div className="w-full mb-2 mr-2 border-b-2"></div>
               <div className="text-sm font-bold w-fit">OR</div>
               <div className="border-b-2 mb-2.5 ml-2 w-full"></div>
             </div>
-            <div className="my-5">
+            <div className="my-3">
               <button
                 disabled={isSigningIn}
                 onClick={(e) => {
