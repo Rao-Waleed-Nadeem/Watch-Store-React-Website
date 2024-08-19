@@ -72,18 +72,18 @@ function Header() {
     getProducts();
   }, [getCarts, userLoggedIn, isGoogleUser, totalCarts]);
 
-  const handleFocus = (focus) => {
-    if (focus) {
-      // setShowList(true);
-      setIsSearch(true);
-    } else {
-      setTimeout(() => {
-        setIsSearch(false);
-        setShowList(false);
-        setSearchItem("");
-      }, 200);
-    }
-  };
+  // const handleFocus = (focus) => {
+  //   if (focus) {
+  //     // setShowList(true);
+  //     setIsSearch(true);
+  //   } else {
+  //     setTimeout(() => {
+  //       setIsSearch(false);
+  //       setShowList(false);
+  //       setSearchItem("");
+  //     }, 200);
+  //   }
+  // };
 
   const handleSearchClick = () => {
     setIsSearch(!isSearch);
@@ -265,34 +265,20 @@ function Header() {
                 <input
                   type="search"
                   value={searchItem}
-                  onFocus={() => handleFocus(true)}
-                  onBlur={() => handleFocus(false)}
-                  // onFocus={() => {
-                  //   // if (focus) {
-                  //   // setShowList(true);
-                  //   setIsSearch(true);
-                  //   // } else {
-                  //   //   setTimeout(() => {
-                  //   //     setIsSearch(false);
-                  //   //     setShowList(false);
-                  //   //     setSearchItem("");
-                  //   //   }, 200);
-                  //   // }
-                  // }}
-                  // onBlur={() => {
-                  //   // if (focus) {
-                  //   //   // setShowList(true);
-                  //   //   setIsSearch(true);
-                  //   // } else {
-                  //   setTimeout(() => {
-                  //     setIsSearch(false);
-                  //     setShowList(false);
-                  //     setSearchItem("");
-                  //   }, 200);
-                  //   // }
-                  // }}
+                  // onFocus={() => handleFocus(true)}
+                  // onBlur={() => handleFocus(false)}
+                  onFocus={() => {
+                    setIsSearch(true);
+                  }}
+                  onBlur={() => {
+                    setTimeout(() => {
+                      setIsSearch(false);
+                      setShowList(false);
+                      setSearchItem("");
+                    }, 200);
+                    // }
+                  }}
                   onChange={handleInputChange}
-                  // onKeyDown={handleKeyPress}
                   placeholder="Search products..."
                   className={`overflow-hidden transition-width border h-10 focus:border-2 outline-none  border-black rounded-full px-4 duration-500 ease-in-out ${
                     isSearch
