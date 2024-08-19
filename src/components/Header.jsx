@@ -106,7 +106,7 @@ function Header() {
   };
 
   const handleSubmitSearch = (e, id) => {
-    e.preventDefault(); // Prevent default action
+    // e.preventDefault(); // Prevent default action
     setSearchItem(""); // Clear search item
     navigate(`/cart/${id}`); // Navigate to the product page
     setShowList(false); // Hide the list
@@ -267,8 +267,32 @@ function Header() {
                   value={searchItem}
                   onFocus={() => handleFocus(true)}
                   onBlur={() => handleFocus(false)}
+                  // onFocus={() => {
+                  //   // if (focus) {
+                  //   // setShowList(true);
+                  //   setIsSearch(true);
+                  //   // } else {
+                  //   //   setTimeout(() => {
+                  //   //     setIsSearch(false);
+                  //   //     setShowList(false);
+                  //   //     setSearchItem("");
+                  //   //   }, 200);
+                  //   // }
+                  // }}
+                  // onBlur={() => {
+                  //   // if (focus) {
+                  //   //   // setShowList(true);
+                  //   //   setIsSearch(true);
+                  //   // } else {
+                  //   setTimeout(() => {
+                  //     setIsSearch(false);
+                  //     setShowList(false);
+                  //     setSearchItem("");
+                  //   }, 200);
+                  //   // }
+                  // }}
                   onChange={handleInputChange}
-                  onKeyDown={handleKeyPress}
+                  // onKeyDown={handleKeyPress}
                   placeholder="Search products..."
                   className={`overflow-hidden transition-width border h-10 focus:border-2 outline-none  border-black rounded-full px-4 duration-500 ease-in-out ${
                     isSearch
@@ -280,22 +304,27 @@ function Header() {
                   <ul className="absolute flex flex-col items-start justify-center py-2 bg-white border border-black top-12 rounded-xl phone:w-44 tabletLandscape:w-48">
                     {filteredProducts.length > 0 ? (
                       filteredProducts.map((product) => (
-                        <li
-                          onMouseDown={() => handleSubmitSearch(product.id)}
-                          className="flex flex-row justify-between w-full px-3 py-1 rounded-md cursor-pointer hover:bg-slate-200"
+                        <NavLink
+                          to={`/cart/${product.id}`}
+                          // onMouseDown={() => handleSubmitSearch(product.id)}
                           key={product.id}
+                          className="flex flex-row justify-between w-full px-3 py-1 rounded-md cursor-pointer hover:bg-slate-200"
                         >
                           <button
                             onClick={() => {
-                              // (e) => handleSubmitSearch(e, product.id);
-                              () => navigate(`/cart/${product.id}`);
+                              navigate(`/cart/${product.id}`);
+                              // setTimeout(() => {
+                              //   setIsSearch(false);
+                              //   setShowList(false);
+                              //   setSearchItem("");
+                              // }, 200);
                             }}
                             className="hover:bg-zinc-200"
                           >
                             {product.name}
                           </button>
                           <img src={product.image} alt="" className="w-6 h-6" />
-                        </li>
+                        </NavLink>
                       ))
                     ) : (
                       <div className="flex items-center justify-center italic ">
