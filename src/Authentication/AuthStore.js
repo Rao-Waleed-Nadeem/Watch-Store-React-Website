@@ -13,9 +13,11 @@ const useAuthStore = create((set, get) => ({
   currentUser: loadUserFromLocalStorage(),
   // isLoginUser: loadUserFromLocalStorage(),
   userLoggedIn: !!loadUserFromLocalStorage(),
-  isEmailUser: loadUserFromLocalStorage()?.providerData.some(
-    (provider) => provider.providerId === "password"
-  ),
+  isEmailUser:
+    loadUserFromLocalStorage()?.providerData?.some(
+      (provider) => provider.providerId === "password"
+    ) || false,
+
   isGoogleUser: loadUserFromLocalStorage()?.providerData.some(
     (provider) => provider.providerId === GoogleAuthProvider.PROVIDER_ID
   ),
@@ -51,10 +53,10 @@ const useAuthStore = create((set, get) => ({
     if (user) {
       set({ currentUser: user });
 
-      const isEmail = user.providerData.some(
-        (provider) => provider.providerId === "password"
-      );
-      set({ isEmailUser: isEmail });
+      // const isEmail = user.providerData.some(
+      //   (provider) => provider.providerId === "password"
+      // );
+      // set({ isEmailUser: isEmail });
 
       const isGoogle = user.providerData.some(
         (provider) => provider.providerId === GoogleAuthProvider.PROVIDER_ID
@@ -70,7 +72,7 @@ const useAuthStore = create((set, get) => ({
       set({
         currentUser: null,
         userLoggedIn: false,
-        isEmailUser: false,
+        // isEmailUser: false,
         isGoogleUser: false,
         displayName: "",
         email: "",

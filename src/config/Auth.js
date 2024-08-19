@@ -12,6 +12,8 @@ import {
 
 // const { displayName, photoURL, email, isGoogleUser } = useAuthStore();
 export const doCreateUserWithEmailAndPassword = async (email, password) => {
+  const { setIsEmailUser } = useAuthStore.getState();
+  setIsEmailUser(true);
   return createUserWithEmailAndPassword(auth, email, password);
 };
 
@@ -63,13 +65,13 @@ export const doSignInWithGoogle = async () => {
       getGmailInfo,
       setPhotoURL,
       // loading,
-      setIsEmailUser,
+      // setIsEmailUser,
     } = useAuthStore.getState();
     setLoading(true);
     setCurrentUser(user);
     setUserLoggedIn(true);
     setIsGoogleUser(true);
-    setIsEmailUser(false);
+    // setIsEmailUser(false);
     setPhotoURL(user.photoURL);
     console.log("user: ", user);
     getGmailInfo();
@@ -89,7 +91,7 @@ export const doSignOut = async () => {
     setLoading,
     getGmailInfo,
     // loading,
-    setIsEmailUser,
+    // setIsEmailUser,
   } = useAuthStore.getState();
   setLoading(true);
 

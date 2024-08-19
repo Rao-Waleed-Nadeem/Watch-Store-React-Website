@@ -77,13 +77,16 @@ const Signup = () => {
     },
   });
 
+  console.log("isEmailUser: ", isEmailUser);
+  console.log("user: ", currentUser);
+
   return (
     <>
       {userLoggedIn && <Navigate to={"/"} replace={true} />}
       {isRegistering && <SimpleBackdrop isOpen={isRegistering} />}
 
       {isEmailUser ? (
-        <div className="flex flex-col items-center justify-center min-h-screen  py-16 px-4">
+        <div className="flex flex-col items-center justify-center min-h-screen px-4 py-16">
           <div className="max-w-md mx-auto bg-[#fff9f0] p-8 rounded-lg shadow-lg">
             <h1 className="text-4xl font-bold text-center text-[#724e2d]">
               You have already created an account
@@ -108,23 +111,23 @@ const Signup = () => {
         </div>
       ) : (
         <>
-          <div className="min-h-screen flex items-center justify-center">
-            <div className="max-w-screen-tabletPortrait w-full p-6 rounded-lg">
-              <h1 className="text-6xl text-center pb-7 my-3">Account</h1>
-              <h2 className="border border-slate-100 shadow-sm text-5xl my-4 pl-4 py-5">
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="w-full p-6 rounded-lg max-w-screen-tabletPortrait">
+              <h1 className="my-3 text-6xl text-center pb-7">Account</h1>
+              <h2 className="py-5 pl-4 my-4 text-5xl border shadow-sm border-slate-100">
                 Sign Up
               </h2>
               <form
                 action=""
                 onSubmit={onSubmit}
-                className="flex flex-col shadow-xl mb-8 p-4"
+                className="flex flex-col p-4 mb-8 shadow-xl"
               >
                 {showAlert && (
                   <Alert severity="error">
                     Password should match to confirm password
                   </Alert>
                 )}
-                <label htmlFor="username" className="mb-7 mt-3">
+                <label htmlFor="username" className="mt-3 mb-7">
                   <TextField
                     id="email"
                     type="email"
@@ -165,7 +168,7 @@ const Signup = () => {
                     onChange={(e) => setconfirmPassword(e.target.value)}
                   />
                 </label>
-                <div className="flex  justify-center items-center mb-5">
+                <div className="flex items-center justify-center mb-5">
                   <div className="w-full max-w-xs">
                     <Button
                       variant="contained"
@@ -184,9 +187,9 @@ const Signup = () => {
                     </Button>
                   </div>
                 </div>
-                <div className="flex justify-center items-center mb-5 mt-2 px-6">
+                <div className="flex items-center justify-center px-6 mt-2 mb-5">
                   <span className="mr-1 -mt-0.5">Already have an account</span>
-                  <div className="text-yellow-600 mx-1 hover:text-yellow-800 underline">
+                  <div className="mx-1 text-yellow-600 underline hover:text-yellow-800">
                     <Link to="/login" variant="body2">
                       Continue
                     </Link>
