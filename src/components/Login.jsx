@@ -14,13 +14,17 @@ import {
 import SimpleBackdrop from "../Backdrop/SimpleBackdrop";
 
 function Login() {
-  const { userLoggedIn } = useAuthStore();
+  const { userLoggedIn, setUserLoggedIn, isEmailUser, currentUser } =
+    useAuthStore();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   // const [islogging, setIslogging] = useState(false);
+
+  console.log("isEmailUser in login: ", isEmailUser);
+  console.log("currentUser: ", currentUser);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -32,9 +36,11 @@ function Login() {
         const user = await doSignInWithEmailAndPassword(email, password);
         console.log("Submit state: ", user);
         setErrorMessage("");
+        setShowAlert(false);
       } catch (error) {
         console.error("Error in signing in: ", error.message);
-        userLoggedIn(true);
+        setUserLoggedIn(false);
+        setShowAlert(true);
         setErrorMessage(error.message);
       } finally {
         setIsSigningIn(false);

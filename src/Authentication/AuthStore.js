@@ -1,7 +1,8 @@
 import { create } from "zustand";
-import { auth } from "../config/Firebase";
+import { auth, db } from "../config/Firebase";
 import { GoogleAuthProvider } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
+import { collection, getDocs } from "firebase/firestore";
 
 // Load user data from localStorage
 const loadUserFromLocalStorage = () => {
@@ -9,15 +10,41 @@ const loadUserFromLocalStorage = () => {
   return storedUser ? JSON.parse(storedUser) : null;
 };
 
+// const loadIsEmailUserFromLocalStorage = () => {
+//   const EmailCollectionRef = collection(db, "authInfo");
+//   const EmailCollection = getDocs(EmailCollectionRef);
+//   const emailData = EmailCollection.docs.map((doc) => doc.data());
+//   const storedIsEmailUser = localStorage.getItem("isEmailUser");
+//   return emailData[0].isEmailUser; // Ensure it returns a boolean
+//   // return storedIsEmailUser === emailData[0].isEmailUser; // Ensure it returns a boolean
+// };
+
+const loadIsEmailUserFromLocalStorage = async () => {
+  try {
+    const EmailCollectionRef = collection(db, "authInfo");
+    const EmailCollection = await getDocs(EmailCollectionRef);
+
+    // Assuming there's only one document in the collection
+    const emailData = EmailCollection.docs[0]?.data(); // Safely access the first doc
+    if (emailData && emailData.hasOwnProperty("isEmailUser")) {
+      return emailData.isEmailUser; // Ensure it returns a boolean
+    }
+
+    return false; // Fallback if there's no valid data
+  } catch (error) {
+    console.error("Error fetching data from Firestore:", error);
+    return false; // Fallback in case of an error
+  }
+};
+
 const useAuthStore = create((set, get) => ({
   currentUser: loadUserFromLocalStorage(),
   // isLoginUser: loadUserFromLocalStorage(),
   userLoggedIn: !!loadUserFromLocalStorage(),
-  isEmailUser:
-    loadUserFromLocalStorage()?.providerData?.some(
-      (provider) => provider.providerId === "password"
-    ) || false,
 
+  // isEmailUser:loadUserFromLocalStorage()?
+
+  isEmailUser: loadIsEmailUserFromLocalStorage() || false,
   isGoogleUser: loadUserFromLocalStorage()?.providerData.some(
     (provider) => provider.providerId === GoogleAuthProvider.PROVIDER_ID
   ),
@@ -29,6 +56,11 @@ const useAuthStore = create((set, get) => ({
   setCurrentUser: (user) => {
     // Save user to localStorage
     localStorage.setItem("currentUser", JSON.stringify(user));
+    set({ currentUser: user });
+    // const isEmail = user?.providerData?.some(
+    //   (provider) => provider.providerId === "password"
+    // );
+    // localStorage.setItem("isEmailUser", isEmail);
     set({ currentUser: user });
   },
   setUserLoggedIn: (status) => set({ userLoggedIn: status }),

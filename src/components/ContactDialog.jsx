@@ -21,6 +21,11 @@ export default function ContactDialog({ isOpen, onClose }) {
         onClose={onClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        sx={{
+          "& .MuiPaper-root": {
+            borderRadius: ".5rem", // Equivalent to `rounded-xl` in Tailwind CSS
+          },
+        }}
       >
         <DialogTitle id="alert-dialog-title">
           {"Please Sign In to Contact us"}
@@ -33,7 +38,14 @@ export default function ContactDialog({ isOpen, onClose }) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button
+            onClick={handleClose}
+            style={{
+              color: "red",
+            }}
+          >
+            Cancel
+          </Button>
           <Button onClick={() => navigate("/login")} autoFocus>
             Sign In
           </Button>

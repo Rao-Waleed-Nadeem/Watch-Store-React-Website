@@ -1,5 +1,6 @@
 import useAuthStore from "../Authentication/AuthStore";
-import { auth } from "./Firebase";
+// import { auth, db } from "./Firebase";
+import { db } from "../config/Firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -9,12 +10,35 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
+import { addDoc, collection } from "firebase/firestore";
 
 // const { displayName, photoURL, email, isGoogleUser } = useAuthStore();
+// export const doCreateUserWithEmailAndPassword = async (email, password) => {
+//   const { setIsEmailUser } = useAuthStore.getState();
+//   setIsEmailUser(true);
+//   return createUserWithEmailAndPassword(auth, email, password);
+// };
+
 export const doCreateUserWithEmailAndPassword = async (email, password) => {
-  const { setIsEmailUser } = useAuthStore.getState();
-  setIsEmailUser(true);
-  return createUserWithEmailAndPassword(auth, email, password);
+  const { setCurrentUser, setIsEmailUser } = useAuthStore.getState();
+  try {
+    const userCredentials = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    setCurrentUser(userCredentials.user);
+    setIsEmailUser(true); // Set and persist email user flag
+    // localStorage.setItem("isEmailUser", true);
+    const EmailRef = await addDoc(collection(db, "authInfo"), {
+      isEmailUser: true,
+    });
+    console.log("authInfo id: ", EmailRef.id);
+    return userCredentials.user;
+  } catch (error) {
+    console.error("Error creating user with email:", error);
+    throw error;
+  }
 };
 
 export const doSignInWithEmailAndPassword = async (email, password) => {
@@ -37,7 +61,8 @@ export const doSignInWithEmailAndPassword = async (email, password) => {
     );
     setCurrentUser(userCredentials.user);
     setUserLoggedIn(true);
-    setIsEmailUser(true);
+    // setIsEmailUser(true);
+    // localStorage.setItem("isEmailUser", true);
     setIsGoogleUser(false);
     getGmailInfo();
     return userCredentials.user;
@@ -100,7 +125,7 @@ export const doSignOut = async () => {
     setUserLoggedIn(false);
     // setIsGoogleUser(false);
     // setIsEmailUser(false);
-    setCurrentUser(null);
+    // setCurrentUser(null);
     getGmailInfo();
   } catch (error) {
     console.error("Sign out error:", error);

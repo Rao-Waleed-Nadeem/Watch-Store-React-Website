@@ -338,9 +338,17 @@ function Home() {
                   )}
                 </div>
 
-                <div className="flex flex-col p-2 text-center">
+                <div className="flex flex-col items-center justify-center p-2 text-center">
                   <h4 className="mt-2 text-xl">{product.name}</h4>
-                  <span className="text-sm">${product.newPrice}</span>
+                  <div className="flex flex-row space-x-1">
+                    {product.oldPrice > 0 && (
+                      <span className="pt-[2px] text-xs text-gray-400 line-through">
+                        ${product.oldPrice}
+                      </span>
+                    )}
+                    <span className="text-sm">${product.newPrice}</span>
+                  </div>
+                  {/* <span className="text-sm">${product.newPrice}</span> */}
                   <div className="mt-3 mb-1">
                     <Button
                       type="submit"

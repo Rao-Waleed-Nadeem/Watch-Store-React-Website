@@ -287,7 +287,7 @@ function Header() {
                   }`}
                 />
                 {showList && (
-                  <ul className="absolute flex flex-col items-start justify-center py-2 bg-white border border-black top-12 rounded-xl phone:w-44 tabletLandscape:w-48">
+                  <ul className="absolute z-10 flex flex-col items-start justify-center py-2 bg-white border border-black top-12 rounded-xl phone:w-44 tabletLandscape:w-48">
                     {filteredProducts.length > 0 ? (
                       filteredProducts.map((product) => (
                         <NavLink

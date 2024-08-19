@@ -25,7 +25,6 @@ const Signup = () => {
     setUserLoggedIn,
     setCurrentUser,
     isEmailUser,
-    setIsEmailUser,
   } = useAuthStore();
 
   const onSubmit = async (e) => {
@@ -39,7 +38,7 @@ const Signup = () => {
       setIsRegistering(true);
       setUserLoggedIn(true);
       setCurrentUser({ email, password });
-      setIsEmailUser(true);
+      // setIsEmailUser(true);
 
       await doCreateUserWithEmailAndPassword(email, password);
     }
@@ -77,7 +76,7 @@ const Signup = () => {
     },
   });
 
-  console.log("isEmailUser: ", isEmailUser);
+  console.log("isEmailUser in signup: ", isEmailUser);
   console.log("user: ", currentUser);
 
   return (
@@ -85,7 +84,7 @@ const Signup = () => {
       {userLoggedIn && <Navigate to={"/"} replace={true} />}
       {isRegistering && <SimpleBackdrop isOpen={isRegistering} />}
 
-      {isEmailUser ? (
+      {isEmailUser === true ? (
         <div className="flex flex-col items-center justify-center min-h-screen px-4 py-16">
           <div className="max-w-md mx-auto bg-[#fff9f0] p-8 rounded-xl shadow-lg">
             <h1 className="text-4xl font-bold text-center text-[#724e2d]">

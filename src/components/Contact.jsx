@@ -78,11 +78,11 @@ function Contact() {
   // });
 
   return (
-    <div className="flex flex-col  justify-center items-center ">
+    <div className="flex flex-col items-center justify-center ">
       <ContactDialog isOpen={openDialog} onClose={handleCloseDialog} />
 
-      <div className="tabletLandscape:w-1/2 phone:w-auto phone:mx-9 mt-24">
-        <h1 className="text-center text-6xl  mb-11 text-stone-800">Contact</h1>
+      <div className="mt-12 tabletLandscape:w-1/2 phone:w-auto phone:mx-9">
+        <h1 className="text-6xl text-center mb-11 text-stone-800">Contact</h1>
         <p className="mb-6 text-justify text-stone-800">
           We value open communication with our customers and are here to assist
           you every step of the way. Feel free to reach out to us through our
@@ -138,9 +138,9 @@ function Contact() {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             rows={7}
-            className="mt-4 w-full"
+            className="w-full mt-4"
           />
-          <div className="py-2 my-8 mb-12 pb-5">
+          <div className="py-2 pb-5 my-8 mb-12">
             <Button
               type="submit"
               variant="contained"
