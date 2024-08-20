@@ -31,8 +31,6 @@ function Home() {
     const fetchData = () => {
       getCarts();
       getProducts();
-      console.log("products: ", products);
-      console.log("carts: ", carts);
     };
     fetchData;
   }, [getCarts, editCart, addCart, setQuantity, getProducts]);
