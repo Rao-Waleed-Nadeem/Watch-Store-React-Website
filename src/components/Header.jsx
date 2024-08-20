@@ -298,7 +298,7 @@ function Header() {
                       filteredProducts.map((product) => (
                         <button
                           onClick={() => navigateCart(product.id)}
-                          // onMouseDown={() => handleSubmitSearch(product.id)}
+                          onMouseDown={() => navigateCart(product.id)}
                           key={product.id}
                           className="flex flex-row justify-between w-full px-3 py-1 rounded-md cursor-pointer hover:bg-slate-200"
                         >

@@ -20,6 +20,7 @@ function Home() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [subscribe, setSubscribe] = useState(false);
+  const [quantity, setQuantity] = useState(0);
 
   const breakPoints = [
     { width: 1, itemsToShow: 1 },
@@ -29,15 +30,23 @@ function Home() {
   ];
 
   const { getProducts } = useProductActions();
+  // useEffect(() => {
+  //   const fetchData = () => {
+  //     getProducts();
+  //   };
+  //   fetchData();
+  // }, [getProducts]);
+  const { addCart, getCarts, editCart } = useCartActions();
   useEffect(() => {
     const fetchData = () => {
+      getCarts();
       getProducts();
+      console.log("products: ", products);
+      console.log("carts: ", carts);
     };
-    fetchData();
-  }, [getProducts]);
-  const { addCart, getCarts, editCart } = useCartActions();
+    fetchData;
+  }, [getCarts, editCart, addCart, setQuantity, getProducts]);
   const carts = cartStore((state) => state.carts);
-  const [quantity, setQuantity] = useState(0);
   const products = productStore((state) => state.products);
   const flare_glaciers = products.find(
     (state) => state.name === "Flare Glaciers"
@@ -46,15 +55,6 @@ function Home() {
     (product) => product.name === "DigitalEdge"
   );
   const smartsync = products.find((product) => product.name === "SmartSync");
-
-  useEffect(() => {
-    const fetchData = () => {
-      getCarts();
-      getProducts();
-      console.log("products: ", products);
-    };
-    fetchData;
-  }, [getCarts, editCart, addCart, setQuantity, getProducts]);
 
   const flare_glaciers_cart = carts.find(
     (cart) => cart.id === flare_glaciers.id

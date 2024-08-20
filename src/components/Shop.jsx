@@ -16,8 +16,8 @@ function Shop() {
   const filterOpen = useFilterStore((state) => state.filterOpen);
   const setFilterOpen = useFilterStore((state) => state.setFilterOpen);
 
-  console.log("category: ", category);
-  console.log("subcategory: ", subcategory);
+  // console.log("category: ", category);
+  // console.log("subcategory: ", subcategory);
   const products = productStore((state) => state.products);
   useEffect(() => {
     getProducts();
