@@ -33,21 +33,11 @@ const DarkBrownBadge = styled(Badge)({
 
 function Header() {
   const navigate = useNavigate();
-  const {
-    userLoggedIn,
-    photoURL,
-    displayName,
-    isGoogleUser,
-    // setUserLoggedIn,
-    // setCurrentUser,
-    // setIsEmailUser,
-  } = useAuthStore();
+  const { userLoggedIn, photoURL, displayName, isGoogleUser } = useAuthStore();
   const { Search, SetSearch } = useSearchStore();
   const { getCarts } = useCartActions();
   const { getProducts } = useProductActions();
   const products = productStore((state) => state.products);
-  // console.log("products in header : ", products);
-  // const totalCarts = cartStore((state) => state.totalCarts);
   const carts = cartStore((state) => state.carts);
   const [leftDrawerOpen, setLeftDrawerOpen] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
@@ -73,19 +63,6 @@ function Header() {
     getProducts();
   }, [getCarts, userLoggedIn, isGoogleUser, totalCarts]);
 
-  // const handleFocus = (focus) => {
-  //   if (focus) {
-  //     // setShowList(true);
-  //     setIsSearch(true);
-  //   } else {
-  //     setTimeout(() => {
-  //       setIsSearch(false);
-  //       setShowList(false);
-  //       setSearchItem("");
-  //     }, 200);
-  //   }
-  // };
-
   const handleSearchClick = () => {
     setIsSearch(!isSearch);
     if (isSearch) setShowList(false);
@@ -106,14 +83,6 @@ function Header() {
     }
   };
 
-  const handleSubmitSearch = (e, id) => {
-    // e.preventDefault(); // Prevent default action
-    setSearchItem(""); // Clear search item
-    navigate(`/cart/${id}`); // Navigate to the product page
-    setShowList(false); // Hide the list
-    setIsSearch(false); // Close the search bar
-  };
-
   const handleLeftDrawer = (condition) => () => {
     setLeftDrawerOpen(condition);
   };
@@ -129,13 +98,6 @@ function Header() {
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
-  };
-  // console.log("photoURL: ", photoURL);
-
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      SetSearch(e.target.value);
-    }
   };
 
   const DrawerList = (
@@ -173,7 +135,6 @@ function Header() {
   }, []);
 
   const navigateCart = (id) => {
-    // console.log("id: ", id);
     navigate(`/cart/${id}`);
   };
 
@@ -271,8 +232,6 @@ function Header() {
                 <input
                   type="search"
                   value={searchItem}
-                  // onFocus={() => handleFocus(true)}
-                  // onBlur={() => handleFocus(false)}
                   onFocus={() => {
                     setIsSearch(true);
                   }}
@@ -282,7 +241,6 @@ function Header() {
                       setShowList(false);
                       setSearchItem("");
                     }, 200);
-                    // }
                   }}
                   onChange={handleInputChange}
                   placeholder="Search products..."
@@ -302,17 +260,7 @@ function Header() {
                           key={product.id}
                           className="flex flex-row justify-between w-full px-3 py-1 rounded-md cursor-pointer hover:bg-slate-200"
                         >
-                          <div
-                            // onClick={() => {
-                            //   navigate(`/cart/${product.id}`);
-                            //   // setTimeout(() => {
-                            //   //   setIsSearch(false);
-                            //   //   setShowList(false);
-                            //   //   setSearchItem("");
-                            //   // }, 200);
-                            // }}
-                            className="hover:bg-zinc-200"
-                          >
+                          <div className="hover:bg-zinc-200">
                             {product.name}
                           </div>
                           <img src={product.image} alt="" className="w-6 h-6" />
