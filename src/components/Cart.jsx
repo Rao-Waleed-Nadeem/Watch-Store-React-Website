@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ZoomImage from "./ZoomImage";
-import { Form, Link, useLoaderData, useNavigate } from "react-router-dom";
+import { Form, Link, useLoaderData } from "react-router-dom";
 import { productStore, useProductActions } from "../ProductStore/ProductStore";
 import { reviewStore, useReviewActions } from "../ReviewStore/ReviewStore";
 import {
@@ -29,19 +29,16 @@ function Cart() {
   const { productId } = useLoaderData();
   const { addReview, getReviews } = useReviewActions();
   const { getProducts } = useProductActions();
-  const { addCart, editCart, getCarts } = useCartActions();
+  const { addCart, getCarts } = useCartActions();
   const carts = cartStore((state) => state.carts);
   useEffect(() => {
     getCarts();
     getProducts();
   }, [getCarts, getProducts]);
   const products = productStore.getState().products;
-  // console.log("products in Cart: ", products);
-  // console.log("productId in Cart: ", productId);
   const product = products.find(
     (singleProduct) => singleProduct.id == productId
   );
-  // console.log("product: ", product);
   const filteredProducts = products.filter(
     (state) => product.category === state.category
   );
@@ -51,7 +48,6 @@ function Cart() {
 
   const reviews = reviewStore((state) => state.reviews);
 
-  const navigate = useNavigate();
   const [toggle, setToggle] = useState(false);
 
   const { userLoggedIn } = useAuthStore();
@@ -70,13 +66,11 @@ function Cart() {
 
   const handleDescription = () => setToggle(false);
   const handleReviews = () => setToggle(true);
-  // const handleAddCart = () => navigate(`/cart/${product.id}`);
 
   useEffect(() => {
     getReviews();
-    const localreview = reviews.find((state) => state.id === productId);
-    setReview(localreview);
-    // console.log("review: ", localreview);
+    const localReview = reviews.find((state) => state.id === productId);
+    setReview(localReview);
   }, [setReview, getReviews]);
   const handleSubmitReview = async (e) => {
     e.preventDefault();
@@ -84,7 +78,6 @@ function Cart() {
     const newReview = {
       name: name,
       email: email,
-      // password: password,
       id: product.id,
       rating: rating,
       comment: comment,

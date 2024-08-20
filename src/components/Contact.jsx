@@ -1,6 +1,5 @@
 import { Button, TextField } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ContactDialog from "./ContactDialog";
 import useAuthStore from "../Authentication/AuthStore";
@@ -15,7 +14,6 @@ function Contact() {
   const [message, setMessage] = useState("");
   const [emailInvalid, setEmailInvalid] = useState(false);
   const [openDialog, setOpenDialog] = useState(!userLoggedIn);
-  // useEffect(() => {}, [name, email, message, setName, setEmail, setMessage]);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -48,34 +46,6 @@ function Contact() {
   const handleCloseDialog = () => {
     setOpenDialog(false);
   };
-
-  // const CssTextField = styled(TextField)({
-  // "& label.Mui-focused": {
-  //   color: "#6F7E8C",
-  // },
-  // "& .MuiInput-underline:after": {
-  //   borderBottomColor: "#4D5B69",
-  // },
-  // "& .MuiOutlinedInput-root": {
-  //   "& fieldset": {
-  //     borderColor: "#A0AAB4",
-  // },
-  //     "&:hover fieldset": {
-  //       borderColor: "#6F7E8C",
-  //     },
-  //     "&.Mui-focused fieldset": {
-  //       borderColor: "#3B4754",
-  //     },
-  //     "&.Mui-focused .MuiInputBase-input": {
-  //       // Ensures input text stays visible during focus
-  //       color: "#000",
-  //     },
-  //   },
-  //   "& .MuiInputBase-input": {
-  //     // Ensures consistent input text visibility
-  //     color: "#000",
-  //   },
-  // });
 
   return (
     <div className="flex flex-col items-center justify-center ">
