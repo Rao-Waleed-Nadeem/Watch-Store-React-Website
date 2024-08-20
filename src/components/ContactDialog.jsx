@@ -23,7 +23,7 @@ export default function ContactDialog({ isOpen, onClose }) {
         aria-describedby="alert-dialog-description"
         sx={{
           "& .MuiPaper-root": {
-            borderRadius: ".5rem", // Equivalent to `rounded-xl` in Tailwind CSS
+            borderRadius: ".5rem",
           },
         }}
       >

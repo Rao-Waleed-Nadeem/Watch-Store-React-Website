@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import { styled } from "@mui/material/styles";
 import { Alert, Button } from "@mui/material";
-// import Link from "@mui/material/Link";
 import { Link, Navigate } from "react-router-dom";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -21,10 +20,6 @@ function Login() {
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showAlert, setShowAlert] = useState(false);
-  // const [islogging, setIslogging] = useState(false);
-
-  console.log("isEmailUser in login: ", isEmailUser);
-  console.log("currentUser: ", currentUser);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -34,7 +29,6 @@ function Login() {
 
       try {
         const user = await doSignInWithEmailAndPassword(email, password);
-        console.log("Submit state: ", user);
         setErrorMessage("");
         setShowAlert(false);
       } catch (error) {
@@ -65,7 +59,6 @@ function Login() {
         setShowAlert(false);
       }, 3000);
 
-      // Cleanup the timer if the component unmounts or if `noMatch` changes
       return () => clearTimeout(timer);
     }
   }, [errorMessage]);

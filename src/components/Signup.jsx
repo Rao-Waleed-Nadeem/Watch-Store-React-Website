@@ -1,33 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, Link, useNavigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import useAuthStore from "../Authentication/AuthStore";
 import { doCreateUserWithEmailAndPassword } from "../config/Auth";
-// import FormControlLabel from "@mui/material/FormControlLabel";
 import TextField from "@mui/material/TextField";
 import { styled } from "@mui/material/styles";
 import { Alert, Button } from "@mui/material";
 import SimpleBackdrop from "../Backdrop/SimpleBackdrop";
 
 const Signup = () => {
-  const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
   const [isRegistering, setIsRegistering] = useState(false);
   const [noMatch, setNoMatch] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  // const [errorMessage, setErrorMessage] = useState("");
 
-  const {
-    userLoggedIn,
-    currentUser,
-    setUserLoggedIn,
-    setCurrentUser,
-    isEmailUser,
-  } = useAuthStore();
-  console.log("isEmailUser in signup: ", isEmailUser);
-  console.log("user: ", currentUser);
+  const { userLoggedIn, setUserLoggedIn, setCurrentUser, isEmailUser } =
+    useAuthStore();
+
   useEffect(() => {}, [isEmailUser, setCurrentUser, setUserLoggedIn]);
 
   const onSubmit = async (e) => {
@@ -41,7 +31,6 @@ const Signup = () => {
       setIsRegistering(true);
       setUserLoggedIn(true);
       setCurrentUser({ email, password });
-      // setIsEmailUser(true);
 
       await doCreateUserWithEmailAndPassword(email, password);
     }
@@ -54,7 +43,6 @@ const Signup = () => {
         setShowAlert(false);
       }, 3000);
 
-      // Cleanup the timer if the component unmounts or if `noMatch` changes
       return () => clearTimeout(timer);
     }
   }, [noMatch]);
@@ -86,14 +74,14 @@ const Signup = () => {
 
       {isEmailUser ? (
         <div className="flex flex-col items-center justify-center min-h-screen px-4 py-16">
-          <div className="max-w-md mx-auto bg-[#fff9f0] p-8 rounded-xl shadow-lg">
-            <h1 className="text-4xl font-bold text-center text-[#724e2d]">
+          <div className="max-w-md mx-auto bg-[#f8f9fc] p-8 rounded-xl shadow-lg">
+            <h1 className="text-4xl font-bold text-center text-zinc-800">
               You have already created an account
             </h1>
             <div className="mt-6 text-center">
               <Link
                 to={"/login"}
-                className="text-[#b86944] underline hover:text-[#8B4513] text-lg font-semibold"
+                className="text-lg font-semibold underline text-neutral-600 hover:text-neutral-800"
               >
                 Login
               </Link>
@@ -101,7 +89,7 @@ const Signup = () => {
             <div className="mt-6 text-center">
               <Link
                 to="/"
-                className="text-[#b86944] underline hover:text-[#8B4513] text-lg font-semibold"
+                className="text-lg font-semibold underline text-stone-600 hover:text-stone-800"
               >
                 Go to Homepage
               </Link>

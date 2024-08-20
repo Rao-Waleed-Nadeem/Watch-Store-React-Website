@@ -110,12 +110,11 @@ function AddProduct() {
   };
 
   return (
-    <div className="w-full  text-black tabletLandscape:px-56 p-5">
+    <div className="w-full p-5 text-black tabletLandscape:px-56">
       <div className="mb-4">
-        <h4 className="text-3xl mb-2">Image</h4>
+        <h4 className="mb-2 text-3xl">Image</h4>
         <TextField
           type="file"
-          // accept="image/*"
           onChange={handleImageUpload}
           required
           className="mb-4"
@@ -125,12 +124,12 @@ function AddProduct() {
           <img
             src={imagePreview}
             alt="Selected"
-            className="w-20 h-20 object-cover mt-4"
+            className="object-cover w-20 h-20 mt-4"
           />
         )}
       </div>
       <div className="mb-4">
-        <h4 className="text-3xl mb-2">Name</h4>
+        <h4 className="mb-2 text-3xl">Name</h4>
         <TextField
           id="name"
           label="Name"
@@ -142,7 +141,7 @@ function AddProduct() {
         />
       </div>
       <div className="mb-4">
-        <h4 className="text-3xl mb-2">Definition</h4>
+        <h4 className="mb-2 text-3xl">Definition</h4>
         <TextField
           id="definition"
           label="Definition"
@@ -156,7 +155,7 @@ function AddProduct() {
         />
       </div>
       <div className="mb-4">
-        <h4 className="text-3xl mb-2">Description</h4>
+        <h4 className="mb-2 text-3xl">Description</h4>
         <TextField
           id="description"
           label="Description"
@@ -173,7 +172,7 @@ function AddProduct() {
         />
       </div>
       <div className="mb-4">
-        <h4 className="text-3xl mb-2">Category</h4>
+        <h4 className="mb-2 text-3xl">Category</h4>
         <FormControl fullWidth>
           <InputLabel id="label-category">Category</InputLabel>
           <Select
@@ -184,7 +183,7 @@ function AddProduct() {
             label="Category"
             onChange={(e) => {
               setCategory(e.target.value);
-              setSubcategory(""); // Reset subcategory when category changes
+              setSubcategory("");
             }}
           >
             <MenuItem value="Bracelet">Bracelet</MenuItem>
@@ -195,7 +194,7 @@ function AddProduct() {
       </div>
       {category && (
         <div className="mb-4">
-          <h4 className="text-3xl mb-2">{category}</h4>
+          <h4 className="mb-2 text-3xl">{category}</h4>
           <FormControl fullWidth>
             <InputLabel id="label-subcategory">{category}</InputLabel>
             <Select
@@ -212,7 +211,7 @@ function AddProduct() {
         </div>
       )}
       <div className="mb-4">
-        <h4 className="text-3xl mb-2">Price</h4>
+        <h4 className="mb-2 text-3xl">Price</h4>
         <TextField
           type="number"
           id="price"
@@ -222,17 +221,17 @@ function AddProduct() {
           required
           variant="outlined"
           value={price}
-          onFocus={() => setPrice("")} // Clear the field when it gains focus
+          onFocus={() => setPrice("")}
           onChange={(e) => setPrice(e.target.value)}
         />
       </div>
       <div className="mb-4">
-        <h4 className="text-3xl mb-2">Sale</h4>
+        <h4 className="mb-2 text-3xl">Sale</h4>
         <FormControlLabel
           control={
             <Checkbox
-              checked={sale} // Use checked instead of defaultChecked
-              onChange={(e) => setSale(e.target.checked)} // Update state with the checkbox's checked status
+              checked={sale}
+              onChange={(e) => setSale(e.target.checked)}
             />
           }
           label="Do you want to create a sale offer on this product?"
@@ -241,7 +240,7 @@ function AddProduct() {
       {sale && (
         <div className="flex flex-row space-x-3">
           <div className="mb-4">
-            <h4 className="text-3xl mb-2">Old Price</h4>
+            <h4 className="mb-2 text-3xl">Old Price</h4>
             <TextField
               type="number"
               id="oldPrice"
@@ -255,7 +254,7 @@ function AddProduct() {
             />
           </div>
           <div className="mb-4">
-            <h4 className="text-3xl mb-2">New Price</h4>
+            <h4 className="mb-2 text-3xl">New Price</h4>
             <TextField
               type="number"
               id="newPrice"

@@ -1,21 +1,6 @@
 import React, { useState } from "react";
 import "./Carousel.css"; // Import the CSS file for styles
 
-const images = [
-  // Replace with your image URLs or paths
-  "watch1.png",
-  "watch1.png",
-  "watch1.png",
-  "watch1.png",
-  "watch1.png",
-  "watch1.png",
-  "watch1.png",
-  "watch1.png",
-  "watch1.png",
-  "watch1.png",
-  "watch1.png",
-];
-
 const Carousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -32,7 +17,7 @@ const Carousel = () => {
   };
 
   return (
-    <div className="carousel-container flex flex-row space-x-5">
+    <div className="flex flex-row space-x-5 carousel-container">
       <div className="carousel">
         <div
           className="carousel-track"
