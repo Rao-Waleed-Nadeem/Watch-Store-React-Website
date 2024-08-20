@@ -2,12 +2,12 @@ import React from "react";
 
 function User() {
   return (
-    <div className="w-full h-auto flex flex-col -z-50 items-center justify-center">
-      <div className="relative bg-black w-full h-screen">
+    <div className="flex flex-col items-center justify-center w-full h-auto -z-50">
+      <div className="relative w-full h-screen bg-black">
         <img
-          src="user1.png"
+          src="/images/user1.png"
           alt="User"
-          className="absolute  opacity-60 inset-0 w-full h-full object-cover"
+          className="absolute inset-0 object-cover w-full h-full opacity-60"
         />
         <div className="absolute inset-0 flex items-center justify-center">
           <h1 className="text-white phone:text-5xl tabletLandscape:text-6xl">
@@ -15,7 +15,7 @@ function User() {
           </h1>
         </div>
       </div>
-      <div className="text-black px-5 w-full my-16 max-w-3xl">
+      <div className="w-full max-w-3xl px-5 my-16 text-black">
         <p>
           “Dremo has truly become my go-to destination for all my accessory
           needs. Not only do they offer a fantastic range of products, but the
