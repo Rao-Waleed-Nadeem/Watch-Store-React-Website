@@ -46,6 +46,7 @@ function Header() {
   const { getCarts } = useCartActions();
   const { getProducts } = useProductActions();
   const products = productStore((state) => state.products);
+  // console.log("products in header : ", products);
   // const totalCarts = cartStore((state) => state.totalCarts);
   const carts = cartStore((state) => state.carts);
   const [leftDrawerOpen, setLeftDrawerOpen] = useState(false);
@@ -171,6 +172,11 @@ function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const navigateCart = (id) => {
+    // console.log("id: ", id);
+    navigate(`/cart/${id}`);
+  };
+
   return (
     <>
       <ScrollToTop />
@@ -290,27 +296,27 @@ function Header() {
                   <ul className="absolute z-10 flex flex-col items-start justify-center py-2 bg-white border border-black top-12 rounded-xl phone:w-44 tabletLandscape:w-48">
                     {filteredProducts.length > 0 ? (
                       filteredProducts.map((product) => (
-                        <NavLink
-                          to={`/cart/${product.id}`}
+                        <button
+                          onClick={() => navigateCart(product.id)}
                           // onMouseDown={() => handleSubmitSearch(product.id)}
                           key={product.id}
                           className="flex flex-row justify-between w-full px-3 py-1 rounded-md cursor-pointer hover:bg-slate-200"
                         >
-                          <button
-                            onClick={() => {
-                              navigate(`/cart/${product.id}`);
-                              // setTimeout(() => {
-                              //   setIsSearch(false);
-                              //   setShowList(false);
-                              //   setSearchItem("");
-                              // }, 200);
-                            }}
+                          <div
+                            // onClick={() => {
+                            //   navigate(`/cart/${product.id}`);
+                            //   // setTimeout(() => {
+                            //   //   setIsSearch(false);
+                            //   //   setShowList(false);
+                            //   //   setSearchItem("");
+                            //   // }, 200);
+                            // }}
                             className="hover:bg-zinc-200"
                           >
                             {product.name}
-                          </button>
+                          </div>
                           <img src={product.image} alt="" className="w-6 h-6" />
-                        </NavLink>
+                        </button>
                       ))
                     ) : (
                       <div className="flex items-center justify-center italic ">
