@@ -46,32 +46,6 @@ function Home() {
   );
   const smartsync = products.find((product) => product.name === "SmartSync");
 
-  // const flare_glaciers_cart = carts.find(
-  //   (cart) => cart.id === flare_glaciers.id
-  // );
-  // const handleFlareCart = (change, product) => {
-  //   const newQuantity = flare_glaciers_cart
-  //     ? flare_glaciers_cart.quantity + change
-  //     : change;
-
-  //   if (newQuantity < 1) return;
-  //   setQuantity(newQuantity);
-
-  //   const newPrice = product.newPrice * newQuantity;
-  //   if (!flare_glaciers_cart) {
-  //     addCart({
-  //       id: product.id,
-  //       quantity: newQuantity,
-  //       price: newQuantity * product.newPrice,
-  //     });
-  //   } else {
-  //     editCart(product.id, {
-  //       id: product.id,
-  //       quantity: newQuantity,
-  //       price: newPrice,
-  //     });
-  //   }
-  // };
   const navigate = useNavigate();
   const handleMaterial = () => navigate("/about");
   const handleViewProduct = () => {
