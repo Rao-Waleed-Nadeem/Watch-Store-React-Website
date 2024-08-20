@@ -215,7 +215,7 @@ function Header() {
             <div className="flex flex-row tabletLandscape:space-x-2">
               <Link>
                 <img
-                  src="../images/watch-icon.png"
+                  src="/images/watch-icon.png"
                   alt=""
                   className="w-10 h-10"
                 />

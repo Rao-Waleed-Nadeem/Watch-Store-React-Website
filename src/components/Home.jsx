@@ -10,11 +10,6 @@ import {
 } from "../CartQuantityStore/CartQuantityStore";
 import Carousel from "react-elastic-carousel";
 import Item from "antd/es/list/Item";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
-// import Slider from "react-slick";
-// import SampleNextArrow from "./SampleNextArrow";
-// import SamplePrevArrow from "./SamplePrevArrow";
 
 function Home() {
   const [email, setEmail] = useState("");
@@ -30,12 +25,7 @@ function Home() {
   ];
 
   const { getProducts } = useProductActions();
-  // useEffect(() => {
-  //   const fetchData = () => {
-  //     getProducts();
-  //   };
-  //   fetchData();
-  // }, [getProducts]);
+
   const { addCart, getCarts, editCart } = useCartActions();
   useEffect(() => {
     const fetchData = () => {
@@ -56,33 +46,32 @@ function Home() {
   );
   const smartsync = products.find((product) => product.name === "SmartSync");
 
-  const flare_glaciers_cart = carts.find(
-    (cart) => cart.id === flare_glaciers.id
-  );
-  console.log("products: ", products);
-  const handleFlareCart = (change, product) => {
-    const newQuantity = flare_glaciers_cart
-      ? flare_glaciers_cart.quantity + change
-      : change;
+  // const flare_glaciers_cart = carts.find(
+  //   (cart) => cart.id === flare_glaciers.id
+  // );
+  // const handleFlareCart = (change, product) => {
+  //   const newQuantity = flare_glaciers_cart
+  //     ? flare_glaciers_cart.quantity + change
+  //     : change;
 
-    if (newQuantity < 1) return;
-    setQuantity(newQuantity);
+  //   if (newQuantity < 1) return;
+  //   setQuantity(newQuantity);
 
-    const newPrice = product.newPrice * newQuantity;
-    if (!flare_glaciers_cart) {
-      addCart({
-        id: product.id,
-        quantity: newQuantity,
-        price: newQuantity * product.newPrice,
-      });
-    } else {
-      editCart(product.id, {
-        id: product.id,
-        quantity: newQuantity,
-        price: newPrice,
-      });
-    }
-  };
+  //   const newPrice = product.newPrice * newQuantity;
+  //   if (!flare_glaciers_cart) {
+  //     addCart({
+  //       id: product.id,
+  //       quantity: newQuantity,
+  //       price: newQuantity * product.newPrice,
+  //     });
+  //   } else {
+  //     editCart(product.id, {
+  //       id: product.id,
+  //       quantity: newQuantity,
+  //       price: newPrice,
+  //     });
+  //   }
+  // };
   const navigate = useNavigate();
   const handleMaterial = () => navigate("/about");
   const handleViewProduct = () => {
@@ -90,44 +79,14 @@ function Home() {
   };
   const handleShopProducts = () => navigate("/shop");
 
-  // useEffect(() => {
-  //   if (email !== "" && name !== "") setSubscribe(true);
-  // }, [name, email, subscribe, setSubscribe, setEmail, setName]);
-
   const handleSubscribe = (e) => {
     e.preventDefault();
     if (email === "" || name === "") return;
     setSubscribe(true);
-    console.log("name: ", name);
-    console.log("email: ", email);
-    console.log("subscribe: ", subscribe);
-    // navigate("/");
   };
-  // useEffect(() => {
-  //   if (email !== "" && name !== "") setSubscribe(true);
-  // }, [handleSubscribe]);
+
   const handleMoreBlog = () => navigate("/news");
-  const trendingProduct = products.find((p) => p.name == "Flare Gracier");
-  // console.log(trendingProduct);
-  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const handleNextProduct = () => {
-    console.log(currentIndex);
-
-    if (currentIndex + 5 > products.length) setCurrentIndex(0);
-    else setCurrentIndex(currentIndex + 1);
-    console.log(products);
-  };
-
-  const handlePrevProduct = () => {
-    console.log(currentIndex);
-
-    if (currentIndex === 0) {
-      setCurrentIndex(0);
-    } else {
-      setCurrentIndex(currentIndex - 1);
-    }
-  };
   return (
     <div className="w-full max-h-full ">
       <div className="relative">
@@ -161,7 +120,7 @@ function Home() {
               >
                 <NavLink to={`/cart/${product.id}`} className="relative w-full">
                   <img
-                    src={product.image} // Ensure this is the correct image URL
+                    src={product.image}
                     alt={product.name}
                     className="w-full h-auto mb-2"
                   />
@@ -348,7 +307,6 @@ function Home() {
                     )}
                     <span className="text-sm">${product.newPrice}</span>
                   </div>
-                  {/* <span className="text-sm">${product.newPrice}</span> */}
                   <div className="mt-3 mb-1">
                     <Button
                       type="submit"
@@ -403,7 +361,6 @@ function Home() {
             <p className="text-base tabletLandscape:text-lg">
               {flare_glaciers.definition}
             </p>
-            {/* {`/cart/${trending.id}`} */}
             <Link to={`/cart/${flare_glaciers.id}`} className="underline">
               View Product
             </Link>
@@ -411,7 +368,6 @@ function Home() {
           <div className="flex flex-col pb-6 mx-5 space-y-4 border border-black basis-1/2">
             <div className="relative">
               <img
-                // src={trendingProduct.image}
                 src="../images/home-glasses.png"
                 alt="Home-Glasses"
                 className="phone:w-full"
