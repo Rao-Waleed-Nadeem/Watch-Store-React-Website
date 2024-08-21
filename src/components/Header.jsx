@@ -138,6 +138,8 @@ function Header() {
     navigate(`/cart/${id}`);
   };
 
+  console.log("photoUrl: ", photoURL);
+
   return (
     <>
       <ScrollToTop />
@@ -213,13 +215,15 @@ function Header() {
 
           <div className="logo txt text-xl tabletLandscape:absolute tabletLandscape:left-[55%] z-10 tabletLandscape:transform tabletLandscape:-translate-x-1/2 hover:font-bold transition-all ease-in-out  duration-300">
             <div className="flex flex-row tabletLandscape:space-x-2">
-              <Link>
-                <img
-                  src="/images/watch-icon.png"
-                  alt=""
-                  className="w-10 h-10"
-                />
-              </Link>
+              {!isSearch && (
+                <Link>
+                  <img
+                    src="/images/watch-icon.png"
+                    alt=""
+                    className="w-10 h-10"
+                  />
+                </Link>
+              )}
               <Link className="pt-[7px]" to="/">
                 Dremo
               </Link>
@@ -293,11 +297,19 @@ function Header() {
             ) : photoURL !== "" ? (
               <Tooltip title={`Hi ${displayName}`}>
                 <IconButton onClick={handleOpenDialog}>
-                  <img
-                    src={photoURL}
-                    alt="Profile"
-                    className="rounded-full cursor-pointer w-7 h-7"
-                  />
+                  {photoURL ? (
+                    <img
+                      src={photoURL}
+                      alt="Profile"
+                      className="rounded-full cursor-pointer w-7 h-7"
+                    />
+                  ) : (
+                    <Tooltip title="Log Out">
+                      <IconButton onClick={handleOpenDialog}>
+                        <LogoutIcon />
+                      </IconButton>
+                    </Tooltip>
+                  )}
                 </IconButton>
               </Tooltip>
             ) : (

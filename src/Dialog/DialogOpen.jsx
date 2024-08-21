@@ -36,11 +36,11 @@ export default function DialogOpen({ isOpen, onClose }) {
         }}
       >
         {email && (
-          <div className="flex items-center mx-6 mt-3 mb-3 space-x-4">
+          <div className="flex items-center mx-6 mt-3 mb-3 space-x-4 phone:mb-0">
             <img
               src={photoURL}
               alt="User Avatar"
-              className="w-16 h-16 mt-2 rounded-full shadow-lg"
+              className="w-16 h-16 mt-2 rounded-full shadow-lg phone:mt-0 phone:w-11 phone:h-11"
             />
             <div>
               <p className="text-lg font-semibold text-gray-700">
@@ -56,13 +56,13 @@ export default function DialogOpen({ isOpen, onClose }) {
         >
           {"Do you want to log out?"}
         </DialogTitle>
-        <DialogContent>
+        <DialogContent className=" phone:h-12">
           <DialogContentText
             id="alert-dialog-description"
             className="text-sm text-gray-600"
           >
-            By logging out, you will be signed out from your account and will
-            need to log in again to continue using our services.
+            By logging out, you will be signed out from your account and
+            couldn't buy things.
           </DialogContentText>
         </DialogContent>
         <DialogActions className="flex justify-center mb-4">

@@ -62,19 +62,23 @@ function Home() {
   return (
     <div className="w-full max-h-full ">
       <div className="relative">
-        <img src="./images/home.jpg" alt="Home" className="w-full h-auto" />
-        <div className="absolute flex items-center justify-center tabletLandscape:inset-0 phone:top-4 phone:w-1/2 tabletLandscape:w-1/3 tabletLandscape:ml-16">
-          <div className="flex flex-col pl-10 phone:space-y-6 phone:py-5 tabletLandscape:space-y-7">
-            <h1 className="text-white phone:text-6xl tabletLandscape:text-8xl">
+        <img
+          src="./images/home.jpg"
+          alt="Home"
+          className="object-cover phone:h-[45vh] tabletLandscape:h-auto tabletLandscape:w-full"
+        />
+        <div className="absolute flex items-center justify-center tabletLandscape:inset-0 phone:top-4 phone:w-full tabletLandscape:w-1/3 tabletLandscape:ml-16">
+          <div className="flex flex-col tabletLandscape:pl-10 phone:px-5 phone:space-y-5 phone:pt-7 tabletLandscape:space-y-7">
+            <h1 className="text-white phone:text-5xl tabletLandscape:text-8xl">
               Timeless
             </h1>
-            <p className="text-white phone:text-md tabletLandscape:text-xl">
+            <p className="text-white phone:text-base tabletLandscape:text-xl">
               A WordPress theme designed to elevate your online accessory store
               with an aura of elegance and luxury.
             </p>
             <button
               onClick={handleShopProducts}
-              className="text-white transition-colors duration-300 border border-white phone:w-32 phone:h-10 tabletLandscape:w-40 tabletLandscape:h-12 hover:bg-white hover:text-black"
+              className="text-sm text-white transition-colors duration-300 border border-white phone:w-28 phone:h-9 tabletLandscape:w-40 tabletLandscape:h-12 hover:bg-white hover:text-black"
             >
               Shop Products
             </button>
@@ -131,22 +135,26 @@ function Home() {
         </Carousel>
       </div>
 
-      <div className="relative flex items-center justify-center w-full h-32 overflow-hidden bg-black">
-        <div className="moving-text-container">
-          <h3 className="mx-20 text-5xl text-white moving-text">
+      <div className="relative flex items-center justify-center w-full h-32 overflow-hidden bg-black phone:h-24 ">
+        <div className="moving-text-container phone:py-3">
+          <h3 className="mx-20 text-white phone:mx-8 tabletLandscape:text-5xl phone:text-3xl moving-text">
             SHOP NEW ARRIVALS
           </h3>
-          <h3 className="mx-20 text-5xl text-white moving-text">
+          <h3 className="mx-20 text-white phone:mx-8 tabletLandscape:text-5xl phone:text-3xl moving-text">
             SHOP NEW ARRIVALS
           </h3>
-          <h3 className="mx-20 text-5xl text-white moving-text">
+          <h3 className="mx-20 text-white phone:mx-8 phone:hidden tabletLandscape:block tabletLandscape:text-5xl phone:text-3xl moving-text">
             SHOP NEW ARRIVALS
           </h3>
         </div>
       </div>
 
       <div className="relative max-h-full max-w-auto">
-        <img src="./images/glasses.jpg" alt="" className="w-full h-auto" />
+        <img
+          src="./images/glasses.jpg"
+          alt=""
+          className="object-cover h-[30vh] tabletLandscape:w-full tabletLandscape:h-auto"
+        />
         <div className="absolute inset-0 flex flex-col justify-center text-center phone:items-center tabletLandscape:items-end tabletLandscape:mr-16">
           <div className="text-white w-96">
             <h1 className="mb-5 text-5xl tabletLandscape:text-7xl">
@@ -164,12 +172,12 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-center justify-center space-y-5 my-9 tabletLandscape:my-16">
+      <div className="flex flex-col items-center justify-center space-y-5 text-center my-9 tabletLandscape:my-16">
         <img src="../images/watch-icon.png" className="w-24" alt="watch-icon" />
         <h1 className="phone:text-4xl tabletLandscape:text-6xl">
           Stylish. Functional. Quality.
         </h1>
-        <p className="text-gray-500 text-md">
+        <p className="text-gray-500 phone:px-5 tabletLandscape:px-0 text-md">
           Our goal is to provide products that stand the test of time.
         </p>
       </div>
@@ -181,7 +189,7 @@ function Home() {
             className="object-cover w-full h-full transition-transform duration-1000 ease-in-out transform hover:scale-110"
             alt=""
           />
-          <div className="absolute w-48 mb-8 transform -translate-x-1/2 h-28 bottom-7 left-1/2">
+          <div className="absolute w-48 mb-8 transform -translate-x-1/2 phone:pt-5 tabletLandscape:pt-0 h-28 bottom-7 left-1/2">
             <div className="flex flex-col items-center justify-end space-y-5 ">
               <h4 className="text-3xl text-white">SUNGLASSES</h4>
               <button
@@ -201,7 +209,7 @@ function Home() {
               className="object-cover w-full h-full transition-transform duration-1000 ease-in-out transform hover:scale-110"
               alt=""
             />
-            <div className="absolute w-48 mb-8 transform -translate-x-1/2 h-28 bottom-7 left-1/2">
+            <div className="absolute w-48 mb-8 transform -translate-x-1/2 phone:pt-5 tabletLandscape:pt-0 h-28 bottom-7 left-1/2">
               <div className="flex flex-col items-center justify-end space-y-5 ">
                 <h4 className="text-3xl text-white">WATCHES</h4>
                 <button
@@ -219,7 +227,7 @@ function Home() {
               className="object-cover w-full h-full transition-transform duration-1000 ease-in-out transform hover:scale-110"
               alt=""
             />
-            <div className="absolute w-48 mb-8 transform -translate-x-1/2 h-28 bottom-7 left-1/2">
+            <div className="absolute w-48 mb-8 transform -translate-x-1/2 phone:pt-5 tabletLandscape:pt-0 h-28 bottom-7 left-1/2">
               <div className="flex flex-col items-center justify-end space-y-5 ">
                 <h4 className="text-3xl text-white">BRACELETS</h4>
                 <button
@@ -236,9 +244,12 @@ function Home() {
 
       <div className="relative flex items-center justify-center w-full h-32 my-10 overflow-hidden bg-black">
         <div className="moving-text-container">
-          <h3 className="text-4xl text-white moving-text">
+          <h3 className="text-4xl text-white moving-text phone:hidden tabletLandscape:block">
             SHOP NEW ARRIVALS &nbsp;&nbsp;&nbsp;&nbsp;SHOP NEW ARRIVALS
             &nbsp;&nbsp;&nbsp;&nbsp;SHOP NEW ARRIVALS
+          </h3>
+          <h3 className="text-4xl text-white phone:block tabletLandscape:hidden moving-text">
+            SHOP NEW ARRIVALS &nbsp;&nbsp;&nbsp;&nbsp;SHOP NEW ARRIVALS
           </h3>
         </div>
       </div>
@@ -251,7 +262,7 @@ function Home() {
           Take a look at these top performers
         </span>
       </div>
-      <div className="grid space-x-4 phone:grid-cols-2 tabletLandscape:grid-cols-2 laptop:grid-cols-4 mb-7 mx-7">
+      <div className="grid space-x-4 phone:space-y-4 tabletLandscape:space-y-0 phone:grid-cols-2 tabletLandscape:grid-cols-2 laptop:grid-cols-4 mb-7 tabletLandscape:mx-7 phone:px-2">
         {products.map(
           (product, index) =>
             index < 4 && (
@@ -260,7 +271,7 @@ function Home() {
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-auto mb-2 bg-auto"
+                    className="w-full tabletLandscape:h-[320px] bg-auto phone:h-[200px] object-cover mb-2"
                   />
                   {product.sale && (
                     <div className="absolute top-0 left-0 flex items-center justify-center w-16 m-3 text-white bg-black h-9">
@@ -269,7 +280,7 @@ function Home() {
                   )}
                 </div>
 
-                <div className="flex flex-col items-center justify-center p-2 text-center">
+                <div className="flex flex-col items-center justify-center p-2 text-center tabletLandscape:pb-8 phone:pb-4">
                   <h4 className="mt-2 text-xl">{product.name}</h4>
                   <div className="flex flex-row space-x-1">
                     {product.oldPrice > 0 && (
@@ -305,7 +316,7 @@ function Home() {
           Your browser does not support the video tag.
         </video>
         <div className="relative z-0 flex items-center h-full tabletLandscape:justify-start phone:justify-center">
-          <div className="flex flex-col items-start justify-center p-10 space-y-8 bg-white tabletLandscape:w-2/3 laptop:w-1/3 phone:w-2/3 tabletPortrait:w-3/4 tabletPortrait:p-5 tabletPortrait:m-5 phone:my-8 tabletLandscape:my-16 phone:h-80 tabletLandscape:h-96 tabletPortrait::ml-8">
+          <div className="flex flex-col items-start justify-center p-10 space-y-8 bg-white tabletLandscape:w-2/3 laptop:w-1/3 phone:w-[73%] tabletPortrait:w-3/4 tabletPortrait:p-5 tabletPortrait:m-5 phone:py-8 tabletLandscape:my-16 phone:h-[350px] tabletLandscape:h-96 tabletPortrait::ml-8">
             <h1 className="text-black phone:text-5xl tabletLandscape:text-6xl">
               Materials
             </h1>
@@ -436,9 +447,13 @@ function Home() {
       </div>
       <div className="relative flex items-center justify-center w-full h-32 overflow-hidden bg-black">
         <div className="moving-text-container">
-          <h3 className="text-4xl text-white moving-text">
+          <h3 className="text-4xl text-white moving-text phone:hidden tabletLandscape:block">
             SIGN-UP FOR FREE GIFT &nbsp;&nbsp;&nbsp;&nbsp;SIGN-UP FOR FREE GIFT
             &nbsp;&nbsp;&nbsp;&nbsp;SIGN-UP FOR FREE GIFT
+          </h3>
+          <h3 className="pt-8 text-4xl text-white moving-text phone:block tabletLandscape:hidden">
+            {" "}
+            SIGN-UP FOR FREE GIFT &nbsp;&nbsp;&nbsp;&nbsp;SIGN-UP FOR FREE GIFT
           </h3>
         </div>
       </div>
@@ -457,10 +472,10 @@ function Home() {
             Shop More
           </button>
         </div>
-        <div className="flex flex-col py-4 mx-5 space-y-5 border border-black laptop:w-2/3 bg-zinc-100 ">
+        <div className="flex flex-col py-4 space-y-5 border border-black laptop:w-2/3 bg-zinc-100 ">
           {digitaledge !== undefined && (
-            <div className="flex flex-row items-center pr-4 space-x-5 tabletLandscape:justify-center tabletLandscape:ml-44 tabletLandscape:space-x-28 phone:justify-end ">
-              <div className="flex flex-row h-96 hover:shadow-2xl hover:cursor-pointer">
+            <div className="flex flex-row items-center phone:object-cover tabletLandscape:object-none pr-4 phone:pr-2 phone:px-2  space-x-5  phone:justify-center tabletLandscape:justify-end phone:h-[40%] tabletLandscape:h-auto phone:w-full tabletLandscape:pr-10 tabletLandscape:space-x-32  ">
+              <div className="flex flex-row tabletLandscape:h-96 hover:shadow-2xl hover:cursor-pointer">
                 <Link
                   to={`/cart/${digitaledge.id}`}
                   className="flex flex-col items-center justify-start"
@@ -487,7 +502,7 @@ function Home() {
                   </div>
                 </Link>
               </div>
-              <div className="flex flex-row h-96 hover:shadow-2xl hover:cursor-pointer">
+              <div className="flex flex-row tabletLandscape:h-96 hover:shadow-2xl hover:cursor-pointer">
                 <Link
                   to={`/cart/${smartsync.id}`}
                   className="flex flex-col items-center justify-start"
@@ -517,38 +532,38 @@ function Home() {
             </div>
           )}
 
-          <table className="mx-5 border-collapse table-fixed">
+          <table className="w-full mx-5 border-collapse table-fixed phone:mx-0">
             <tbody>
               <tr className="bg-gray-100">
-                <th className="py-2 pl-5 text-left border-b border-gray-400">
+                <th className="py-2 text-left border-b border-gray-400 tabletLandscape:w-48 tabletLandscape:pl-10 phone:pl-2">
                   Battery
                 </th>
-                <td className="py-2 pr-32 text-center border-b border-gray-400 ">
+                <td className="py-2 text-center border-b border-gray-400 pr-44 phone:pr-12">
                   72hrs
                 </td>
-                <td className="py-2 pr-12 text-center border-b border-gray-400">
+                <td className="py-2 pl-12 pr-12 text-center border-b border-gray-400 phone:pl-4 phone:pr-4">
                   60hrs
                 </td>
               </tr>
               <tr>
-                <th className="py-2 pl-5 text-left border-b border-gray-400">
+                <th className="py-2 pl-5 text-left border-b border-gray-400 phone:pl-2 tabletLandscape:pl-10">
                   Weight
                 </th>
-                <td className="py-2 pr-32 text-center border-b border-gray-400 ">
+                <td className="py-2 pr-32 text-center border-b border-gray-400 phone:pr-12">
                   145g
                 </td>
-                <td className="py-2 pr-12 text-center border-b border-gray-400 ">
+                <td className="py-2 pr-12 text-center border-b border-gray-400 phone:pr-4">
                   190g
                 </td>
               </tr>
               <tr className="bg-gray-100">
-                <th className="py-2 pl-5 text-left border-b border-gray-400">
+                <th className="py-2 pl-5 text-left border-b border-gray-400 phone:pl-2 tabletLandscape:pl-10">
                   Strap
                 </th>
-                <td className="py-2 pr-32 text-center border-b border-gray-400 ">
+                <td className="py-2 pr-32 text-center border-b border-gray-400 phone:pr-12">
                   Synthetic
                 </td>
-                <td className="py-2 pr-12 text-center border-b border-gray-400 ">
+                <td className="py-2 pr-12 text-center border-b border-gray-400 phone:pr-4">
                   Leather
                 </td>
               </tr>
@@ -687,7 +702,7 @@ function Home() {
       </div>
       <div className="flex flex-col items-center justify-center py-10 my-10 space-y-6 tabletLandscape:space-y-10 bg-zinc-950">
         <span className="text-white">FEATURED ON</span>
-        <div className="flex flex-row space-x-9">
+        <div className="flex flex-row space-x-9 phone:space-x-4">
           <img
             src="../images/vogue.png"
             alt="Vogue"

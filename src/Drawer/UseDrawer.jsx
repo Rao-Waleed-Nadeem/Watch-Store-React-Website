@@ -73,7 +73,6 @@ const UseDrawer = () => {
 
   const handleRemoveItem = async (id) => {
     setLoading(true);
-    // console.log("deleting product cart id: ", id);
     try {
       await deleteCart(id);
     } catch (error) {
@@ -84,9 +83,9 @@ const UseDrawer = () => {
   };
 
   return (
-    <>
+    <div className="">
       <Drawer
-        className="custom-drawer"
+        className=" custom-drawer"
         open={rightDrawerOpen}
         title={`${
           userLoggedIn
@@ -103,7 +102,7 @@ const UseDrawer = () => {
               matchProducts.map((matchProduct) => (
                 <div
                   key={matchProduct.id}
-                  className="flex flex-row justify-start items-start space-x-3 my-6"
+                  className="flex flex-row items-start justify-start my-6 space-x-3"
                 >
                   <div className="w-10 h-10">
                     <img src={matchProduct.image} alt="" />
@@ -121,7 +120,7 @@ const UseDrawer = () => {
                       <span>${matchProduct.newPrice}</span>
                     </div>
                     {matchProduct.oldPrice > 0 && (
-                      <div className="py-1 w-20 rounded-md flex justify-center items-center border border-black">
+                      <div className="flex items-center justify-center w-20 py-1 border border-black rounded-md">
                         <span>
                           Save ${matchProduct.oldPrice - matchProduct.newPrice}
                         </span>
@@ -134,7 +133,7 @@ const UseDrawer = () => {
                       >
                         -
                       </button>
-                      <div className="w-10 h-10 border border-black border-l-0 border-r-0 text-center flex items-center justify-center">
+                      <div className="flex items-center justify-center w-10 h-10 text-center border border-l-0 border-r-0 border-black">
                         {matchProduct.quantity}
                       </div>
                       <button
@@ -156,7 +155,7 @@ const UseDrawer = () => {
                       ${matchProduct.newPrice * matchProduct.quantity}
                     </span>
                     {matchProduct.oldPrice > 0 && (
-                      <div className="py-1 ml-10 w-20 rounded-md flex justify-center items-center border border-black">
+                      <div className="flex items-center justify-center w-20 py-1 ml-10 border border-black rounded-md">
                         <span>
                           Save $
                           {matchProduct.oldPrice * matchProduct.quantity -
@@ -170,8 +169,8 @@ const UseDrawer = () => {
           </div>
         )}
 
-        <footer className="z-10 bg-white right-0 absolute bottom-0 px-5 w-full shadow-top">
-          <div className="flex flex-col space-y-4 my-6">
+        <footer className="absolute bottom-0 right-0 z-10 w-full px-5 bg-white shadow-top">
+          <div className="flex flex-col my-6 space-y-4">
             <div className="flex flex-row justify-between">
               <h6 className="text-base font-semibold">Subtotal</h6>
               <h6 className="text-base font-semibold">
@@ -186,13 +185,13 @@ const UseDrawer = () => {
                 onClick={() => {
                   navigate(`/viewcart`);
                 }}
-                className="text-black border transition-colors duration-300 border-black phone:w-32 phone:h-9 tabletLandscape:w-32 tabletLandscape:h-10 hover:bg-black hover:text-white bg-transparent hover:border-black"
+                className="text-black transition-colors duration-300 bg-transparent border border-black phone:w-32 phone:h-9 tabletLandscape:w-32 tabletLandscape:h-10 hover:bg-black hover:text-white hover:border-black"
               >
                 VIEW MY CART
               </button>
               <button
                 onClick={() => navigate("/order")}
-                className="text-white border transition-colors duration-300 border-black phone:w-32 phone:h-9 tabletLandscape:w-32 bg-black tabletLandscape:h-10 hover:bg-white hover:text-black hover:border-black"
+                className="text-white transition-colors duration-300 bg-black border border-black phone:w-32 phone:h-9 tabletLandscape:w-32 tabletLandscape:h-10 hover:bg-white hover:text-black hover:border-black"
               >
                 GO TO CHECKOUT
               </button>
@@ -200,7 +199,7 @@ const UseDrawer = () => {
           </div>
         </footer>
       </Drawer>
-    </>
+    </div>
   );
 };
 

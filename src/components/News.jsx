@@ -5,8 +5,8 @@ function News() {
     <>
       <div className="flex items-center justify-center mt-16">
         <div className="w-1/3 text-center ">
-          <h1 className="mb-8 text-6xl">News</h1>
-          <div className="flex items-center justify-center text-yellow-600 divide-x mb-11 divide-yellow-950">
+          <h1 className="w-40 mb-8 text-6xl">News</h1>
+          <div className="flex items-center justify-center text-yellow-600 tabletLandscape:divide-x phone:flex-col mb-11 divide-yellow-950">
             <Link
               to="/"
               className="text-lg tabletLandscape:px-4 phone:px-2 hover:text-yellow-800 hover:underline hover:underline-offset-2"

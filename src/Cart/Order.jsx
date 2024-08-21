@@ -73,8 +73,8 @@ function Order() {
   });
 
   return (
-    <div className="w-full  flex tabletLandscape:flex-row phone:flex-col">
-      <div className="tabletLandscape:w-1/3 h-1/2 sticky top-20 tabletLandscape:order-2  m-5 border border-black">
+    <div className="flex w-full tabletLandscape:flex-row phone:flex-col">
+      <div className="m-5 border border-black tabletLandscape:sticky phone:relative tabletLandscape:w-1/3 h-1/2 tabletLandscape:top-20 tabletLandscape:order-2">
         <div>
           <Accordion>
             <AccordionSummary
@@ -86,7 +86,7 @@ function Order() {
             </AccordionSummary>
             <AccordionDetails>
               {!userLoggedIn && (
-                <div className="flex justify-center items-center italic font-medium text-lg">
+                <div className="flex items-center justify-center text-lg italic font-medium">
                   <span>Sign In to see product summary</span>
                 </div>
               )}
@@ -95,25 +95,25 @@ function Order() {
                   {matchProducts.map((matchProduct) => (
                     <div
                       key={matchProduct.id}
-                      className="w-full flex flex-row p-3 space-x-3"
+                      className="flex flex-row w-full p-3 space-x-3"
                     >
                       <div className="flex flex-row space-x-6 ">
-                        <div className="w-10 h-10 flex items-center justify-center">
+                        <div className="flex items-center justify-center w-10 h-10">
                           <DarkBrownBadge
                             badgeContent={matchProduct.quantity}
                             color="primary"
                           >
                             <img
                               src={matchProduct.image}
-                              className="w-10 h-10 object-cover"
+                              className="object-cover w-10 h-10"
                               alt=""
                             />
                           </DarkBrownBadge>
                         </div>
                         <div className="flex flex-col space-y-3 text-sm">
-                          <span>{matchProduct.name}</span>
+                          <span className="px-2 pt-2">{matchProduct.name}</span>
                           <span>${matchProduct.newPrice}.00</span>
-                          <span className="w-4/5 line-clamp-3">
+                          <span className="w-full line-clamp-3">
                             {matchProduct.definition}
                           </span>
                         </div>
@@ -124,13 +124,13 @@ function Order() {
                       </span>
                     </div>
                   ))}
-                  {/* <div className="w-full flex flex-row p-3 space-x-3">
+                  {/* <div className="flex flex-row w-full p-3 space-x-3">
                   <div className="flex flex-row space-x-6 ">
-                    <div className="w-10 h-10 flex items-center justify-center">
+                    <div className="flex items-center justify-center w-10 h-10">
                       <Badge badgeContent={4} color="primary">
                         <img
                           src="home-watch.png"
-                          className="w-10 h-10 object-cover"
+                          className="object-cover w-10 h-10"
                           alt=""
                         />
                       </Badge>
@@ -152,7 +152,7 @@ function Order() {
             </AccordionDetails>
           </Accordion>
         </div>
-        <div className="p-4  border-b border-slate-300">
+        <div className="p-4 border-b border-slate-300">
           {showCouponField ? (
             <div className="flex flex-row space-x-3">
               <TextField
@@ -161,43 +161,43 @@ function Order() {
                 size="small"
                 fullWidth
               />
-              <button className="text-white border transition-colors duration-300 border-white phone:w-24 phone:h-10  tabletLandscape:h-10 hover:bg-white hover:text-black bg-black hover:border-black">
+              <button className="text-white transition-colors duration-300 bg-black border border-white phone:w-24 phone:h-10 tabletLandscape:h-10 hover:bg-white hover:text-black hover:border-black">
                 Apply
               </button>
             </div>
           ) : (
             <button
-              className="underline text-yellow-700 hover:text-yellow-800"
+              className="text-yellow-700 underline hover:text-yellow-800"
               onClick={handleAddCouponClick}
             >
               Add a Coupon
             </button>
           )}
         </div>
-        <div className="p-4 flex flex-row justify-between  border-b border-slate-300">
+        <div className="flex flex-row justify-between p-4 border-b border-slate-300">
           <span>Subtotal</span>
           <span>${userLoggedIn ? `${totalPrice}.00` : "0.00"}</span>
         </div>
-        <div className="p-4 flex flex-row justify-between  ">
+        <div className="flex flex-row justify-between p-4 ">
           <div className="flex flex-col space-y-1">
             <span>Shipping</span>
             <span className="text-xs">Free shipping</span>
           </div>
           <span>$0.00</span>
         </div>
-        <div className="pb-4 px-4 flex flex-row justify-between  border-b border-slate-300">
+        <div className="flex flex-row justify-between px-4 pb-4 border-b border-slate-300">
           <span className="text-sm">
             Shipping to Florida, United States (US)
           </span>
         </div>
-        <div className="p-4 flex flex-row justify-between  border-b border-slate-300">
+        <div className="flex flex-row justify-between p-4 border-b border-slate-300">
           <span className="text-lg font-semibold">Total</span>
           <span className="text-lg font-semibold">
             ${userLoggedIn ? `${totalPrice}.00` : "0.00"}
           </span>
         </div>
       </div>
-      <div className="tabletLandscape:w-2/3 tabletLandscape:order-1 px-12 py-5">
+      <div className="px-12 py-5 tabletLandscape:w-2/3 tabletLandscape:order-1">
         <OrderStepper />
       </div>
     </div>
