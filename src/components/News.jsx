@@ -1,5 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import news1 from "/src/images/news1.jpg";
+import news2 from "/src/images/news2.jpg";
+import news3 from "/src/images/news3.jpg";
 function News() {
   return (
     <>
@@ -46,7 +49,7 @@ function News() {
         <div className="relative flex flex-col border border-black p-7 ">
           <a className="overflow-hidden " href="/">
             <img
-              src="/src/images/news1.jpg"
+              src={news1}
               alt="news"
               className="w-full h-auto transition-transform duration-1000 ease-in-out transform hover:cursor-pointer hover:scale-110"
             />
@@ -81,7 +84,7 @@ function News() {
         <div className="flex flex-col border border-black p-7">
           <a className="overflow-hidden" href="/">
             <img
-              src="/src/images/news2.jpg"
+              src={news2}
               alt="news"
               className="w-full h-auto transition-transform duration-1000 ease-in-out transform hover:cursor-pointer hover:scale-110"
             />
@@ -116,7 +119,7 @@ function News() {
         <div className="flex flex-col border border-black p-7">
           <a className="overflow-hidden" href="/">
             <img
-              src="/src/images/news3.jpg"
+              src={news3}
               alt="news"
               className="w-full h-auto transition-transform duration-1000 ease-in-out transform hover:cursor-pointer hover:scale-110"
             />

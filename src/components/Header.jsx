@@ -22,6 +22,7 @@ import { doSignOut } from "../config/Auth";
 import DialogOpen from "../Dialog/DialogOpen";
 import { productStore, useProductActions } from "../ProductStore/ProductStore";
 import ScrollToTop from "../ScrollToTop/ScrollToTop";
+import imgURL from "/src/images/watch-icon.png";
 
 const DarkBrownBadge = styled(Badge)({
   "& .MuiBadge-badge": {
@@ -217,11 +218,7 @@ function Header() {
             <div className="flex flex-row tabletLandscape:space-x-2">
               {!isSearch && (
                 <Link>
-                  <img
-                    src="/src/images/watch-icon.png"
-                    alt=""
-                    className="w-10 h-10"
-                  />
+                  <img src={imgURL} alt="" className="w-10 h-10" />
                 </Link>
               )}
               <Link className="pt-[7px]" to="/">

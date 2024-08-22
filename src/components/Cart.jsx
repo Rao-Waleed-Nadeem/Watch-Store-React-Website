@@ -21,6 +21,10 @@ import {
 } from "../CartQuantityStore/CartQuantityStore";
 import useAuthStore from "../Authentication/AuthStore";
 import SimpleBackdrop from "../Backdrop/SimpleBackdrop";
+import cart1 from "/src/images/cart1.jpg";
+import cart2 from "/src/images/cart2.png";
+import cart3 from "/src/images/cart3.png";
+import brecelete from "/src/images/brecelete.png";
 
 export function loader({ params }) {
   return { productId: params.id };
@@ -439,7 +443,7 @@ function Cart() {
       </div>
       <div className="flex flex-row w-full phone:my-12 tabletLandscape:my-0 space-x-7 bg-neutral-900">
         <div className="w-1/2">
-          <img src="/src/images/cart1.jpg" alt="" />
+          <img src={cart1} alt="" />
         </div>
         <div className="flex flex-col items-start justify-center w-1/2 text-white tabletLandscape:space-y-10 phone:space-y-5 tabletLandscape:px-7">
           <span>MAINTENANCE</span>
@@ -462,7 +466,7 @@ function Cart() {
       <div className="flex w-full phone:flex-col tabletLandscape:flex-row tabletLandscape:h-screen">
         <div className="relative h-full overflow-hidden tabletLandscape:w-1/3">
           <img
-            src="/src/images/cart2.png"
+            src={cart2}
             alt=""
             className="object-cover w-full h-full transition-transform duration-1000 ease-in-out transform hover:scale-110"
           />
@@ -475,7 +479,7 @@ function Cart() {
         </div>
         <div className="relative h-full overflow-hidden tabletLandscape:w-1/3">
           <img
-            src="/src/images/cart3.png"
+            src={cart3}
             alt=""
             className="object-cover w-full h-full transition-transform duration-1000 ease-in-out transform hover:scale-110"
           />
@@ -488,7 +492,7 @@ function Cart() {
         </div>
         <div className="relative h-full overflow-hidden tabletLandscape:w-1/3">
           <img
-            src="/src/images/brecelete.png"
+            src={brecelete}
             alt=""
             className="object-cover w-full h-full transition-transform duration-1000 ease-in-out transform hover:scale-110"
           />

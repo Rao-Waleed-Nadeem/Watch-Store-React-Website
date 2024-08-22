@@ -1,11 +1,12 @@
 import React from "react";
+import user1 from "/src/images/user1.png";
 
 function User() {
   return (
     <div className="flex flex-col items-center justify-center w-full h-auto -z-50">
       <div className="relative w-full h-screen bg-black">
         <img
-          src="/src/images/user1.png"
+          src={user1}
           alt="User"
           className="absolute inset-0 object-cover w-full h-full opacity-60"
         />

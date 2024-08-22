@@ -10,6 +10,24 @@ import {
 } from "../CartQuantityStore/CartQuantityStore";
 import Carousel from "react-elastic-carousel";
 import Item from "antd/es/list/Item";
+import glasses from "/src/images/glasses.jpg";
+import homemenwatch1 from "/src/images/home-menwatch1.png";
+import homewatch from "/src/images/home-watch.png";
+import menshealth from "/src/images/menshealth.png";
+import watchicon from "/src/images/watch-icon.png";
+import video from "/src/images/video.mp4";
+import homeglasses from "/src/images/home-glasses.png";
+import homebanner from "/src/images/home-banner.jpg";
+import news1 from "/src/images/news1.jpg";
+import news2 from "/src/images/news2.jpg";
+import news3 from "/src/images/news3.jpg";
+import vogue from "/src/images/vogue.png";
+import variety from "/src/images/variety.png";
+import gq from "/src/images/gq.png";
+import esquize from "/src/images/esquize.png";
+import bros from "/src/images/bros.jpg";
+import user1 from "/src/images/user1.png";
+import brecelete from "/src/images/brecelete.png";
 
 function Home() {
   const [email, setEmail] = useState("");
@@ -151,7 +169,7 @@ function Home() {
 
       <div className="relative max-h-full max-w-auto">
         <img
-          src="/src/images/glasses.jpg"
+          src={glasses}
           alt=""
           className="object-cover h-[30vh] tabletLandscape:w-full tabletLandscape:h-auto"
         />
@@ -173,11 +191,7 @@ function Home() {
         </div>
       </div>
       <div className="flex flex-col items-center justify-center space-y-5 text-center my-9 tabletLandscape:my-16">
-        <img
-          src="/src/images/watch-icon.png"
-          className="w-24"
-          alt="watch-icon"
-        />
+        <img src={watchicon} className="w-24" alt="watch-icon" />
         <h1 className="phone:text-4xl tabletLandscape:text-6xl">
           Stylish. Functional. Quality.
         </h1>
@@ -189,7 +203,7 @@ function Home() {
       <div className="flex w-full phone:flex-col tabletLandscape:space-x-7 tabletLandscape:flex-row phone:px-7 phone:space-y-7 ">
         <div className="relative overflow-hidden phone:basis-1/3 mt-7 tabletLandscape:basis-1/2 aspect-video">
           <img
-            src="/src/images/home-menwatch1.png"
+            src={homemenwatch1}
             className="object-cover w-full h-full transition-transform duration-1000 ease-in-out transform hover:scale-110"
             alt=""
           />
@@ -209,7 +223,7 @@ function Home() {
         <div className="flex flex-col phone:basis-2/3 tabletLandscape:basis-1/2 phone:space-y-7">
           <div className="relative overflow-hidden phone:basis-1/2 aspect-video">
             <img
-              src="/src/images/home-watch.png"
+              src={homewatch}
               className="object-cover w-full h-full transition-transform duration-1000 ease-in-out transform hover:scale-110"
               alt=""
             />
@@ -227,7 +241,7 @@ function Home() {
           </div>
           <div className="relative overflow-hidden phone:basis-1/2 aspect-video">
             <img
-              src="/src/images/brecelete.png"
+              src={brecelete}
               className="object-cover w-full h-full transition-transform duration-1000 ease-in-out transform hover:scale-110"
               alt=""
             />
@@ -316,7 +330,7 @@ function Home() {
           className="absolute object-cover w-full h-full transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
           poster="path_to_your_poster_image.jpg"
         >
-          <source src="/src/images/video.mp4" type="video/mp4" />
+          <source src={video} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         <div className="relative z-0 flex items-center h-full tabletLandscape:justify-start phone:justify-center">
@@ -355,7 +369,7 @@ function Home() {
           <div className="flex flex-col pb-6 mx-5 space-y-4 border border-black basis-1/2">
             <div className="relative">
               <img
-                src="/src/images/home-glasses.png"
+                src={homeglasses}
                 alt="Home-Glasses"
                 className="phone:w-full"
               />
@@ -388,12 +402,17 @@ function Home() {
           </div>
         </div>
       )}
-      <div
-        className="flex items-center justify-center min-h-screen px-8 text-white bg-center bg-cover phone:flex-col tabletLandscape:flex-row"
-        style={{ backgroundImage: "url('/src/images/home-banner.jpg')" }}
-      >
-        <div className="flex flex-col my-5 space-y-5 rounded-md">
-          <span className="text-xl ">STAY UPDATED</span>
+      <div className="relative flex items-center justify-center min-h-screen px-8 text-white bg-center bg-cover phone:flex-col tabletLandscape:space-x-8 tabletLandscape:flex-row">
+        {/* Background Image */}
+        <img
+          src={homebanner}
+          alt="Newsletter Background"
+          className="absolute inset-0 object-cover w-full h-full"
+        />
+
+        {/* Content */}
+        <div className="relative z-10 flex flex-col my-5 space-y-5 rounded-md tabletLandscape:px-6">
+          <span className="text-xl">STAY UPDATED</span>
           <h1 className="text-5xl tabletLandscape:text-7xl">Newsletter</h1>
           <p className="text-lg">
             By subscribing to our newsletter, you gain exclusive access to the
@@ -401,15 +420,17 @@ function Home() {
             special promotions.
           </p>
         </div>
+
+        {/* Subscription Form */}
         <form
           onSubmit={handleSubscribe}
           type="post"
-          className="flex flex-col w-full my-5 text-black space-y-7"
+          className="relative z-10 flex flex-col w-full my-5 text-black tabletLandscape:px-8 space-y-7"
         >
           {subscribe === true && (
             <div>
               <h3 className="text-3xl text-white">
-                Your email and name has sent!
+                Your email and name have been sent!
               </h3>
             </div>
           )}
@@ -432,14 +453,14 @@ function Home() {
             name="name"
             required
             readOnly={subscribe}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Your Name"
             className={`p-2 border rounded-md h-12 ${
               subscribe
                 ? "bg-transparent outline-none border-none text-white"
                 : ""
             }`}
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Your Name"
           />
           <button
             type="submit"
@@ -449,6 +470,7 @@ function Home() {
           </button>
         </form>
       </div>
+
       <div className="relative flex items-center justify-center w-full h-32 overflow-hidden bg-black">
         <div className="moving-text-container">
           <h3 className="text-4xl text-white moving-text phone:hidden tabletLandscape:block">
@@ -584,7 +606,7 @@ function Home() {
           <div className="relative flex flex-col border border-black p-7 ">
             <Link className="overflow-hidden " to="/newspage">
               <img
-                src="/src/images/news1.jpg"
+                src={news1}
                 alt="news"
                 className="w-full h-auto transition-transform duration-1000 ease-in-out transform hover:cursor-pointer hover:scale-110"
               />
@@ -622,7 +644,7 @@ function Home() {
           <div className="relative flex flex-col border border-black p-7 ">
             <Link className="overflow-hidden " to="/newspage">
               <img
-                src="/src/images/news3.jpg"
+                src={news3}
                 alt="news"
                 className="w-full h-auto transition-transform duration-1000 ease-in-out transform hover:cursor-pointer hover:scale-110"
               />
@@ -660,7 +682,7 @@ function Home() {
           <div className="relative flex flex-col border border-black p-7 ">
             <Link className="overflow-hidden " to="/newspage">
               <img
-                src="/src/images/news2.jpg"
+                src={news2}
                 alt="news"
                 className="w-full h-auto transition-transform duration-1000 ease-in-out transform hover:cursor-pointer hover:scale-110"
               />
@@ -708,55 +730,61 @@ function Home() {
         <span className="text-white">FEATURED ON</span>
         <div className="flex flex-row space-x-9 phone:space-x-4">
           <img
-            src="/src/images/vogue.png"
+            src={vogue}
             alt="Vogue"
             className="object-contain w-16 h-auto tabletLandscape:w-24"
           />
           <img
-            src="/src/images/gq.png"
+            src={gq}
             alt="GQ"
             className="object-contain w-12 h-auto tabletLandscape:w-20"
           />
           <img
-            src="/src/images/menshealth.png"
+            src={menshealth}
             alt="Men'sHealth"
             className="object-contain w-16 h-auto tabletLandscape:w-24"
           />
           <img
-            src="/src/images/variety.png"
+            src={variety}
             alt="Variety"
             className="object-contain w-16 h-auto tabletLandscape:w-24"
           />
           <img
-            src="/src/images/esquize.png"
+            src={esquize}
             alt="Esquize"
             className="object-contain w-16 h-auto tabletLandscape:w-24"
           />
         </div>
       </div>
-      <div
-        className="flex flex-col items-center justify-center w-full h-screen space-y-8 text-center text-white bg-fixed phone:px-12 laptop:px-72"
-        style={{
-          backgroundImage: "url('/src/images/bros.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <span>THE FOUNDERS</span>
-        <h1 className="phone:text-5xl tabletLandscape:text-6xl">About Us</h1>
-        <p>
-          Meet Alex and Jason, two best friends who shared a passion for men’s
-          fashion and accessories. With their combined expertise in e-commerce
-          and their impeccable sense of style, they decided to embark on an
-          entrepreneurial journey and founded Dremo.
-        </p>
-        <button
-          onClick={handleMaterial}
-          className="text-white transition-colors duration-300 border border-white phone:w-32 phone:h-10 tabletLandscape:w-40 tabletLandscape:h-12 hover:bg-white hover:text-black"
-        >
-          OUR STORY
-        </button>
+      <div className="relative flex flex-col items-center justify-center w-full h-screen space-y-8 text-center text-white phone:px-12 laptop:px-72">
+        {/* Image element to replace background image */}
+        <img
+          src={bros}
+          alt="Background"
+          className="absolute inset-0 object-cover w-full h-full"
+        />
+
+        {/* Content that stays on top of the image */}
+        <div className="relative z-10 flex flex-col space-y-4 tabletLandscape:space-y-8">
+          <span>THE FOUNDERS</span>
+          <h1 className="phone:text-5xl tabletLandscape:text-6xl">About Us</h1>
+          <p>
+            Meet Alex and Jason, two best friends who shared a passion for men’s
+            fashion and accessories. With their combined expertise in e-commerce
+            and their impeccable sense of style, they decided to embark on an
+            entrepreneurial journey and founded Dremo.
+          </p>
+          <div>
+            <button
+              onClick={handleMaterial}
+              className="text-white transition-colors duration-300 border border-white phone:w-32 phone:h-10 tabletLandscape:w-40 tabletLandscape:h-12 hover:bg-white hover:text-black"
+            >
+              OUR STORY
+            </button>
+          </div>
+        </div>
       </div>
+
       <div className="flex text-center phone:flex-col tabletLandscape:flex-row phone:space-y-10 tabletLandscape:space-y-0 tabletLandscape:space-x-6 phone:my-10 tabletLandscape:my-10 phone:px-20 tabletLandscape:px-5 tabletLandscape:justify-center tabletLandscape:items-center">
         <div className="flex flex-col items-center justify-center space-y-3">
           <svg
@@ -846,7 +874,7 @@ function Home() {
         <div className="flex items-center justify-center px-8 space-y-6 phone:flex-col tabletLandscape:mx-12 text-start mx-7 tabletLandscape:flex-row">
           <img
             className="w-40 h-40 mt-10 rounded-sm ring-2 ring-white"
-            src="/src/images/user1.png"
+            src={user1}
             alt=""
           />
           <div className="space-y-3 tabletLandscape:flex tabletLandscape:flex-col tabletLandscape:ml-9">

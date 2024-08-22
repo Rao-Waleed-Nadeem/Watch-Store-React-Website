@@ -1,15 +1,15 @@
 import { Button } from "@mui/material";
 import React from "react";
+import owner from "/src/images/owner.jpg";
+import about1 from "/src/images/about1.jpg";
+import about3 from "/src/images/about3.jpg";
+import about4 from "/src/images/about4.jpg";
 
 function About() {
   return (
     <div>
       <div className="relative w-full h-full ">
-        <img
-          src="./src/images/owner.jpg"
-          className="object-cover w-full h-auto"
-          alt="Owner"
-        />
+        <img src={owner} className="object-cover w-full h-auto" alt="Owner" />
         <div className="absolute inset-0 flex items-center justify-center">
           <h1 className="text-6xl text-white">About</h1>
         </div>
@@ -30,7 +30,7 @@ function About() {
       </div>
       <div className="flex w-full phone:mb-4 tabletLandscape:mb-0 bg-zinc-100 phone:flex-col tabletLandscape:flex-row">
         <img
-          src="./src/images/about1.jpg"
+          src={about1}
           className="tabletLandscape:w-1/2 phone:my-3 tabletLandscape:my-0 phone:w-full phone:h-1/2"
           alt="Owner"
         />
@@ -59,14 +59,14 @@ function About() {
           </p>
         </div>
         <img
-          src="/src/images/about3.jpg"
+          src={about3}
           className="tabletLandscape:w-1/2 phone:my-3 tabletLandscape:my-0 phone:w-full phone:h-1/2"
           alt="Owner"
         />
       </div>
       <div className="flex w-full phone:mb-4 bg-zinc-100 phone:flex-col tabletLandscape:flex-row">
         <img
-          src="/src/images/about4.jpg"
+          src={about4}
           className="tabletLandscape:w-1/2 phone:my-3 tabletLandscape:my-0 phone:w-full phone:h-1/2"
           alt="Owner"
         />

@@ -1,6 +1,8 @@
 import { Button, Checkbox, FormControlLabel, TextField } from "@mui/material";
 import React from "react";
 import { styled } from "@mui/material/styles";
+import newspage1 from "/src/images/newspage1.png";
+import news1 from "/src/images/news1.jpg";
 
 function NewsPage() {
   const CssTextField = styled(TextField)({
@@ -26,7 +28,7 @@ function NewsPage() {
     <div className="relative w-full max-h-full">
       <div className="relative w-full max-h-full bg-black">
         <img
-          src="/src/images/news1.jpg"
+          src={news1}
           className="object-cover w-full h-full opacity-50"
           alt="news"
         />
@@ -70,7 +72,7 @@ function NewsPage() {
               </p>
             </div>
             <img
-              src="/src/images/newspage1.png"
+              src={newspage1}
               alt="newspage"
               className="bg-cover w-80 h-96 phone:my-8 tabletLandscape:my-0 tabletLandscape:mb-10"
             />
