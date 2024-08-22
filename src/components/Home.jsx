@@ -8,8 +8,16 @@ import {
   cartStore,
   useCartActions,
 } from "../CartQuantityStore/CartQuantityStore";
-import Carousel from "react-elastic-carousel";
-import Item from "antd/es/list/Item";
+// import Carousel from "react-elastic-carousel";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+import { EffectFade } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import "swiper/css/effect-fade";
+// import Item from "antd/es/list/Item";
 import glasses from "/src/images/glasses.jpg";
 import homemenwatch1 from "/src/images/home-menwatch1.png";
 import homewatch from "/src/images/home-watch.png";
@@ -106,12 +114,21 @@ function Home() {
       </div>
 
       <div className="styling-example">
-        <Carousel breakPoints={breakPoints} itemsToShow={5}>
+        <Swiper
+          modules={[Navigation, Pagination, Scrollbar, A11y]}
+          spaceBetween={10}
+          slidesPerView={5}
+          navigation
+          pagination={{ clickable: true }}
+          scrollbar={{ draggable: true }}
+          // breakPoints={breakPoints}
+          // itemsToShow={5}
+        >
           {products.map((product) => (
             <>
-              <Item
+              <SwiperSlide
                 key={product.id}
-                className="flex flex-col items-center pb-3 mx-3 mt-5 hover:shadow-lg bg-gray-50"
+                className="flex flex-col items-center pb-3 mt-5 hover:shadow-lg bg-gray-50"
               >
                 <NavLink to={`/cart/${product.id}`} className="relative w-full">
                   <img
@@ -148,10 +165,10 @@ function Home() {
                     </Button>
                   </div>
                 </div>
-              </Item>
+              </SwiperSlide>
             </>
           ))}
-        </Carousel>
+        </Swiper>
       </div>
 
       <div className="relative flex items-center justify-center w-full h-32 overflow-hidden bg-black phone:h-24 ">
