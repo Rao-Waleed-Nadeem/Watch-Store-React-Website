@@ -19,6 +19,7 @@ import video from "/src/images/video.mp4";
 import homeglasses from "/src/images/home-glasses.png";
 import homebanner from "/src/images/home-banner.jpg";
 import news1 from "/src/images/news1.jpg";
+import home from "/src/images/home.jpg";
 import news2 from "/src/images/news2.jpg";
 import news3 from "/src/images/news3.jpg";
 import vogue from "/src/images/vogue.png";
@@ -81,7 +82,7 @@ function Home() {
     <div className="w-full max-h-full ">
       <div className="relative">
         <img
-          src="src/images/home.jpg"
+          src={home}
           alt="Home"
           className="object-cover phone:h-[45vh] tabletLandscape:h-auto tabletLandscape:w-full"
         />
