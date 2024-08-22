@@ -3,6 +3,3 @@ node_modules
 src/config/Firebase.js
 
 
-build/
-dust/
-firebase/
