@@ -10,8 +10,6 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { useProductActions } from "../ProductStore/ProductStore";
-import { nanoid } from "nanoid";
-import { db } from "../config/Firebase";
 
 function AddProduct() {
   const { addProduct } = useProductActions();
