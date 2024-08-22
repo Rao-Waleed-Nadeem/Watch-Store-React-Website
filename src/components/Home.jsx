@@ -783,7 +783,7 @@ function Home() {
         />
 
         {/* Content that stays on top of the image */}
-        <div className="relative z-10 flex flex-col space-y-4 tabletLandscape:space-y-8">
+        <div className="relative z-0 flex flex-col space-y-4 tabletLandscape:space-y-8">
           <span>THE FOUNDERS</span>
           <h1 className="phone:text-5xl tabletLandscape:text-6xl">About Us</h1>
           <p>
