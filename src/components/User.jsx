@@ -5,7 +5,7 @@ function User() {
     <div className="flex flex-col items-center justify-center w-full h-auto -z-50">
       <div className="relative w-full h-screen bg-black">
         <img
-          src="/images/user1.png"
+          src="/src/images/user1.png"
           alt="User"
           className="absolute inset-0 object-cover w-full h-full opacity-60"
         />

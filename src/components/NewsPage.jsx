@@ -26,7 +26,7 @@ function NewsPage() {
     <div className="relative w-full max-h-full">
       <div className="relative w-full max-h-full bg-black">
         <img
-          src="../images/news1.jpg"
+          src="/src/images/news1.jpg"
           className="object-cover w-full h-full opacity-50"
           alt="news"
         />
@@ -70,7 +70,7 @@ function NewsPage() {
               </p>
             </div>
             <img
-              src="../images/newspage1.png"
+              src="/src/images/newspage1.png"
               alt="newspage"
               className="bg-cover w-80 h-96 phone:my-8 tabletLandscape:my-0 tabletLandscape:mb-10"
             />

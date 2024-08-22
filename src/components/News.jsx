@@ -5,8 +5,10 @@ function News() {
     <>
       <div className="flex items-center justify-center mt-16">
         <div className="w-1/3 text-center ">
-          <h1 className="w-40 mb-8 text-6xl">News</h1>
-          <div className="flex items-center justify-center text-yellow-600 tabletLandscape:divide-x phone:flex-col mb-11 divide-yellow-950">
+          <h1 className="mb-8 text-6xl phone:w-40 tabletPortrait:w-auto">
+            News
+          </h1>
+          <div className="flex items-center justify-center text-yellow-600 tabletLandscape:divide-x phone:flex-col tabletLandscape:flex-row mb-11 divide-yellow-950">
             <Link
               to="/"
               className="text-lg tabletLandscape:px-4 phone:px-2 hover:text-yellow-800 hover:underline hover:underline-offset-2"
@@ -44,7 +46,7 @@ function News() {
         <div className="relative flex flex-col border border-black p-7 ">
           <a className="overflow-hidden " href="/">
             <img
-              src="../images/news1.jpg"
+              src="/src/images/news1.jpg"
               alt="news"
               className="w-full h-auto transition-transform duration-1000 ease-in-out transform hover:cursor-pointer hover:scale-110"
             />
@@ -79,7 +81,7 @@ function News() {
         <div className="flex flex-col border border-black p-7">
           <a className="overflow-hidden" href="/">
             <img
-              src="../images/news2.jpg"
+              src="/src/images/news2.jpg"
               alt="news"
               className="w-full h-auto transition-transform duration-1000 ease-in-out transform hover:cursor-pointer hover:scale-110"
             />
@@ -114,7 +116,7 @@ function News() {
         <div className="flex flex-col border border-black p-7">
           <a className="overflow-hidden" href="/">
             <img
-              src="../images/news3.jpg"
+              src="/src/images/news3.jpg"
               alt="news"
               className="w-full h-auto transition-transform duration-1000 ease-in-out transform hover:cursor-pointer hover:scale-110"
             />

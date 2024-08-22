@@ -218,7 +218,7 @@ function Header() {
               {!isSearch && (
                 <Link>
                   <img
-                    src="./images/watch-icon.png"
+                    src="/src/images/watch-icon.png"
                     alt=""
                     className="w-10 h-10"
                   />

@@ -63,7 +63,7 @@ function Home() {
     <div className="w-full max-h-full ">
       <div className="relative">
         <img
-          src="./images/home.jpg"
+          src="src/images/home.jpg"
           alt="Home"
           className="object-cover phone:h-[45vh] tabletLandscape:h-auto tabletLandscape:w-full"
         />
@@ -151,7 +151,7 @@ function Home() {
 
       <div className="relative max-h-full max-w-auto">
         <img
-          src="./images/glasses.jpg"
+          src="/src/images/glasses.jpg"
           alt=""
           className="object-cover h-[30vh] tabletLandscape:w-full tabletLandscape:h-auto"
         />
@@ -173,7 +173,11 @@ function Home() {
         </div>
       </div>
       <div className="flex flex-col items-center justify-center space-y-5 text-center my-9 tabletLandscape:my-16">
-        <img src="../images/watch-icon.png" className="w-24" alt="watch-icon" />
+        <img
+          src="/src/images/watch-icon.png"
+          className="w-24"
+          alt="watch-icon"
+        />
         <h1 className="phone:text-4xl tabletLandscape:text-6xl">
           Stylish. Functional. Quality.
         </h1>
@@ -185,7 +189,7 @@ function Home() {
       <div className="flex w-full phone:flex-col tabletLandscape:space-x-7 tabletLandscape:flex-row phone:px-7 phone:space-y-7 ">
         <div className="relative overflow-hidden phone:basis-1/3 mt-7 tabletLandscape:basis-1/2 aspect-video">
           <img
-            src="../images/home-menwatch1.png"
+            src="/src/images/home-menwatch1.png"
             className="object-cover w-full h-full transition-transform duration-1000 ease-in-out transform hover:scale-110"
             alt=""
           />
@@ -205,7 +209,7 @@ function Home() {
         <div className="flex flex-col phone:basis-2/3 tabletLandscape:basis-1/2 phone:space-y-7">
           <div className="relative overflow-hidden phone:basis-1/2 aspect-video">
             <img
-              src="../images/home-watch.png"
+              src="/src/images/home-watch.png"
               className="object-cover w-full h-full transition-transform duration-1000 ease-in-out transform hover:scale-110"
               alt=""
             />
@@ -223,7 +227,7 @@ function Home() {
           </div>
           <div className="relative overflow-hidden phone:basis-1/2 aspect-video">
             <img
-              src="../images/brecelete.png"
+              src="/src/images/brecelete.png"
               className="object-cover w-full h-full transition-transform duration-1000 ease-in-out transform hover:scale-110"
               alt=""
             />
@@ -312,7 +316,7 @@ function Home() {
           className="absolute object-cover w-full h-full transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
           poster="path_to_your_poster_image.jpg"
         >
-          <source src="./images/video.mp4" type="video/mp4" />
+          <source src="/src/images/video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         <div className="relative z-0 flex items-center h-full tabletLandscape:justify-start phone:justify-center">
@@ -351,7 +355,7 @@ function Home() {
           <div className="flex flex-col pb-6 mx-5 space-y-4 border border-black basis-1/2">
             <div className="relative">
               <img
-                src="../images/home-glasses.png"
+                src="/src/images/home-glasses.png"
                 alt="Home-Glasses"
                 className="phone:w-full"
               />
@@ -386,7 +390,7 @@ function Home() {
       )}
       <div
         className="flex items-center justify-center min-h-screen px-8 text-white bg-center bg-cover phone:flex-col tabletLandscape:flex-row"
-        style={{ backgroundImage: "url('./images/home-banner.jpg')" }}
+        style={{ backgroundImage: "url('/src/images/home-banner.jpg')" }}
       >
         <div className="flex flex-col my-5 space-y-5 rounded-md">
           <span className="text-xl ">STAY UPDATED</span>
@@ -580,7 +584,7 @@ function Home() {
           <div className="relative flex flex-col border border-black p-7 ">
             <Link className="overflow-hidden " to="/newspage">
               <img
-                src="./images/news1.jpg"
+                src="/src/images/news1.jpg"
                 alt="news"
                 className="w-full h-auto transition-transform duration-1000 ease-in-out transform hover:cursor-pointer hover:scale-110"
               />
@@ -618,7 +622,7 @@ function Home() {
           <div className="relative flex flex-col border border-black p-7 ">
             <Link className="overflow-hidden " to="/newspage">
               <img
-                src="./images/news3.jpg"
+                src="/src/images/news3.jpg"
                 alt="news"
                 className="w-full h-auto transition-transform duration-1000 ease-in-out transform hover:cursor-pointer hover:scale-110"
               />
@@ -656,7 +660,7 @@ function Home() {
           <div className="relative flex flex-col border border-black p-7 ">
             <Link className="overflow-hidden " to="/newspage">
               <img
-                src="./images/news2.jpg"
+                src="/src/images/news2.jpg"
                 alt="news"
                 className="w-full h-auto transition-transform duration-1000 ease-in-out transform hover:cursor-pointer hover:scale-110"
               />
@@ -704,27 +708,27 @@ function Home() {
         <span className="text-white">FEATURED ON</span>
         <div className="flex flex-row space-x-9 phone:space-x-4">
           <img
-            src="./images/vogue.png"
+            src="/src/images/vogue.png"
             alt="Vogue"
             className="object-contain w-16 h-auto tabletLandscape:w-24"
           />
           <img
-            src="./images/gq.png"
+            src="/src/images/gq.png"
             alt="GQ"
             className="object-contain w-12 h-auto tabletLandscape:w-20"
           />
           <img
-            src="./images/menshealth.png"
+            src="/src/images/menshealth.png"
             alt="Men'sHealth"
             className="object-contain w-16 h-auto tabletLandscape:w-24"
           />
           <img
-            src="./images/variety.png"
+            src="/src/images/variety.png"
             alt="Variety"
             className="object-contain w-16 h-auto tabletLandscape:w-24"
           />
           <img
-            src="./images/esquize.png"
+            src="/src/images/esquize.png"
             alt="Esquize"
             className="object-contain w-16 h-auto tabletLandscape:w-24"
           />
@@ -733,7 +737,7 @@ function Home() {
       <div
         className="flex flex-col items-center justify-center w-full h-screen space-y-8 text-center text-white bg-fixed phone:px-12 laptop:px-72"
         style={{
-          backgroundImage: "url('./images/bros.jpg')",
+          backgroundImage: "url('/src/images/bros.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -842,7 +846,7 @@ function Home() {
         <div className="flex items-center justify-center px-8 space-y-6 phone:flex-col tabletLandscape:mx-12 text-start mx-7 tabletLandscape:flex-row">
           <img
             className="w-40 h-40 mt-10 rounded-sm ring-2 ring-white"
-            src="../images/user1.png"
+            src="/src/images/user1.png"
             alt=""
           />
           <div className="space-y-3 tabletLandscape:flex tabletLandscape:flex-col tabletLandscape:ml-9">

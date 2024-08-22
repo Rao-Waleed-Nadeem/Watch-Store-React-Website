@@ -439,7 +439,7 @@ function Cart() {
       </div>
       <div className="flex flex-row w-full phone:my-12 tabletLandscape:my-0 space-x-7 bg-neutral-900">
         <div className="w-1/2">
-          <img src="../images/cart1.jpg" alt="" />
+          <img src="/src/images/cart1.jpg" alt="" />
         </div>
         <div className="flex flex-col items-start justify-center w-1/2 text-white tabletLandscape:space-y-10 phone:space-y-5 tabletLandscape:px-7">
           <span>MAINTENANCE</span>
@@ -462,7 +462,7 @@ function Cart() {
       <div className="flex w-full phone:flex-col tabletLandscape:flex-row tabletLandscape:h-screen">
         <div className="relative h-full overflow-hidden tabletLandscape:w-1/3">
           <img
-            src="../images/cart2.png"
+            src="/src/images/cart2.png"
             alt=""
             className="object-cover w-full h-full transition-transform duration-1000 ease-in-out transform hover:scale-110"
           />
@@ -475,7 +475,7 @@ function Cart() {
         </div>
         <div className="relative h-full overflow-hidden tabletLandscape:w-1/3">
           <img
-            src="../images/cart3.png"
+            src="/src/images/cart3.png"
             alt=""
             className="object-cover w-full h-full transition-transform duration-1000 ease-in-out transform hover:scale-110"
           />
@@ -488,7 +488,7 @@ function Cart() {
         </div>
         <div className="relative h-full overflow-hidden tabletLandscape:w-1/3">
           <img
-            src="../images/brecelete.png"
+            src="/src/images/brecelete.png"
             alt=""
             className="object-cover w-full h-full transition-transform duration-1000 ease-in-out transform hover:scale-110"
           />

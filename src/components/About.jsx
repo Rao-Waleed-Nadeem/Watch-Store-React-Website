@@ -6,7 +6,7 @@ function About() {
     <div>
       <div className="relative w-full h-full ">
         <img
-          src="../images/owner.jpg"
+          src="./src/images/owner.jpg"
           className="object-cover w-full h-auto"
           alt="Owner"
         />
@@ -30,7 +30,7 @@ function About() {
       </div>
       <div className="flex w-full phone:mb-4 tabletLandscape:mb-0 bg-zinc-100 phone:flex-col tabletLandscape:flex-row">
         <img
-          src="../images/about1.jpg"
+          src="./src/images/about1.jpg"
           className="tabletLandscape:w-1/2 phone:my-3 tabletLandscape:my-0 phone:w-full phone:h-1/2"
           alt="Owner"
         />
@@ -59,14 +59,14 @@ function About() {
           </p>
         </div>
         <img
-          src="../images/about3.jpg"
+          src="/src/images/about3.jpg"
           className="tabletLandscape:w-1/2 phone:my-3 tabletLandscape:my-0 phone:w-full phone:h-1/2"
           alt="Owner"
         />
       </div>
       <div className="flex w-full phone:mb-4 bg-zinc-100 phone:flex-col tabletLandscape:flex-row">
         <img
-          src="../images/about4.jpg"
+          src="/src/images/about4.jpg"
           className="tabletLandscape:w-1/2 phone:my-3 tabletLandscape:my-0 phone:w-full phone:h-1/2"
           alt="Owner"
         />
