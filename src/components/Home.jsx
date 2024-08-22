@@ -704,27 +704,27 @@ function Home() {
         <span className="text-white">FEATURED ON</span>
         <div className="flex flex-row space-x-9 phone:space-x-4">
           <img
-            src="../images/vogue.png"
+            src="./images/vogue.png"
             alt="Vogue"
             className="object-contain w-16 h-auto tabletLandscape:w-24"
           />
           <img
-            src="../images/gq.png"
+            src="./images/gq.png"
             alt="GQ"
             className="object-contain w-12 h-auto tabletLandscape:w-20"
           />
           <img
-            src="../images/menshealth.png"
+            src="./images/menshealth.png"
             alt="Men'sHealth"
             className="object-contain w-16 h-auto tabletLandscape:w-24"
           />
           <img
-            src="../images/variety.png"
+            src="./images/variety.png"
             alt="Variety"
             className="object-contain w-16 h-auto tabletLandscape:w-24"
           />
           <img
-            src="../images/esquize.png"
+            src="./images/esquize.png"
             alt="Esquize"
             className="object-contain w-16 h-auto tabletLandscape:w-24"
           />
