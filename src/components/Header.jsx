@@ -139,8 +139,6 @@ function Header() {
     navigate(`/cart/${id}`);
   };
 
-  console.log("photoUrl: ", photoURL);
-
   return (
     <>
       <ScrollToTop />

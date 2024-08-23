@@ -17,6 +17,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/effect-fade";
+import "./Swiper.css";
 // import Item from "antd/es/list/Item";
 import glasses from "/src/images/glasses.jpg";
 import homemenwatch1 from "/src/images/home-menwatch1.png";
@@ -119,8 +120,16 @@ function Home() {
           spaceBetween={10}
           slidesPerView={5}
           navigation
-          pagination={{ clickable: true }}
           scrollbar={{ draggable: true }}
+          pagination={{
+            clickable: true,
+            renderBullet: (index, className) => {
+              // Add your custom Tailwind CSS classes to the bullets
+              return `<span class="${className} w-4 h-4 bg-green-900 rounded-full mx-1"></span>`;
+            },
+            el: ".custom-pagination",
+          }}
+
           // breakPoints={breakPoints}
           // itemsToShow={5}
         >
@@ -170,6 +179,7 @@ function Home() {
           ))}
         </Swiper>
       </div>
+      <div className="flex justify-center mt-3 mb-2 custom-pagination"></div>
 
       <div className="relative flex items-center justify-center w-full h-32 overflow-hidden bg-black phone:h-24 ">
         <div className="moving-text-container phone:py-3">

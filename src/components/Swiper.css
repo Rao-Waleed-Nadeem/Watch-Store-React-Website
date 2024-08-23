@@ -1,0 +1,4 @@
+/* In your global CSS file */
+.swiper-pagination-bullet-active {
+  @apply bg-stone-900; /* Tailwind class to apply a green background to the active dot */
+}
