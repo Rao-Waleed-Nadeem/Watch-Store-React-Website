@@ -10,7 +10,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import ZoomImage from "./ZoomImage";
 import { Form, Link, useLoaderData } from "react-router-dom";
 import { productStore, useProductActions } from "../ProductStore/ProductStore";
@@ -25,6 +25,16 @@ import cart1 from "/src/images/cart1.jpg";
 import cart2 from "/src/images/cart2.png";
 import cart3 from "/src/images/cart3.png";
 import brecelete from "/src/images/brecelete.png";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+import { EffectFade } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import "swiper/css/effect-fade";
+// import "swiper/swiper.min.css"; // For newer versions
+import "./Swiper.css";
 
 export function loader({ params }) {
   return { productId: params.id };
@@ -32,22 +42,31 @@ export function loader({ params }) {
 function Cart() {
   const { productId } = useLoaderData();
   const { addReview, getReviews } = useReviewActions();
-  const { getProducts } = useProductActions();
+  const breakPoints = [
+    { width: 1, slidesPerView: 1 },
+    { width: 550, slidesPerView: 2 },
+    { width: 768, slidesPerView: 3 },
+    { width: 1200, slidesPerView: 4 },
+  ];
+  // const { getProducts } = useProductActions();
   const { addCart, getCarts } = useCartActions();
   const carts = cartStore((state) => state.carts);
   useEffect(() => {
     getCarts();
-    getProducts();
-  }, [getCarts, getProducts]);
+  }, [getCarts]);
   const products = productStore.getState().products;
-  const product = products.find(
-    (singleProduct) => singleProduct.id == productId
+  const product = useMemo(
+    () => products.find((singleProduct) => singleProduct.id == productId),
+    [products, productId]
   );
-  const filteredProducts = products.filter(
-    (state) => product.category === state.category
+  const filteredProducts = useMemo(
+    () => products.filter((state) => product?.category === state.category),
+    [products, product?.category]
   );
-
-  const fiveProducts = filteredProducts.slice(0, 5);
+  const fiveProducts = useMemo(
+    () => filteredProducts.slice(0, 5),
+    [filteredProducts]
+  );
   const cart = carts.some((cart) => cart.id === product.id);
 
   const reviews = reviewStore((state) => state.reviews);
@@ -75,32 +94,28 @@ function Cart() {
     getReviews();
     const localReview = reviews.find((state) => state.id === productId);
     setReview(localReview);
-  }, [setReview, getReviews]);
-  const handleSubmitReview = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    const newReview = {
-      name: name,
-      email: email,
-      id: product.id,
-      rating: rating,
-      comment: comment,
-    };
-
-    try {
-      await addReview(newReview);
-      setReview(newReview);
-      await getReviews();
-    } catch (error) {
-      console.error("Failed to submit review:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-  const handleCartSubmit = async () => {
+  }, [setReview, getReviews, addReview, addCart]);
+  const handleSubmitReview = useCallback(
+    async (e) => {
+      e.preventDefault();
+      setLoading(true);
+      const newReview = { name, email, id: product.id, rating, comment };
+      try {
+        await addReview(newReview);
+        setReview(newReview);
+        await getReviews();
+      } catch (error) {
+        console.error("Failed to submit review:", error);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [name, email, rating, comment, product.id, addReview, getReviews]
+  );
+  const handleCartSubmit = useCallback(async () => {
     setLoading(true);
     const newCart = {
-      quantity: quantity,
+      quantity,
       price: quantity * product.newPrice,
       id: product.id,
     };
@@ -114,20 +129,19 @@ function Cart() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [quantity, price, product.id, product.newPrice, addCart, getCarts]);
 
-  const handleQuantityChange = (change) => {
-    setQuantity((prevQuantity) => {
-      const newQuantity = prevQuantity + change;
-      if (newQuantity < 1) return 1;
-      setPrice(newQuantity * product.newPrice);
-      return newQuantity;
-    });
-  };
-
-  useEffect(() => {
-    getReviews();
-  }, [getReviews, addReview]);
+  const handleQuantityChange = useCallback(
+    (change) => {
+      setQuantity((prevQuantity) => {
+        const newQuantity = prevQuantity + change;
+        if (newQuantity < 1) return 1;
+        setPrice(newQuantity * product.newPrice);
+        return newQuantity;
+      });
+    },
+    [product.newPrice]
+  );
 
   useEffect(() => {
     if (showAlert) {
@@ -411,36 +425,72 @@ function Cart() {
           </h3>
         </div>
       </div>
-      <div className="flex flex-row space-x-4 pb-7 px-7">
+
+      <Swiper
+        modules={[Navigation, Pagination, Scrollbar, A11y]}
+        spaceBetween={0}
+        // slidesPerView={5}
+        navigation
+        scrollbar={{ draggable: true }}
+        pagination={{
+          clickable: true,
+          renderBullet: (index, className) => {
+            // Add your custom Tailwind CSS classes to the bullets
+            return `<span class="${className} w-4 h-4 bg-green-900 rounded-full mx-1"></span>`;
+          },
+          el: ".custom-pagination",
+        }}
+        breakpoints={{
+          450: {
+            slidesPerView: 1,
+            spaceBetween: 3,
+          },
+
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 10,
+          },
+          1024: {
+            slidesPerView: 4,
+            spaceBetween: 20,
+          },
+          1280: {
+            slidesPerView: 5,
+            spaceBetween: 20,
+          },
+        }}
+      >
         {fiveProducts.map((product) => (
-          <div className="flex flex-col items-center justify-center transition-all duration-300 ring-none hover:ring-1 hover:ring-black">
-            <Link to="/cart">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="h-auto mb-5 bg-auto w-60"
-              />
-            </Link>
-            <div className="flex flex-col text-center">
-              <Link to="/cart" className="mt-2 text-xl">
-                {product.name}
+          <SwiperSlide className="flex items-center justify-center py-5">
+            <div className="flex flex-col items-center justify-center transition-all duration-300 ring-none hover:ring-1 hover:ring-black">
+              <Link to="/cart">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="h-auto mb-5 bg-auto w-60"
+                />
               </Link>
-              <span className="text-sm">${product.newPrice}</span>
-              <div className="my-5">
-                <Button
-                  onClick={handleCartSubmit}
-                  type="button"
-                  variant="contained"
-                  style={{ backgroundColor: "#0F0703" }}
-                >
-                  ADD TO CART
-                </Button>
+              <div className="flex flex-col text-center">
+                <Link to="/cart" className="mt-2 text-xl">
+                  {product.name}
+                </Link>
+                <span className="text-sm">${product.newPrice}</span>
+                <div className="my-5">
+                  <Button
+                    onClick={handleCartSubmit}
+                    type="button"
+                    variant="contained"
+                    style={{ backgroundColor: "#0F0703" }}
+                  >
+                    ADD TO CART
+                  </Button>
+                </div>
               </div>
             </div>
-          </div>
+          </SwiperSlide>
         ))}
-        {/* Add more items here as needed */}
-      </div>
+      </Swiper>
+
       <div className="flex flex-row w-full phone:my-12 tabletLandscape:my-0 space-x-7 bg-neutral-900">
         <div className="w-1/2">
           <img src={cart1} alt="" />
@@ -463,42 +513,48 @@ function Cart() {
           </button>
         </div>
       </div>
-      <div className="flex w-full phone:flex-col tabletLandscape:flex-row tabletLandscape:h-screen">
-        <div className="relative h-full overflow-hidden tabletLandscape:w-1/3">
+      <div className="flex flex-col w-full tabletLandscape:flex-row tabletLandscape:h-auto">
+        <div className="relative flex-1 overflow-hidden tabletLandscape:w-1/3">
           <img
             src={cart2}
-            alt=""
+            alt="Sunglasses"
             className="object-cover w-full h-full transition-transform duration-1000 ease-in-out transform hover:scale-110"
           />
-          <div className="absolute bottom-0 z-20 flex flex-col items-center justify-center mb-8 text-white transform -translate-x-1/2 left-1/2 space-y-7">
-            <h1 className="text-4xl">SUNGLASSES</h1>
-            <button className="text-white transition-colors duration-300 bg-transparent border border-white phone:w-32 phone:h-9 tabletLandscape:w-32 tabletLandscape:h-10 hover:bg-white hover:text-black hover:border-black">
+          <div className="absolute bottom-0 z-20 flex flex-col items-center justify-center px-4 mb-4 space-y-4 text-white transform -translate-x-1/2 left-1/2 tabletLandscape:space-y-6">
+            <h1 className="text-2xl font-medium tabletLandscape:text-4xl">
+              SUNGLASSES
+            </h1>
+            <button className="w-24 h-8 text-white transition-colors duration-300 bg-transparent border border-white tabletLandscape:w-32 tabletLandscape:h-10 hover:bg-white hover:text-black hover:border-black">
               VIEW ALL
             </button>
           </div>
         </div>
-        <div className="relative h-full overflow-hidden tabletLandscape:w-1/3">
+        <div className="relative flex-1 overflow-hidden tabletLandscape:w-1/3">
           <img
             src={cart3}
-            alt=""
+            alt="Watches"
             className="object-cover w-full h-full transition-transform duration-1000 ease-in-out transform hover:scale-110"
           />
-          <div className="absolute bottom-0 z-20 flex flex-col items-center justify-center mb-8 text-white transform -translate-x-1/2 left-1/2 space-y-7">
-            <h1 className="text-4xl">WATCHES</h1>
-            <button className="text-white transition-colors duration-300 bg-transparent border border-white phone:w-32 phone:h-9 tabletLandscape:w-32 tabletLandscape:h-10 hover:bg-white hover:text-black hover:border-black">
+          <div className="absolute bottom-0 z-20 flex flex-col items-center justify-center px-4 mb-4 space-y-4 text-white transform -translate-x-1/2 left-1/2 tabletLandscape:space-y-6">
+            <h1 className="text-2xl font-medium tabletLandscape:text-4xl">
+              WATCHES
+            </h1>
+            <button className="w-24 h-8 text-white transition-colors duration-300 bg-transparent border border-white tabletLandscape:w-32 tabletLandscape:h-10 hover:bg-white hover:text-black hover:border-black">
               VIEW ALL
             </button>
           </div>
         </div>
-        <div className="relative h-full overflow-hidden tabletLandscape:w-1/3">
+        <div className="relative flex-1 overflow-hidden tabletLandscape:w-1/3">
           <img
             src={brecelete}
-            alt=""
+            alt="Bracelets"
             className="object-cover w-full h-full transition-transform duration-1000 ease-in-out transform hover:scale-110"
           />
-          <div className="absolute bottom-0 z-20 flex flex-col items-center justify-center mb-8 text-white transform -translate-x-1/2 left-1/2 space-y-7">
-            <h1 className="text-4xl">BRACELETS</h1>
-            <button className="text-white transition-colors duration-300 bg-transparent border border-white phone:w-32 phone:h-9 tabletLandscape:w-32 tabletLandscape:h-10 hover:bg-white hover:text-black hover:border-black">
+          <div className="absolute bottom-0 z-20 flex flex-col items-center justify-center px-4 mb-4 space-y-4 text-white transform -translate-x-1/2 left-1/2 tabletLandscape:space-y-6">
+            <h1 className="text-2xl font-medium tabletLandscape:text-4xl">
+              BRACELETS
+            </h1>
+            <button className="w-24 h-8 text-white transition-colors duration-300 bg-transparent border border-white tabletLandscape:w-32 tabletLandscape:h-10 hover:bg-white hover:text-black hover:border-black">
               VIEW ALL
             </button>
           </div>

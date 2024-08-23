@@ -23,7 +23,6 @@ function Login() {
   const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
-    // Handle Google Sign-In redirect result on mobile devices
     handleRedirectResult();
   }, []);
 

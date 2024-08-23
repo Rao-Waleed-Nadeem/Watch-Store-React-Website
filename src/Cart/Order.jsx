@@ -21,29 +21,17 @@ function Order() {
   const navigate = useNavigate();
   const { userLoggedIn } = useAuthStore();
   const { getCarts, editCart } = useCartActions();
-  const { getProducts } = useProductActions();
   const { deleteCart } = useCartActions();
   let products = productStore((state) => state.products);
   let carts = cartStore((state) => state.carts);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await getCarts();
-      await getProducts();
-      // products = productStore((state) => state.products);
-      // carts = cartStore((state) => state.carts);
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     await getCarts();
+  //   };
 
-    fetchData();
-  }, [
-    getCarts,
-    getProducts,
-    deleteCart,
-    editCart,
-    cartStore,
-    productStore,
-    useCartActions,
-  ]);
+  //   fetchData();
+  // }, [getCarts, deleteCart, editCart, cartStore, productStore, useCartActions]);
 
   let totalCarts = 0;
   let totalPrice = 0;
@@ -71,6 +59,14 @@ function Order() {
       border: "1px solid white",
     },
   });
+
+  if (totalPrice === 0) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <h1 className="text-2xl italic font-light md:text-4xl">No Product</h1>
+      </div>
+    );
+  }
 
   return (
     <div className="flex w-full tabletLandscape:flex-row phone:flex-col">
@@ -124,29 +120,6 @@ function Order() {
                       </span>
                     </div>
                   ))}
-                  {/* <div className="flex flex-row w-full p-3 space-x-3">
-                  <div className="flex flex-row space-x-6 ">
-                    <div className="flex items-center justify-center w-10 h-10">
-                      <Badge badgeContent={4} color="primary">
-                        <img
-                          src="home-watch.png"
-                          className="object-cover w-10 h-10"
-                          alt=""
-                        />
-                      </Badge>
-                    </div>
-                    <div className="flex flex-col space-y-3 text-sm">
-                      <span>ChronoTrigger</span>
-                      <span>$679.00</span>
-                      <span className="w-4/5">
-                        Unleash the power of time with this extraordinary
-                        timepiece that combines precision and style. The…
-                      </span>
-                    </div>
-                  </div>
-                  <div></div>
-                  <span className="text-base font-semibold">$3359.00</span>
-                </div> */}
                 </div>
               )}
             </AccordionDetails>

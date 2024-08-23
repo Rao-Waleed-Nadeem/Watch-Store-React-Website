@@ -2,3 +2,12 @@
 .swiper-pagination-bullet-active {
   @apply bg-stone-900; /* Tailwind class to apply a green background to the active dot */
 }
+
+.swiper-slide {
+  display: flex; /* Ensures that items are laid out horizontally */
+}
+
+.styling-example {
+  width: 100%;
+  overflow: hidden;
+}

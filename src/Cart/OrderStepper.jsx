@@ -90,7 +90,7 @@ export default function OrderStepper() {
       const fetchStates = async () => {
         try {
           const response = await axios.get(
-            `https://www.universal-tutorial.com/api/states/${selectedCountry}`,
+            `https://www.universal-tutorial.com/api/states/${country}`,
             {
               headers: {
                 Authorization: `Bearer ${authToken}`,
@@ -112,7 +112,7 @@ export default function OrderStepper() {
       const fetchCities = async () => {
         try {
           const response = await axios.get(
-            `https://www.universal-tutorial.com/api/cities/${selectedState}`,
+            `https://www.universal-tutorial.com/api/cities/${state}`,
             {
               headers: {
                 Authorization: `Bearer ${authToken}`,
@@ -130,58 +130,8 @@ export default function OrderStepper() {
     }
   }, [state, authToken]);
 
-  // useEffect(() => {
-  //   const fetchStates = async () => {
-  //     try {
-  //       if (authToken && country) {
-  //         const response = await axios.get(
-  //           `https://www.universal-tutorial.com/api/states/${country}`,
-  //           {
-  //             headers: {
-  //               Authorization: `Bearer ${authToken}`,
-  //               Accept: "application/json",
-  //             },
-  //           }
-  //         );
-  //         setStates(response.data);
-  //         saveToLocalStorage("states", response.data);
-  //       }
-  //     } catch (error) {
-  //       setError("Error fetching states: " + error.message);
-  //       console.error("Error:", error.response || error.message || error);
-  //     }
-  //   };
-
-  //   fetchStates();
-  // }, [authToken, country]);
-
-  // useEffect(() => {
-  //   const fetchCities = async () => {
-  //     try {
-  //       if (authToken && state) {
-  //         const response = await axios.get(
-  //           `https://www.universal-tutorial.com/api/cities/${state}`,
-  //           {
-  //             headers: {
-  //               Authorization: `Bearer ${authToken}`,
-  //               Accept: "application/json",
-  //             },
-  //           }
-  //         );
-  //         setCities(response.data);
-  //         saveToLocalStorage("cities", response.data);
-  //       }
-  //     } catch (error) {
-  //       setError("Error fetching cities: " + error.message);
-  //       console.error("Error:", error.response || error.message || error);
-  //     }
-  //   };
-
-  //   fetchCities();
-  // }, [authToken, state]);
-
   console.log("countries: ", countries);
-
+  console.log("states: ", states);
   const initialBillingAddress = {
     fname: "",
     lname: "",
@@ -192,7 +142,7 @@ export default function OrderStepper() {
     zip: "",
     phone: "",
   };
-
+  console.log("cities: ", cities);
   function billingReducers(billingAddress, action) {
     switch (action.type) {
       case "SET_BILLING_ADDRESS": {
@@ -274,106 +224,100 @@ export default function OrderStepper() {
     "Payment Options",
   ];
 
-  const handleCountryChange = (event) => {
+  const handleCountryChange = async (event) => {
     const selectedCountry = event.target.value;
     setCountry(selectedCountry);
     dispatch({ type: "SET_country", country: selectedCountry });
-    fetch(`https://www.universal-tutorial.com/api/states/${selectedCountry}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-        Accept: "application/json",
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+
+    try {
+      const response = await axios.get(
+        `https://www.universal-tutorial.com/api/states/${selectedCountry}`,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            Accept: "application/json",
+          },
         }
-        return response.json();
-      })
-      .then((data) => {
-        setStates(data);
-        // console.log("Country: ", selectedCountry);
-        // console.log("States: ", data);
-      })
-      .catch((error) => console.error("Error:", error));
+      );
+      setStates(response.data);
+    } catch (error) {
+      console.error("Error fetching states:", error);
+    }
   };
 
-  const handleBillCountryChange = (event) => {
-    dispatch({ type: "SET_country", country: event.target.value });
-    fetch(
-      `https://www.universal-tutorial.com/api/states/${event.target.value}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-          Accept: "application/json",
-        },
+  const handleBillCountryChange = async (event) => {
+    const selectedCountry = event.target.value;
+    dispatch({ type: "SET_country", country: selectedCountry });
+
+    try {
+      const response = await fetch(
+        `https://www.universal-tutorial.com/api/states/${selectedCountry}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            Accept: "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setStates(data);
-        // console.log("Country: ", selectedCountry);
-        // console.log("States: ", data);
-      })
-      .catch((error) => console.error("Error:", error));
+
+      const data = await response.json();
+      setStates(data);
+    } catch (error) {
+      console.error("Error fetching states:", error);
+    }
   };
 
-  const handleStateChange = (event) => {
+  const handleStateChange = async (event) => {
     const selectedState = event.target.value;
     setState(selectedState);
     dispatch({ type: "SET_state", state: selectedState });
 
-    fetch(`https://www.universal-tutorial.com/api/cities/${selectedState}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-        Accept: "application/json",
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+    try {
+      const response = await axios.get(
+        `https://www.universal-tutorial.com/api/cities/${selectedState}`,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            Accept: "application/json",
+          },
         }
-        return response.json();
-      })
-      .then((data) => {
-        setCitites(data);
-        // console.log("Country: ", selectedState);
-        // console.log("States: ", data);
-      })
-      .catch((error) => console.error("Error:", error));
+      );
+      setCities(response.data);
+    } catch (error) {
+      console.error("Error fetching cities:", error);
+    }
   };
 
-  const handleBillStateChange = (event) => {
+  const handleBillStateChange = async (event) => {
     const selectedState = event.target.value;
     dispatch({ type: "SET_state", state: selectedState });
 
-    fetch(`https://www.universal-tutorial.com/api/cities/${selectedState}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-        Accept: "application/json",
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+    try {
+      const response = await fetch(
+        `https://www.universal-tutorial.com/api/cities/${selectedState}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            Accept: "application/json",
+          },
         }
-        return response.json();
-      })
-      .then((data) => {
-        setCitites(data);
-        // console.log("Country: ", selectedState);
-        // console.log("States: ", data);
-      })
-      .catch((error) => console.error("Error:", error));
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setCitites(data); // Note: Ensure that `setCitites` is the correct function name; it should be `setCities` if it's a typo.
+    } catch (error) {
+      console.error("Error fetching cities:", error);
+    }
   };
 
   const handleCityChange = (event) => {

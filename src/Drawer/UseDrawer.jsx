@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Drawer } from "antd";
 import "./Drawer.css";
 import useDrawerStore from "./DrawerStore";
@@ -19,22 +19,10 @@ const UseDrawer = () => {
   );
   const navigate = useNavigate();
   const { userLoggedIn } = useAuthStore();
-  const { getCarts, editCart } = useCartActions();
-  const { getProducts } = useProductActions();
+  const { editCart } = useCartActions();
   const { deleteCart } = useCartActions();
   const products = productStore((state) => state.products);
   const carts = cartStore((state) => state.carts);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!loading) setLoading(true);
-      await getCarts();
-      await getProducts();
-      setLoading(false);
-    };
-
-    fetchData();
-  }, [getCarts, getProducts, deleteCart, editCart]);
 
   let totalCarts = 0;
   let totalPrice = 0;
@@ -71,16 +59,19 @@ const UseDrawer = () => {
     }
   };
 
-  const handleRemoveItem = async (id) => {
-    setLoading(true);
-    try {
-      await deleteCart(id);
-    } catch (error) {
-      console.error("Failed to delete cart:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const handleRemoveItem = useCallback(
+    async (id) => {
+      setLoading(true);
+      try {
+        await deleteCart(id);
+      } catch (error) {
+        console.error("Failed to delete cart:", error);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [deleteCart]
+  );
 
   return (
     <div className="">
@@ -183,6 +174,7 @@ const UseDrawer = () => {
             <div className="flex flex-row space-x-3">
               <button
                 onClick={() => {
+                  setRightDrawerOpen(false);
                   navigate(`/viewcart`);
                 }}
                 className="text-black transition-colors duration-300 bg-transparent border border-black phone:w-32 phone:h-9 tabletLandscape:w-32 tabletLandscape:h-10 hover:bg-black hover:text-white hover:border-black"
@@ -190,7 +182,10 @@ const UseDrawer = () => {
                 VIEW MY CART
               </button>
               <button
-                onClick={() => navigate("/order")}
+                onClick={() => {
+                  setRightDrawerOpen(false);
+                  navigate("/order");
+                }}
                 className="text-white transition-colors duration-300 bg-black border border-black phone:w-32 phone:h-9 tabletLandscape:w-32 tabletLandscape:h-10 hover:bg-white hover:text-black hover:border-black"
               >
                 GO TO CHECKOUT

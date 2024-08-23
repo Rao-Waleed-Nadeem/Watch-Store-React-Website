@@ -34,10 +34,9 @@ const DarkBrownBadge = styled(Badge)({
 
 function Header() {
   const navigate = useNavigate();
+
   const { userLoggedIn, photoURL, displayName, isGoogleUser } = useAuthStore();
   const { Search, SetSearch } = useSearchStore();
-  const { getCarts } = useCartActions();
-  const { getProducts } = useProductActions();
   const products = productStore((state) => state.products);
   const carts = cartStore((state) => state.carts);
   const [leftDrawerOpen, setLeftDrawerOpen] = useState(false);
@@ -59,10 +58,7 @@ function Header() {
     totalCarts += cart.quantity;
   });
 
-  useEffect(() => {
-    getCarts();
-    getProducts();
-  }, [getCarts, userLoggedIn, isGoogleUser, totalCarts]);
+  useEffect(() => {}, [userLoggedIn, isGoogleUser, totalCarts]);
 
   const handleSearchClick = () => {
     setIsSearch(!isSearch);
@@ -88,9 +84,8 @@ function Header() {
     setLeftDrawerOpen(condition);
   };
 
-  const handleRightDrawer = (condition) => async () => {
+  const handleRightDrawer = (condition) => () => {
     setRightDrawerOpen(condition);
-    await getCarts();
   };
 
   const handleOpenDialog = () => {
@@ -212,20 +207,35 @@ function Header() {
             </MUIDrawer>
           </div>
 
-          <div className="logo txt text-xl tabletLandscape:absolute tabletLandscape:left-[55%] z-10 tabletLandscape:transform tabletLandscape:-translate-x-1/2 hover:font-bold transition-all ease-in-out  duration-300">
-            <div className="flex flex-row tabletLandscape:space-x-2">
-              {!isSearch && (
-                <Link>
-                  <img src={imgURL} alt="" className="w-10 h-10" />
-                </Link>
-              )}
-              <Link className="pt-[7px]" to="/">
+          <div
+            className={`logo txt text-xl  absolute left-[52%] z-10 ${
+              isSearch
+                ? "phone:left-[26%]  phone:transition-all  phone:duration-300"
+                : ""
+            } transform -translate-x-[80%]  tabletLandscape:-translate-x-1/2 hover:font-bold transition-all ease-in-out  duration-300`}
+          >
+            <div className="flex flex-row items-center justify-center tabletLandscape:space-x-2">
+              <Link>
+                <img
+                  src={imgURL}
+                  alt=""
+                  className={`w-10 h-10 transition-opacity duration-200 ease-in-out ${
+                    isSearch ? "opacity-0 " : "opacity-100"
+                  }`}
+                />
+              </Link>
+
+              <Link className={`  `} to="/">
                 Dremo
               </Link>
             </div>
           </div>
 
-          <div className="z-50 flex icons phone:space-x-0 tabletLandscape:space-x-3 laptop:space-x-4">
+          <div
+            className={`${
+              isSearch ? "transition-transform duration-300 translate-x-3" : ""
+            } z-50 flex icons phone:space-x-0 tabletLandscape:space-x-3 laptop:space-x-4`}
+          >
             {
               <div className="relative ">
                 <input
@@ -250,7 +260,7 @@ function Header() {
                   }`}
                 />
                 {showList && (
-                  <ul className="absolute z-10 flex flex-col items-start justify-center py-2 bg-white border border-black top-12 rounded-xl phone:w-44 tabletLandscape:w-48">
+                  <ul className="absolute z-10 flex flex-col items-start justify-center py-2 bg-white border border-black top-12 rounded-xl phone:w-44 tabletLandscape:w-44">
                     {filteredProducts.length > 0 ? (
                       filteredProducts.map((product) => (
                         <button

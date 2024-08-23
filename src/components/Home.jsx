@@ -1,5 +1,5 @@
 import { Button, Rating } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "./Animation.css";
 import "./Carousel.css";
 import { Link, NavLink, useNavigate } from "react-router-dom";
@@ -53,26 +53,20 @@ function Home() {
     { width: 1200, slidesPerView: 4 },
   ];
 
-  const { getProducts } = useProductActions();
-
-  const { addCart, getCarts, editCart } = useCartActions();
-  useEffect(() => {
-    const fetchData = () => {
-      getCarts();
-      getProducts();
-    };
-    fetchData;
-  }, [getCarts, editCart, addCart, setQuantity, getProducts]);
-  const carts = cartStore((state) => state.carts);
   const products = productStore((state) => state.products);
-  const flare_glaciers = products.find(
-    (state) => state.name === "Flare Glaciers"
+  const flare_glaciers = useMemo(
+    () => products.find((product) => product.name === "Flare Glaciers"),
+    [products]
   );
-  const digitaledge = products.find(
-    (product) => product.name === "DigitalEdge"
+  const digitaledge = useMemo(
+    () => products.find((product) => product.name === "DigitalEdge"),
+    [products]
   );
-  const smartsync = products.find((product) => product.name === "SmartSync");
-
+  const smartsync = useMemo(
+    () => products.find((product) => product.name === "SmartSync"),
+    [products]
+  );
+  console.log("digital edge: ", digitaledge);
   const navigate = useNavigate();
   const handleMaterial = () => navigate("/about");
   const handleViewProduct = () => {
@@ -107,7 +101,7 @@ function Home() {
             </p>
             <button
               onClick={handleShopProducts}
-              className="text-sm text-white transition-colors duration-300 border border-white phone:w-28 phone:h-9 tabletLandscape:w-40 tabletLandscape:h-12 hover:bg-white hover:text-black"
+              className="text-sm text-white transition-colors duration-300 border border-white tabletLandscape:text-base phone:w-28 phone:h-9 tabletLandscape:w-40 tabletLandscape:h-12 hover:bg-white hover:text-black"
             >
               Shop Products
             </button>
@@ -131,17 +125,22 @@ function Home() {
             el: ".custom-pagination",
           }}
           breakpoints={{
-            640: {
-              slidesPerView: 2,
-              spaceBetween: 20,
+            450: {
+              slidesPerView: 1,
+              spaceBetween: 3,
             },
+
             768: {
-              slidesPerView: 4,
-              spaceBetween: 40,
+              slidesPerView: 3,
+              spaceBetween: 10,
             },
             1024: {
+              slidesPerView: 4,
+              spaceBetween: 20,
+            },
+            1280: {
               slidesPerView: 5,
-              spaceBetween: 50,
+              spaceBetween: 20,
             },
           }}
 
@@ -185,7 +184,7 @@ function Home() {
                       variant="contained"
                       style={{ backgroundColor: "#0F0703" }}
                     >
-                      ADD TO CART
+                      View Product
                     </Button>
                   </div>
                 </div>
