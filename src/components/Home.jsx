@@ -455,7 +455,7 @@ function Home() {
         />
 
         {/* Content */}
-        <div className="relative z-10 flex flex-col my-5 space-y-5 rounded-md tabletLandscape:px-6">
+        <div className="relative z-0 flex flex-col my-5 space-y-5 rounded-md tabletLandscape:px-6">
           <span className="text-xl">STAY UPDATED</span>
           <h1 className="text-5xl tabletLandscape:text-7xl">Newsletter</h1>
           <p className="text-lg">
@@ -469,7 +469,7 @@ function Home() {
         <form
           onSubmit={handleSubscribe}
           type="post"
-          className="relative z-10 flex flex-col w-full my-5 text-black tabletLandscape:px-8 space-y-7"
+          className="relative z-0 flex flex-col w-full my-5 text-black tabletLandscape:px-8 space-y-7"
         >
           {subscribe === true && (
             <div>
