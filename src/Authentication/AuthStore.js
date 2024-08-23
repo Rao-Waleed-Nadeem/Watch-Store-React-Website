@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { auth, db } from "../config/Firebase";
 import { GoogleAuthProvider } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDoc, getDocs } from "firebase/firestore";
 
 // Load user data from localStorage
 const loadUserFromLocalStorage = () => {
@@ -12,17 +12,21 @@ const loadUserFromLocalStorage = () => {
 
 const loadIsEmailUserFromLocalStorage = async () => {
   try {
-    const EmailCollectionRef = collection(db, "authInfo");
-    const EmailCollection = await getDocs(EmailCollectionRef);
+    const docRef = doc(db, "authInfo", "12345");
+    const docSnap = await getDoc(docRef);
 
-    // Assuming there's only one document in the collection
-    const emailData = EmailCollection.docs[0]?.data(); // Safely access the first doc
-    if (emailData && emailData.hasOwnProperty("isEmailUser")) {
-      console.log("retrieve emailuser from firebase: ", emailData.isEmailUser);
-      return emailData.isEmailUser; // Ensure it returns a boolean
+    if (docSnap.exists()) {
+      const emailData = docSnap.data();
+      if (emailData && emailData.hasOwnProperty("isEmailUser")) {
+        console.log(
+          "retrieve emailuser from firebase: ",
+          emailData.isEmailUser
+        );
+        return emailData.isEmailUser; // Ensure it returns a boolean
+      }
+      console.log("attribute 'isEmailUser' not found in document.");
+      return false; // Fallback if attribute is not found
     }
-    console.log("not found emailuser from firebase: ", emailData.isEmailUser);
-
     return false; // Fallback if there's no valid data
   } catch (error) {
     console.error("Error fetching data from Firestore:", error);
@@ -38,7 +42,7 @@ const useAuthStore = create((set, get) => ({
     loadUserFromLocalStorage()?.providerData?.some(
       (provider) => provider.providerId === GoogleAuthProvider.PROVIDER_ID
     ) || false, // Safely access providerData
-  isEmailUser: loadIsEmailUserFromLocalStorage(), // Initialized as false, updated later asynchronously
+  isEmailUser: false, // Initialized as false, updated later asynchronously
   loading: true,
   displayName: loadUserFromLocalStorage()?.displayName || "",
   email: loadUserFromLocalStorage()?.email || "",
@@ -81,14 +85,12 @@ const useAuthStore = create((set, get) => ({
       localStorage.setItem("currentUser", JSON.stringify(user));
 
       // Load `isEmailUser` from Firestore asynchronously
-      const emailUser = await loadIsEmailUserFromLocalStorage();
-      set({ isEmailUser: emailUser });
+      await get().recheckEmailUser();
     } else {
       // Clear user data from Zustand and localStorage
       set({
         currentUser: null,
         userLoggedIn: false,
-        // isEmailUser: false,
         isGoogleUser: false,
         displayName: "",
         email: "",
@@ -97,6 +99,16 @@ const useAuthStore = create((set, get) => ({
       localStorage.removeItem("currentUser");
     }
     set({ loading: false });
+  },
+
+  recheckEmailUser: async () => {
+    try {
+      const emailUser = await loadIsEmailUserFromLocalStorage();
+      set({ isEmailUser: emailUser });
+    } catch (error) {
+      console.error("Error rechecking email user status:", error);
+      set({ isEmailUser: false }); // Set to false if there's an error
+    }
   },
 }));
 

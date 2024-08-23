@@ -11,7 +11,7 @@ import {
   signInWithRedirect,
   getRedirectResult,
 } from "firebase/auth";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc } from "firebase/firestore";
 import { isMobile } from "react-device-detect";
 
 export const doCreateUserWithEmailAndPassword = async (email, password) => {
@@ -25,7 +25,10 @@ export const doCreateUserWithEmailAndPassword = async (email, password) => {
     );
     setCurrentUser(userCredentials.user);
     setIsEmailUser(true);
-    const EmailRef = await addDoc(collection(db, "authInfo"), {
+    const docRef = doc(db, "authInfo", "12345");
+
+    // Update the `isEmailUser` field
+    await updateDoc(docRef, {
       isEmailUser: true,
     });
     console.log("isEmailUser in auth: ", isEmailUser);
