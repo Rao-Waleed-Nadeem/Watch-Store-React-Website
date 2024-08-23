@@ -1,8 +1,0 @@
-[build]
-  publish = "src/build" # Path to your build output directory relative to the root
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  force = true
