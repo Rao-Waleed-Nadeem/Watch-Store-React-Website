@@ -186,7 +186,7 @@ const UseDrawer = () => {
                   setRightDrawerOpen(false);
                   navigate("/order");
                 }}
-                className="text-white transition-colors duration-300 bg-black border border-black phone:w-32 phone:h-9 tabletLandscape:w-32 tabletLandscape:h-10 hover:bg-white hover:text-black hover:border-black"
+                className="text-white transition-colors duration-300 bg-black border border-black phone:px-1 tabletLandscape:px-0 phone:w-32 phone:h-9 tabletLandscape:w-32 tabletLandscape:h-10 hover:bg-white hover:text-black hover:border-black"
               >
                 GO TO CHECKOUT
               </button>
