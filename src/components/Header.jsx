@@ -222,7 +222,7 @@ function Header() {
                 </Link>
               )}
               <Link className="pt-[7px]" to="/">
-                Dremo
+                Waleed
               </Link>
             </div>
           </div>
