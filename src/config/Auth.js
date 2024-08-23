@@ -1,5 +1,4 @@
 import useAuthStore from "../Authentication/AuthStore";
-// import { auth, db } from "./Firebase";
 import { auth, db } from "../config/Firebase";
 import {
   createUserWithEmailAndPassword,
@@ -9,15 +8,11 @@ import {
   updatePassword,
   signInWithPopup,
   GoogleAuthProvider,
+  signInWithRedirect,
+  getRedirectResult,
 } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
-
-// const { displayName, photoURL, email, isGoogleUser } = useAuthStore();
-// export const doCreateUserWithEmailAndPassword = async (email, password) => {
-//   const { setIsEmailUser } = useAuthStore.getState();
-//   setIsEmailUser(true);
-//   return createUserWithEmailAndPassword(auth, email, password);
-// };
+import { isMobile } from "react-device-detect";
 
 export const doCreateUserWithEmailAndPassword = async (email, password) => {
   const { setCurrentUser, setIsEmailUser, isEmailUser } =
@@ -29,8 +24,7 @@ export const doCreateUserWithEmailAndPassword = async (email, password) => {
       password
     );
     setCurrentUser(userCredentials.user);
-    setIsEmailUser(true); // Set and persist email user flag
-    // localStorage.setItem("isEmailUser", true);
+    setIsEmailUser(true);
     const EmailRef = await addDoc(collection(db, "authInfo"), {
       isEmailUser: true,
     });
@@ -63,8 +57,6 @@ export const doSignInWithEmailAndPassword = async (email, password) => {
     );
     setCurrentUser(userCredentials.user);
     setUserLoggedIn(true);
-    // setIsEmailUser(true);
-    // localStorage.setItem("isEmailUser", true);
     setIsGoogleUser(false);
     getGmailInfo();
     return userCredentials.user;
@@ -80,33 +72,63 @@ export const doSignInWithEmailAndPassword = async (email, password) => {
 export const doSignInWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
   try {
-    const result = await signInWithPopup(auth, provider);
-    const user = result.user;
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
 
-    // Update Zustand store with user's information
-    const {
-      setCurrentUser,
-      setUserLoggedIn,
-      setIsGoogleUser,
-      setLoading,
-      getGmailInfo,
-      setPhotoURL,
-      // loading,
-      // setIsEmailUser,
-    } = useAuthStore.getState();
-    setLoading(true);
-    setCurrentUser(user);
-    setUserLoggedIn(true);
-    setIsGoogleUser(true);
-    // setIsEmailUser(false);
-    setPhotoURL(user.photoURL);
-    console.log("user: ", user);
-    getGmailInfo();
+    if (isMobile) {
+      await signInWithRedirect(auth, provider); // Use redirect on mobile
+    } else {
+      const result = await signInWithPopup(auth, provider); // Use popup on desktop
+      const user = result.user;
 
-    setLoading(false);
+      const {
+        setCurrentUser,
+        setUserLoggedIn,
+        setIsGoogleUser,
+        setLoading,
+        getGmailInfo,
+        setPhotoURL,
+      } = useAuthStore.getState();
+
+      setLoading(true);
+      setCurrentUser(user);
+      setUserLoggedIn(true);
+      setIsGoogleUser(true);
+      setPhotoURL(user.photoURL);
+      console.log("user: ", user);
+      getGmailInfo();
+      setLoading(false);
+    }
   } catch (error) {
     console.error("Error signing in with Google:", error);
     setLoading(false);
+  }
+};
+
+export const handleRedirectResult = async () => {
+  try {
+    const result = await getRedirectResult(auth);
+    if (result) {
+      const user = result.user;
+
+      const {
+        setCurrentUser,
+        setUserLoggedIn,
+        setIsGoogleUser,
+        setLoading,
+        getGmailInfo,
+        setPhotoURL,
+      } = useAuthStore.getState();
+
+      setLoading(true);
+      setCurrentUser(user);
+      setUserLoggedIn(true);
+      setIsGoogleUser(true);
+      setPhotoURL(user.photoURL);
+      getGmailInfo();
+      setLoading(false);
+    }
+  } catch (error) {
+    console.error("Error handling redirect result:", error);
   }
 };
 
@@ -117,17 +139,13 @@ export const doSignOut = async () => {
     setIsGoogleUser,
     setLoading,
     getGmailInfo,
-    // loading,
-    // setIsEmailUser,
   } = useAuthStore.getState();
   setLoading(true);
 
   try {
     await auth.signOut();
     setUserLoggedIn(false);
-    // setIsGoogleUser(false);
-    // setIsEmailUser(false);
-    // setCurrentUser(null);
+    setIsGoogleUser(false);
     getGmailInfo();
   } catch (error) {
     console.error("Sign out error:", error);

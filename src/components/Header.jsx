@@ -110,7 +110,7 @@ function Header() {
           { text: "About", path: "/about" },
           { text: "News", path: "/news" },
           { text: "Contact", path: "/contact" },
-          { text: "Add Product", path: "/addproduct" },
+          // { text: "Add Product", path: "/addproduct" },
         ].map((item) => (
           <li key={item.text} className="py-2">
             <NavLink
@@ -152,7 +152,7 @@ function Header() {
         } z-10 transition-all duration-300`}
       >
         <nav className="flex items-center justify-between phone:py-4 laptop:py-4 phone:px-6 laptop:px-8">
-          <div className="z-50 menu phone:hidden tabletLandscape:inline-block tabletLandscape:space-x-3 sm:flex laptop:space-x-8">
+          <div className="z-50 menu phone:hidden tabletLandscape:inline-block tabletLandscape:space-x-3 sm:flex tabletPortrait:space-x-0 laptop:space-x-8">
             <NavLink
               to="/"
               className={({ isActive }) =>
@@ -193,14 +193,14 @@ function Header() {
             >
               Contact
             </NavLink>
-            <NavLink
+            {/* <NavLink
               to="/addproduct"
               className={({ isActive }) =>
                 `underline-animation z-10 ${isActive ? "active" : ""}`
               }
             >
               Add Product
-            </NavLink>
+            </NavLink> */}
           </div>
 
           <div className="tabletLandscape:hidden">
@@ -225,7 +225,7 @@ function Header() {
             </div>
           </div>
 
-          <div className="z-10 flex icons phone:space-x-0 tabletLandscape:space-x-3 laptop:space-x-4">
+          <div className="z-50 flex icons phone:space-x-0 tabletLandscape:space-x-3 laptop:space-x-4">
             {
               <div className="relative ">
                 <input

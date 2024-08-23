@@ -15,6 +15,7 @@ import {
   TextField,
 } from "@mui/material";
 import useAuthStore from "../Authentication/AuthStore";
+import axios from "axios";
 
 export default function OrderStepper() {
   const [activeStep, setActiveStep] = useState(0);
@@ -28,7 +29,7 @@ export default function OrderStepper() {
   const [country, setCountry] = useState("");
   const [states, setStates] = useState([]);
   const [state, setState] = useState("");
-  const [cities, setCitites] = useState([]);
+  const [cities, setCities] = useState([]);
   const [city, setCity] = useState("");
   const [zip, setZip] = useState("");
   const [phone, setPhone] = useState("");
@@ -41,46 +42,145 @@ export default function OrderStepper() {
   };
 
   useEffect(() => {
-    fetch("https://www.universal-tutorial.com/api/getaccesstoken", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "api-token":
-          "Njl3bsqrDkfOe_Lk4SRUveGNV2g7Kndm5CEbo6M948EG6oflbW6QI33kbVTFmTjDNKw",
-        "user-email": "waleedhafiz702@gmail.com",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // console.log("Response:", data);
-        setAuthToken(data.auth_token);
-        saveToLocalStorage("authToken", data.auth_token);
-      })
-      .catch((error) => console.log("Error:", error));
-  }, [setAuthToken]);
+    const fetchToken = async () => {
+      try {
+        const response = await axios.get(
+          "https://www.universal-tutorial.com/api/getaccesstoken",
+          {
+            headers: {
+              Accept: "application/json",
+              "api-token":
+                "BVZ0cvkV9c7A3ijLegwsL9HuTVJQUbuvxeNZTShICip3vzv39Xc34oKprGRO7HnxGRo",
+              "user-email": "rao.waleed.nadeem@gmail.com",
+            },
+          }
+        );
+        setAuthToken(response.data.auth_token);
+      } catch (error) {
+        console.error("Error fetching token:", error);
+      }
+    };
 
+    fetchToken();
+  }, []);
   useEffect(() => {
-    const storedCountries = localStorage.getItem("countries");
-    if (authToken && storedCountries) {
-      setCountries(JSON.parse(storedCountries));
-    } else if (authToken) {
-      // console.log("auth_token: ", authToken);
+    if (authToken) {
+      const fetchCountries = async () => {
+        try {
+          const response = await axios.get(
+            "https://www.universal-tutorial.com/api/countries/",
+            {
+              headers: {
+                Authorization: `Bearer ${authToken}`,
+                Accept: "application/json",
+              },
+            }
+          );
+          setCountries(response.data);
+        } catch (error) {
+          console.error("Error fetching countries:", error);
+        }
+      };
 
-      fetch("https://www.universal-tutorial.com/api/countries/", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-          Accept: "application/json",
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setCountries(data);
-          saveToLocalStorage("countries", data);
-        })
-        .catch((error) => console.error("Error:", error));
+      fetchCountries();
     }
-  }, [setCountries]);
+  }, [authToken]);
+  useEffect(() => {
+    if (country && authToken) {
+      const fetchStates = async () => {
+        try {
+          const response = await axios.get(
+            `https://www.universal-tutorial.com/api/states/${selectedCountry}`,
+            {
+              headers: {
+                Authorization: `Bearer ${authToken}`,
+                Accept: "application/json",
+              },
+            }
+          );
+          setStates(response.data);
+        } catch (error) {
+          console.error("Error fetching states:", error);
+        }
+      };
+
+      fetchStates();
+    }
+  }, [country, authToken]);
+  useEffect(() => {
+    if (state && authToken) {
+      const fetchCities = async () => {
+        try {
+          const response = await axios.get(
+            `https://www.universal-tutorial.com/api/cities/${selectedState}`,
+            {
+              headers: {
+                Authorization: `Bearer ${authToken}`,
+                Accept: "application/json",
+              },
+            }
+          );
+          setCities(response.data);
+        } catch (error) {
+          console.error("Error fetching cities:", error);
+        }
+      };
+
+      fetchCities();
+    }
+  }, [state, authToken]);
+
+  // useEffect(() => {
+  //   const fetchStates = async () => {
+  //     try {
+  //       if (authToken && country) {
+  //         const response = await axios.get(
+  //           `https://www.universal-tutorial.com/api/states/${country}`,
+  //           {
+  //             headers: {
+  //               Authorization: `Bearer ${authToken}`,
+  //               Accept: "application/json",
+  //             },
+  //           }
+  //         );
+  //         setStates(response.data);
+  //         saveToLocalStorage("states", response.data);
+  //       }
+  //     } catch (error) {
+  //       setError("Error fetching states: " + error.message);
+  //       console.error("Error:", error.response || error.message || error);
+  //     }
+  //   };
+
+  //   fetchStates();
+  // }, [authToken, country]);
+
+  // useEffect(() => {
+  //   const fetchCities = async () => {
+  //     try {
+  //       if (authToken && state) {
+  //         const response = await axios.get(
+  //           `https://www.universal-tutorial.com/api/cities/${state}`,
+  //           {
+  //             headers: {
+  //               Authorization: `Bearer ${authToken}`,
+  //               Accept: "application/json",
+  //             },
+  //           }
+  //         );
+  //         setCities(response.data);
+  //         saveToLocalStorage("cities", response.data);
+  //       }
+  //     } catch (error) {
+  //       setError("Error fetching cities: " + error.message);
+  //       console.error("Error:", error.response || error.message || error);
+  //     }
+  //   };
+
+  //   fetchCities();
+  // }, [authToken, state]);
+
+  console.log("countries: ", countries);
 
   const initialBillingAddress = {
     fname: "",
@@ -289,33 +389,6 @@ export default function OrderStepper() {
 
   console.log("countries: ", countries);
 
-  // useEffect(() => {
-  //   if (authToken) {
-  //     // console.log("auth_token: ", authToken);
-
-  //     fetch(`https://www.universal-tutorial.com/api/states/${country}`, {
-  //       method: "GET",
-  //       headers: {
-  //         Authorization: `Bearer ${authToken}`,
-  //         Accept: "application/json",
-  //       },
-  //     })
-  //       .then((response) => console.log("response: ", response))
-  //       .then((data) => {
-  //         setStates(data);
-  //         console.log("country: ", country);
-  //         console.log("States: ", data);
-  //       })
-  //       .catch((error) => console.error("Error:", error));
-  //   }
-  // }, [authToken]);
-
-  // Njl3bsqrDkfOe_Lk4SRUveGNV2g7Kndm5CEbo6M948EG6oflbW6QI33kbVTFmTjDNKw;
-
-  // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7I…g1NH0.WPIrbEkntIUMO_9wrzQd_DMY1FYBaD-A93CyE84p_Gk
-
-  // const selectArray = [];
-
   const stepContents = [
     <div className="flex flex-col px-5 py-10 space-y-6 step-content">
       <h3 className="text-3xl">Contact Information</h3>
@@ -506,12 +579,7 @@ export default function OrderStepper() {
         }
         variant="outlined"
       />
-      {/* <TextField
-        fullWidth
-        id="outlined-basic"
-        label="Apartment, suite, etc. (optional)"
-        variant="outlined"
-      /> */}
+
       <FormControl fullWidth sx={{ m: 1, minWidth: 120 }} size="medium">
         <InputLabel id="">Country</InputLabel>
         {
@@ -523,9 +591,6 @@ export default function OrderStepper() {
             onChange={handleBillCountryChange}
             fullWidth
           >
-            {/* <MenuItem value="">
-              <em>None</em>
-            </MenuItem> */}
             {countries.map((singleCountry) => (
               <MenuItem
                 key={singleCountry.country_short_name}

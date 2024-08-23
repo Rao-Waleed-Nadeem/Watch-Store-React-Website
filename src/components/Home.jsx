@@ -17,6 +17,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/effect-fade";
+// import "swiper/swiper.min.css"; // For newer versions
 import "./Swiper.css";
 // import Item from "antd/es/list/Item";
 import glasses from "/src/images/glasses.jpg";
@@ -46,10 +47,10 @@ function Home() {
   const [quantity, setQuantity] = useState(0);
 
   const breakPoints = [
-    { width: 1, itemsToShow: 1 },
-    { width: 550, itemsToShow: 2 },
-    { width: 768, itemsToShow: 3 },
-    { width: 1200, itemsToShow: 4 },
+    { width: 1, slidesPerView: 1 },
+    { width: 550, slidesPerView: 2 },
+    { width: 768, slidesPerView: 3 },
+    { width: 1200, slidesPerView: 4 },
   ];
 
   const { getProducts } = useProductActions();
@@ -118,7 +119,7 @@ function Home() {
         <Swiper
           modules={[Navigation, Pagination, Scrollbar, A11y]}
           spaceBetween={10}
-          slidesPerView={5}
+          // slidesPerView={5}
           navigation
           scrollbar={{ draggable: true }}
           pagination={{
@@ -128,6 +129,20 @@ function Home() {
               return `<span class="${className} w-4 h-4 bg-green-900 rounded-full mx-1"></span>`;
             },
             el: ".custom-pagination",
+          }}
+          breakpoints={{
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 4,
+              spaceBetween: 40,
+            },
+            1024: {
+              slidesPerView: 5,
+              spaceBetween: 50,
+            },
           }}
 
           // breakPoints={breakPoints}
@@ -355,8 +370,10 @@ function Home() {
           autoPlay
           loop
           muted
-          className="absolute object-cover w-full h-full transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+          playsInline // Important for mobile browsers
+          className="absolute top-0 left-0 object-cover w-full h-full"
           poster="path_to_your_poster_image.jpg"
+          style={{ pointerEvents: "none" }} // Disable interaction with video
         >
           <source src={video} type="video/mp4" />
           Your browser does not support the video tag.

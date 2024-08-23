@@ -9,6 +9,7 @@ import useAuthStore from "../Authentication/AuthStore";
 import {
   doSignInWithEmailAndPassword,
   doSignInWithGoogle,
+  handleRedirectResult,
 } from "../config/Auth";
 import SimpleBackdrop from "../Backdrop/SimpleBackdrop";
 
@@ -20,6 +21,11 @@ function Login() {
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showAlert, setShowAlert] = useState(false);
+
+  useEffect(() => {
+    // Handle Google Sign-In redirect result on mobile devices
+    handleRedirectResult();
+  }, []);
 
   const onSubmit = async (e) => {
     e.preventDefault();

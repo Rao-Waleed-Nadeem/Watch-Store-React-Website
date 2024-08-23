@@ -13,9 +13,11 @@ import { red } from "@mui/material/colors";
 export default function DialogOpen({ isOpen, onClose }) {
   const navigate = useNavigate();
   const { email, displayName, photoURL } = useAuthStore();
-
+  const { isGoogleUser } = useAuthStore.getState();
+  console.log("email: ", email);
+  console.log("displayName: ", displayName);
+  console.log("photoURL: ", photoURL);
   const handleLogout = () => {
-    // setUserLoggedIn(false);
     doSignOut().then(() => {
       navigate("/login");
     });
@@ -35,7 +37,7 @@ export default function DialogOpen({ isOpen, onClose }) {
           },
         }}
       >
-        {email && (
+        {isGoogleUser && (
           <div className="flex items-center mx-6 mt-3 mb-3 space-x-4 phone:mb-0">
             <img
               src={photoURL}
