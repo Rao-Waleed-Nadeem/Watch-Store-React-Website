@@ -182,6 +182,7 @@ function Home() {
                     <Button
                       type="submit"
                       variant="contained"
+                      onClick={() => navigate(`/cart/${product.id}`)}
                       style={{ backgroundColor: "#0F0703" }}
                     >
                       View Product
