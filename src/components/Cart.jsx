@@ -405,6 +405,15 @@ function Cart() {
                   {`${cart ? "ALREADY IN CART" : " ADD TO CART"}`}
                 </button>
               </div>
+              <a
+                href="https://api.whatsapp.com/send?phone=923090223683"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button className="text-white transition-colors duration-300 bg-black border border-black hover:border-black hover:bg-white hover:text-black phone:w-32 phone:h-10 tabletLandscape:w-36 tabletLandscape:h-12 ">
+                  BUY NOW
+                </button>
+              </a>
             </div>
             {cart && (
               <div>
