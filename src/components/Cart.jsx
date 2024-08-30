@@ -392,28 +392,30 @@ function Cart() {
                   +
                 </button>
               </div>
-              <div>
-                <button
-                  onClick={handleCartSubmit}
-                  disabled={cart}
-                  className={`text-white  border transition-colors duration-300 ${
-                    cart
-                      ? "bg-gray-400 border-gray-400"
-                      : "hover:border-black hover:bg-white border-black hover:text-black  bg-black "
-                  }  phone:w-32 phone:h-10 tabletLandscape:w-36 tabletLandscape:h-12  `}
+              <div className="flex phone:flex-col phone:space-y-3 tabletLandscape:flex-row tabletLandscape:space-x-2 tabletLandscape:space-y-0">
+                <div>
+                  <button
+                    onClick={handleCartSubmit}
+                    disabled={cart}
+                    className={`text-white  border transition-colors duration-300 ${
+                      cart
+                        ? "bg-gray-400 border-gray-400"
+                        : "hover:border-black hover:bg-white border-black hover:text-black  bg-black "
+                    }  phone:w-32 phone:h-10 tabletLandscape:w-36 tabletLandscape:h-12  `}
+                  >
+                    {`${cart ? "ALREADY IN CART" : " ADD TO CART"}`}
+                  </button>
+                </div>
+                <a
+                  href="https://api.whatsapp.com/send?phone=923090223683"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  {`${cart ? "ALREADY IN CART" : " ADD TO CART"}`}
-                </button>
+                  <button className="text-white transition-colors duration-300 bg-black border border-black hover:border-black hover:bg-white hover:text-black phone:w-32 phone:h-10 tabletLandscape:w-36 tabletLandscape:h-12 ">
+                    BUY NOW
+                  </button>
+                </a>
               </div>
-              <a
-                href="https://api.whatsapp.com/send?phone=923090223683"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <button className="text-white transition-colors duration-300 bg-black border border-black hover:border-black hover:bg-white hover:text-black phone:w-32 phone:h-10 tabletLandscape:w-36 tabletLandscape:h-12 ">
-                  BUY NOW
-                </button>
-              </a>
             </div>
             {cart && (
               <div>
