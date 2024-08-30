@@ -35,12 +35,6 @@ export default function OrderStepper() {
   const [phone, setPhone] = useState("");
   const [authToken, setAuthToken] = useState(localStorage.getItem("authToken"));
 
-  const { userLoggedIn } = useAuthStore();
-
-  const saveToLocalStorage = (key, value) => {
-    localStorage.setItem(key, JSON.stringify(value));
-  };
-
   useEffect(() => {
     const fetchToken = async () => {
       try {
@@ -655,12 +649,6 @@ export default function OrderStepper() {
       city === "" ||
       zip === ""
     ) {
-      // console.log("fname: ", fname);
-      // console.log("address: ", address);
-      // console.log("country: ", country);
-      // console.log("state: ", state);
-      // console.log("city: ", city);
-      // console.log("zip: ", zip);
       return false;
     }
     dispatch({
@@ -707,12 +695,7 @@ export default function OrderStepper() {
     }
   };
 
-  // const handleReset = () => {
-  //   setActiveStep(0);
-  // };
-
   const handleFinish = () => {
-    // Redirect to the home page
     window.location.href = "/thankyou";
   };
 
@@ -728,61 +711,55 @@ export default function OrderStepper() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full h-auto space-y-9">
-      {userLoggedIn ? (
-        <>
-          <Stepper activeStep={activeStep} alternativeLabel>
-            {steps.map((label, index) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-          <form className="w-full" onSubmit={submitArray[activeStep]}>
-            <div className="w-full h-auto">
-              <TransitionGroup>
-                <CSSTransition
-                  key={activeStep}
-                  timeout={300}
-                  classNames={isNext ? "fade" : "fade-back"}
-                >
-                  {stepContents[activeStep]}
-                </CSSTransition>
-              </TransitionGroup>
-            </div>
-            <div className="flex justify-between w-full px-5 mt-5 ">
-              <Button
-                color="inherit"
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                className="mr-1"
-              >
-                Back
-              </Button>
-              <div className="flex-grow" />
-              <Button
-                onClick={
-                  activeStep === steps.length - 1 ? handleFinish : handleNext
-                }
-                // type="submit"
-                disabled={
-                  activeStep === 0
-                    ? emailError !== "" || email === ""
-                    : activeStep === 1
-                    ? !isStepOneValid()
-                    : false
-                }
-              >
-                {activeStep === steps.length - 1 ? "Finish" : "Next"}
-              </Button>
-            </div>
-          </form>
-        </>
-      ) : (
-        <div className="flex items-center justify-center pt-48 text-3xl italic font-medium">
-          <span>Sign In for order checking</span>
+    // <div className="flex flex-col items-center justify-center w-full h-auto space-y-9">
+    <>
+      <Stepper activeStep={activeStep} alternativeLabel>
+        {steps.map((label, index) => (
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+      <form className="w-full" onSubmit={submitArray[activeStep]}>
+        <div className="w-full h-auto">
+          <TransitionGroup>
+            <CSSTransition
+              key={activeStep}
+              timeout={300}
+              classNames={isNext ? "fade" : "fade-back"}
+            >
+              {stepContents[activeStep]}
+            </CSSTransition>
+          </TransitionGroup>
         </div>
-      )}
-    </div>
+        <div className="flex justify-between w-full px-5 mt-5 ">
+          <Button
+            color="inherit"
+            disabled={activeStep === 0}
+            onClick={handleBack}
+            className="mr-1"
+          >
+            Back
+          </Button>
+          <div className="flex-grow" />
+          <Button
+            onClick={
+              activeStep === steps.length - 1 ? handleFinish : handleNext
+            }
+            // type="submit"
+            disabled={
+              activeStep === 0
+                ? emailError !== "" || email === ""
+                : activeStep === 1
+                ? !isStepOneValid()
+                : false
+            }
+          >
+            {activeStep === steps.length - 1 ? "Finish" : "Next"}
+          </Button>
+        </div>
+      </form>
+    </>
+    // </div>
   );
 }

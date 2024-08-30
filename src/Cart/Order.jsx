@@ -19,19 +19,11 @@ import useAuthStore from "../Authentication/AuthStore";
 function Order() {
   const [showCouponField, setShowCouponField] = React.useState(false);
   const navigate = useNavigate();
-  const { userLoggedIn } = useAuthStore();
+  // const { userLoggedIn } = useAuthStore();
   const { getCarts, editCart } = useCartActions();
   const { deleteCart } = useCartActions();
   let products = productStore((state) => state.products);
   let carts = cartStore((state) => state.carts);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     await getCarts();
-  //   };
-
-  //   fetchData();
-  // }, [getCarts, deleteCart, editCart, cartStore, productStore, useCartActions]);
 
   let totalCarts = 0;
   let totalPrice = 0;
@@ -81,47 +73,40 @@ function Order() {
               Order Summary
             </AccordionSummary>
             <AccordionDetails>
-              {!userLoggedIn && (
-                <div className="flex items-center justify-center text-lg italic font-medium">
-                  <span>Sign In to see product summary</span>
-                </div>
-              )}
-              {userLoggedIn && (
-                <div className="flex flex-col py-4">
-                  {matchProducts.map((matchProduct) => (
-                    <div
-                      key={matchProduct.id}
-                      className="flex flex-row w-full p-3 space-x-3"
-                    >
-                      <div className="flex flex-row space-x-6 ">
-                        <div className="flex items-center justify-center w-10 h-10">
-                          <DarkBrownBadge
-                            badgeContent={matchProduct.quantity}
-                            color="primary"
-                          >
-                            <img
-                              src={matchProduct.image}
-                              className="object-cover w-10 h-10"
-                              alt=""
-                            />
-                          </DarkBrownBadge>
-                        </div>
-                        <div className="flex flex-col space-y-3 text-sm">
-                          <span className="px-2 pt-2">{matchProduct.name}</span>
-                          <span>${matchProduct.newPrice}.00</span>
-                          <span className="w-full line-clamp-3">
-                            {matchProduct.definition}
-                          </span>
-                        </div>
+              <div className="flex flex-col py-4">
+                {matchProducts.map((matchProduct) => (
+                  <div
+                    key={matchProduct.id}
+                    className="flex flex-row w-full p-3 space-x-3"
+                  >
+                    <div className="flex flex-row space-x-6 ">
+                      <div className="flex items-center justify-center w-10 h-10">
+                        <DarkBrownBadge
+                          badgeContent={matchProduct.quantity}
+                          color="primary"
+                        >
+                          <img
+                            src={matchProduct.image}
+                            className="object-cover w-10 h-10"
+                            alt=""
+                          />
+                        </DarkBrownBadge>
                       </div>
-                      <div></div>
-                      <span className="text-base font-semibold">
-                        ${matchProduct.price}.00
-                      </span>
+                      <div className="flex flex-col space-y-3 text-sm">
+                        <span className="px-2 pt-2">{matchProduct.name}</span>
+                        <span>${matchProduct.newPrice}.00</span>
+                        <span className="w-full line-clamp-3">
+                          {matchProduct.definition}
+                        </span>
+                      </div>
                     </div>
-                  ))}
-                </div>
-              )}
+                    <div></div>
+                    <span className="text-base font-semibold">
+                      ${matchProduct.price}.00
+                    </span>
+                  </div>
+                ))}
+              </div>
             </AccordionDetails>
           </Accordion>
         </div>
@@ -149,7 +134,7 @@ function Order() {
         </div>
         <div className="flex flex-row justify-between p-4 border-b border-slate-300">
           <span>Subtotal</span>
-          <span>${userLoggedIn ? `${totalPrice}.00` : "0.00"}</span>
+          <span>${totalPrice}</span>
         </div>
         <div className="flex flex-row justify-between p-4 ">
           <div className="flex flex-col space-y-1">
@@ -165,9 +150,7 @@ function Order() {
         </div>
         <div className="flex flex-row justify-between p-4 border-b border-slate-300">
           <span className="text-lg font-semibold">Total</span>
-          <span className="text-lg font-semibold">
-            ${userLoggedIn ? `${totalPrice}.00` : "0.00"}
-          </span>
+          <span className="text-lg font-semibold">${totalPrice}.00</span>
         </div>
       </div>
       <div className="px-12 py-5 tabletLandscape:w-2/3 tabletLandscape:order-1">

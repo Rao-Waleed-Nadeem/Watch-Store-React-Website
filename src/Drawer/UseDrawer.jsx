@@ -78,95 +78,87 @@ const UseDrawer = () => {
       <Drawer
         className=" custom-drawer"
         open={rightDrawerOpen}
-        title={`${
-          userLoggedIn
-            ? `Your Cart (${totalCarts} Items)`
-            : "Sign In to see cart"
-        }`}
+        title={`Your Cart (${totalCarts} Items)`}
         onClose={() => setRightDrawerOpen(false)}
         placement="right"
       >
         {loading && <SimpleBackdrop isOpen={loading} />}
-        {userLoggedIn && (
-          <div className="mb-44">
-            {matchProducts.length > 0 &&
-              matchProducts.map((matchProduct) => (
-                <div
-                  key={matchProduct.id}
-                  className="flex flex-row items-start justify-start my-6 space-x-3"
-                >
-                  <div className="w-10 h-10">
-                    <img src={matchProduct.image} alt="" />
-                  </div>
-                  <div className="flex flex-col space-y-4">
-                    <a href="/" className="text-lg">
-                      {matchProduct.name}
-                    </a>
-                    <div className="flex flex-row space-x-2">
-                      {matchProduct.oldPrice > 0 && (
-                        <span className="text-gray-400 line-through">
-                          ${matchProduct.oldPrice}
-                        </span>
-                      )}
-                      <span>${matchProduct.newPrice}</span>
-                    </div>
+        <div className="mb-44">
+          {matchProducts.length > 0 &&
+            matchProducts.map((matchProduct) => (
+              <div
+                key={matchProduct.id}
+                className="flex flex-row items-start justify-start my-6 space-x-3"
+              >
+                <div className="w-10 h-10">
+                  <img src={matchProduct.image} alt="" />
+                </div>
+                <div className="flex flex-col space-y-4">
+                  <a href="/" className="text-lg">
+                    {matchProduct.name}
+                  </a>
+                  <div className="flex flex-row space-x-2">
                     {matchProduct.oldPrice > 0 && (
-                      <div className="flex items-center justify-center w-20 py-1 border border-black rounded-md">
-                        <span>
-                          Save ${matchProduct.oldPrice - matchProduct.newPrice}
-                        </span>
-                      </div>
+                      <span className="text-gray-400 line-through">
+                        ${matchProduct.oldPrice}
+                      </span>
                     )}
-                    <div className="flex flex-row">
-                      <button
-                        onClick={() => handleQuantityChange(-1, matchProduct)}
-                        className="w-10 h-10 border border-black "
-                      >
-                        -
-                      </button>
-                      <div className="flex items-center justify-center w-10 h-10 text-center border border-l-0 border-r-0 border-black">
-                        {matchProduct.quantity}
-                      </div>
-                      <button
-                        onClick={() => handleQuantityChange(1, matchProduct)}
-                        className="w-10 h-10 border border-black "
-                      >
-                        +
-                      </button>
+                    <span>${matchProduct.newPrice}</span>
+                  </div>
+                  {matchProduct.oldPrice > 0 && (
+                    <div className="flex items-center justify-center w-20 py-1 border border-black rounded-md">
+                      <span>
+                        Save ${matchProduct.oldPrice - matchProduct.newPrice}
+                      </span>
+                    </div>
+                  )}
+                  <div className="flex flex-row">
+                    <button
+                      onClick={() => handleQuantityChange(-1, matchProduct)}
+                      className="w-10 h-10 border border-black "
+                    >
+                      -
+                    </button>
+                    <div className="flex items-center justify-center w-10 h-10 text-center border border-l-0 border-r-0 border-black">
+                      {matchProduct.quantity}
                     </div>
                     <button
-                      onClick={() => handleRemoveItem(matchProduct.id)}
-                      className="underline"
+                      onClick={() => handleQuantityChange(1, matchProduct)}
+                      className="w-10 h-10 border border-black "
                     >
-                      Remove item
+                      +
                     </button>
                   </div>
-                  <div className="flex flex-col space-y-3 ">
-                    <span className="pl-16">
-                      ${matchProduct.newPrice * matchProduct.quantity}
-                    </span>
-                    {matchProduct.oldPrice > 0 && (
-                      <div className="flex items-center justify-center w-20 py-1 ml-10 border border-black rounded-md">
-                        <span>
-                          Save $
-                          {matchProduct.oldPrice * matchProduct.quantity -
-                            matchProduct.newPrice * matchProduct.quantity}
-                        </span>
-                      </div>
-                    )}
-                  </div>
+                  <button
+                    onClick={() => handleRemoveItem(matchProduct.id)}
+                    className="underline"
+                  >
+                    Remove item
+                  </button>
                 </div>
-              ))}
-          </div>
-        )}
+                <div className="flex flex-col space-y-3 ">
+                  <span className="pl-16">
+                    ${matchProduct.newPrice * matchProduct.quantity}
+                  </span>
+                  {matchProduct.oldPrice > 0 && (
+                    <div className="flex items-center justify-center w-20 py-1 ml-10 border border-black rounded-md">
+                      <span>
+                        Save $
+                        {matchProduct.oldPrice * matchProduct.quantity -
+                          matchProduct.newPrice * matchProduct.quantity}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+        </div>
 
         <footer className="absolute bottom-0 right-0 z-10 w-full px-5 bg-white shadow-top">
           <div className="flex flex-col my-6 space-y-4">
             <div className="flex flex-row justify-between">
               <h6 className="text-base font-semibold">Subtotal</h6>
-              <h6 className="text-base font-semibold">
-                ${userLoggedIn ? totalPrice : "0.00"}
-              </h6>
+              <h6 className="text-base font-semibold">totalPrice</h6>
             </div>
             <span className="w-4/5">
               Shipping, taxes, and discounts calculated at checkout.

@@ -12,7 +12,7 @@ import useAuthStore from "../Authentication/AuthStore";
 
 function ViewCart() {
   const [loading, setLoading] = useState(false);
-  const { userLoggedIn } = useAuthStore();
+  // const { userLoggedIn } = useAuthStore();
   const navigate = useNavigate();
   const { editCart } = useCartActions();
   const { deleteCart } = useCartActions();
@@ -66,9 +66,9 @@ function ViewCart() {
   };
 
   return (
-    <div className={`${totalPrice === 0 ? "bg-gray-100" : ""}`}>
+    <div className={`${totalPrice === 0 ? "bg-gray-100" : ""}pb-6`}>
       {loading && <SimpleBackdrop isOpen={loading} />}
-      <div className="w-full px-5 tabletLandscape:px-8">
+      <div className="w-full px-5 tabletLandscape:px-1">
         <h1 className="py-5 text-4xl text-center ">Cart</h1>
         {totalPrice === 0 ? (
           <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -80,86 +80,85 @@ function ViewCart() {
           <div className="flex phone:flex-col tabletLandscape:flex-row tabletLandscape:space-x-9 ">
             <div className="flex flex-col space-x-3 tabletLandscape:w-1/2 ">
               <div className="flex flex-row justify-between mb-5">
-                <span className="ml-5">Product</span>
-                <span className="mr-7">Total</span>
+                <span className="ml-4">Product</span>
+                <span className="mr-6">Total</span>
               </div>
-              {userLoggedIn &&
-                matchProducts.map((matchProduct) => (
-                  <div className="flex flex-row justify-between w-full ">
-                    <div className="flex flex-col">
-                      <div className="flex flex-row space-x-5 ">
-                        <div className="w-20 h-20">
-                          <img src={matchProduct.image} alt="" />
-                        </div>
-                        <div className="flex flex-col space-y-5">
-                          <a
-                            href="/"
-                            className="text-lg text-yellow-700 underline hover:text-yellow-800"
-                          >
-                            {matchProduct.name}
-                          </a>
-                          <div className="flex flex-row space-x-2">
-                            {matchProduct.oldPrice > 0 && (
-                              <span className="text-sm text-gray-400 line-through">
-                                ${matchProduct.oldPrice}
-                              </span>
-                            )}
-                            <span>${matchProduct.newPrice}</span>
-                          </div>
+              {matchProducts.map((matchProduct) => (
+                <div className="flex flex-row justify-between w-full ">
+                  <div className="flex flex-col">
+                    <div className="flex flex-row space-x-5 ">
+                      <div className="w-20 h-20">
+                        <img src={matchProduct.image} alt="" />
+                      </div>
+                      <div className="flex flex-col space-y-5">
+                        <a
+                          href="/"
+                          className="text-lg text-yellow-700 underline hover:text-yellow-800"
+                        >
+                          {matchProduct.name}
+                        </a>
+                        <div className="flex flex-row space-x-2">
                           {matchProduct.oldPrice > 0 && (
-                            <div className="flex items-center justify-center w-24 border border-black rounded-md">
-                              <span className="text-sm">
-                                Save $
-                                {matchProduct.oldPrice - matchProduct.newPrice}
-                              </span>
-                            </div>
+                            <span className="text-sm text-gray-400 line-through">
+                              ${matchProduct.oldPrice}
+                            </span>
                           )}
-                          <div className="flex flex-row">
-                            <button
-                              onClick={() =>
-                                handleQuantityChange(-1, matchProduct)
-                              }
-                              className="w-10 h-10 border border-r-0 border-black"
-                            >
-                              -
-                            </button>
-                            <div className="flex items-center justify-center w-10 h-10 text-center border border-l-0 border-r-0 border-black">
-                              {matchProduct.quantity}
-                            </div>
-                            <button
-                              onClick={() =>
-                                handleQuantityChange(1, matchProduct)
-                              }
-                              className="w-10 h-10 border border-l-0 border-black"
-                            >
-                              +
-                            </button>
+                          <span>${matchProduct.newPrice}</span>
+                        </div>
+                        {matchProduct.oldPrice > 0 && (
+                          <div className="flex items-center justify-center w-24 border border-black rounded-md">
+                            <span className="text-sm">
+                              Save $
+                              {matchProduct.oldPrice - matchProduct.newPrice}
+                            </span>
+                          </div>
+                        )}
+                        <div className="flex flex-row">
+                          <button
+                            onClick={() =>
+                              handleQuantityChange(-1, matchProduct)
+                            }
+                            className="w-10 h-10 border border-r-0 border-black"
+                          >
+                            -
+                          </button>
+                          <div className="flex items-center justify-center w-10 h-10 text-center border border-l-0 border-r-0 border-black">
+                            {matchProduct.quantity}
                           </div>
                           <button
-                            onClick={() => handleRemoveItem(matchProduct.id)}
-                            className="text-sm underline"
+                            onClick={() =>
+                              handleQuantityChange(1, matchProduct)
+                            }
+                            className="w-10 h-10 border border-l-0 border-black"
                           >
-                            Remove item
+                            +
                           </button>
                         </div>
+                        <button
+                          onClick={() => handleRemoveItem(matchProduct.id)}
+                          className="text-sm underline"
+                        >
+                          Remove item
+                        </button>
                       </div>
                     </div>
-                    <div className="flex flex-col space-y-2">
-                      <span className="pl-8 ">${matchProduct.price}</span>
-                      {matchProduct.oldPrice > 0 && (
-                        <div className="flex items-center justify-center border border-black rounded-md w-28">
-                          <span className="text-sm ">
-                            Save $
-                            {matchProduct.oldPrice * matchProduct.quantity -
-                              matchProduct.newPrice * matchProduct.quantity}
-                          </span>
-                        </div>
-                      )}
-                    </div>
                   </div>
-                ))}
+                  <div className="flex flex-col space-y-2 phone:mr-5">
+                    <span className="pl-8 ">${matchProduct.price}</span>
+                    {matchProduct.oldPrice > 0 && (
+                      <div className="flex items-center justify-center border border-black rounded-md phone:w-24 w-28">
+                        <span className="text-sm ">
+                          Save $
+                          {matchProduct.oldPrice * matchProduct.quantity -
+                            matchProduct.newPrice * matchProduct.quantity}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
             </div>
-            <div className="flex flex-col p-5 space-y-3 border border-black tabletLandscape:w-1/2 tabletLandscape:sticky tabletLandscape:top-20 my-9">
+            <div className="flex flex-col p-5 space-y-3 border border-black h-96 tabletLandscape:w-1/2 tabletLandscape:sticky tabletLandscape:top-20 my-9">
               <div className="flex flex-row space-x-5 ">
                 <TextField
                   id="code"

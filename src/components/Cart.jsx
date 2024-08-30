@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import ZoomImage from "./ZoomImage";
-import { Form, Link, useLoaderData } from "react-router-dom";
+import { Form, Link, useLoaderData, useNavigate } from "react-router-dom";
 import { productStore, useProductActions } from "../ProductStore/ProductStore";
 import { reviewStore, useReviewActions } from "../ReviewStore/ReviewStore";
 import {
@@ -40,6 +40,7 @@ export function loader({ params }) {
   return { productId: params.id };
 }
 function Cart() {
+  const navigate = useNavigate();
   const { productId } = useLoaderData();
   const { addReview, getReviews } = useReviewActions();
   const breakPoints = [
@@ -362,10 +363,10 @@ function Cart() {
             <div className="flex space-x-6">
               <div className="flex">
                 <button
-                  disabled={cart || userLoggedIn}
+                  disabled={cart}
                   onClick={() => handleQuantityChange(-1)}
                   className={`w-12 h-12 border ${
-                    cart || !userLoggedIn
+                    cart
                       ? "text-gray-400 border-gray-400"
                       : "border-black hover:border-2"
                   } `}
@@ -374,16 +375,16 @@ function Cart() {
                 </button>
                 <div
                   className={`w-12 h-12 ${
-                    cart || !userLoggedIn ? "border-gray-400 text-gray-400" : ""
+                    cart ? "border-gray-400 text-gray-400" : ""
                   } border-t border-b text-center border-black flex items-center justify-center`}
                 >
-                  {userLoggedIn ? `${quantity}` : "1"}
+                  {quantity}
                 </div>
                 <button
-                  disabled={cart || !userLoggedIn}
+                  disabled={cart}
                   onClick={() => handleQuantityChange(1)}
                   className={`w-12 h-12 border ${
-                    cart || !userLoggedIn
+                    cart
                       ? "text-gray-400 border-gray-400"
                       : "border-black hover:border-2"
                   } `}
@@ -394,17 +395,24 @@ function Cart() {
               <div>
                 <button
                   onClick={handleCartSubmit}
-                  disabled={cart || !userLoggedIn}
+                  disabled={cart}
                   className={`text-white  border transition-colors duration-300 ${
-                    cart || !userLoggedIn
+                    cart
                       ? "bg-gray-400 border-gray-400"
                       : "hover:border-black hover:bg-white border-black hover:text-black  bg-black "
                   }  phone:w-32 phone:h-10 tabletLandscape:w-36 tabletLandscape:h-12  `}
                 >
-                  ADD TO CART
+                  {`${cart ? "ALREADY IN CART" : " ADD TO CART"}`}
                 </button>
               </div>
             </div>
+            {cart && (
+              <div>
+                <span className="px-3 py-2 bg-green-200">
+                  Change amount from cart. Click on cart icon right above
+                </span>
+              </div>
+            )}
             <div className="py-2 border-b border-black "></div>
             <div className="flex justify-start space-x-2 text-sm">
               <span>Category</span>
@@ -507,8 +515,11 @@ function Cart() {
             damage.
           </p>
           <button>
-            <button className="text-white transition-colors duration-300 bg-transparent border border-white phone:w-32 phone:h-10 tabletLandscape:w-36 tabletLandscape:h-12 hover:bg-white hover:text-black hover:border-black">
-              ADD TO CART
+            <button
+              onClick={() => navigate("/about")}
+              className="text-white transition-colors duration-300 bg-transparent border border-white phone:w-32 phone:h-10 tabletLandscape:w-36 tabletLandscape:h-12 hover:bg-white hover:text-black hover:border-black"
+            >
+              VIEW ABOUT
             </button>
           </button>
         </div>

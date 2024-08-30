@@ -327,13 +327,9 @@ function Header() {
 
             <Tooltip title="Your Cart">
               <IconButton color="teal" onClick={handleRightDrawer(true)}>
-                {userLoggedIn ? (
-                  <DarkBrownBadge badgeContent={totalCarts} color="primary">
-                    <LocalGroceryStoreOutlinedIcon />
-                  </DarkBrownBadge>
-                ) : (
+                <DarkBrownBadge badgeContent={totalCarts} color="primary">
                   <LocalGroceryStoreOutlinedIcon />
-                )}
+                </DarkBrownBadge>
               </IconButton>
             </Tooltip>
           </div>
