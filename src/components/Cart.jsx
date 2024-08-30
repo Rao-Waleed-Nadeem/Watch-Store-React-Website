@@ -40,6 +40,10 @@ export function loader({ params }) {
   return { productId: params.id };
 }
 function Cart() {
+  const currentUrl = window.location.href;
+  const message = `${currentUrl}\n\n\nI want to buy this product\nquantity = 1`;
+  const encodedMessage = encodeURIComponent(message);
+  const whatsappLink = `https://wa.me/923090223683?text=${encodedMessage}`;
   const navigate = useNavigate();
   const { productId } = useLoaderData();
   const { addReview, getReviews } = useReviewActions();
@@ -407,7 +411,7 @@ function Cart() {
                   </button>
                 </div>
                 <a
-                  href="https://api.whatsapp.com/send?phone=923090223683"
+                  href={whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
