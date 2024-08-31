@@ -396,7 +396,7 @@ function Cart() {
                   +
                 </button>
               </div>
-              <div className="flex phone:flex-col phone:space-y-3 tabletLandscape:flex-row tabletLandscape:space-x-2 tabletLandscape:space-y-0">
+              <div className="flex phone:flex-col phone:space-y-3 laptop:flex-row laptop:space-x-2 laptop:space-y-0">
                 <div>
                   <button
                     onClick={handleCartSubmit}
@@ -405,7 +405,7 @@ function Cart() {
                       cart
                         ? "bg-gray-400 border-gray-400"
                         : "hover:border-black hover:bg-white border-black hover:text-black  bg-black "
-                    }  phone:w-32 phone:h-10 tabletLandscape:w-36 tabletLandscape:h-12  `}
+                    }  phone:w-32 phone:h-10 tabletLandscape:w-36 tabletLandscape:h-12 text-sm `}
                   >
                     {`${cart ? "ALREADY IN CART" : " ADD TO CART"}`}
                   </button>
@@ -415,15 +415,15 @@ function Cart() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <button className="text-white transition-colors duration-300 bg-black border border-black hover:border-black hover:bg-white hover:text-black phone:w-32 phone:h-10 tabletLandscape:w-36 tabletLandscape:h-12 ">
+                  <button className="text-sm text-white transition-colors duration-300 bg-black border border-black hover:border-black hover:bg-white hover:text-black phone:w-32 phone:h-10 tabletLandscape:w-36 tabletLandscape:h-12 ">
                     BUY NOW
                   </button>
                 </a>
               </div>
             </div>
             {cart && (
-              <div>
-                <span className="px-3 py-2 bg-green-200">
+              <div className="px-3 py-2 bg-green-200">
+                <span className="">
                   Change amount from cart. Click on cart icon right above
                 </span>
               </div>
