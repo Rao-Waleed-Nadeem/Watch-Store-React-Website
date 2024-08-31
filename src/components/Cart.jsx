@@ -193,7 +193,7 @@ function Cart() {
       </div>
       <div>
         {isCart && showAlert && (
-          <div className="flex flex-col mx-6 my-2 mt-8 ml-7">
+          <div className="sticky z-50 flex flex-col mx-6 my-2 mt-8 shadow-xl top-24 ml-7">
             <Alert severity="success">
               <AlertTitle>item added successfully</AlertTitle>
               <div className="flex justify-between space-x-10">
