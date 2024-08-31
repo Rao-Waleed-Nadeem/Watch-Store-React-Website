@@ -16,6 +16,12 @@ function ViewCart() {
   const navigate = useNavigate();
   const { editCart } = useCartActions();
   const { deleteCart } = useCartActions();
+  const { getCarts } = useCartActions();
+  const { getProducts } = useProductActions();
+  useEffect(() => {
+    getProducts();
+    getCarts();
+  }, [getProducts, getCarts, editCart, deleteCart]);
   let products = productStore((state) => state.products);
   let carts = cartStore((state) => state.carts);
 

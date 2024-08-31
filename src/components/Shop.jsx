@@ -16,11 +16,11 @@ function Shop() {
   // const filterOpen = useFilterStore((state) => state.filterOpen);
   const setFilterOpen = useFilterStore((state) => state.setFilterOpen);
 
-  const products = productStore((state) => state.products);
   useEffect(() => {
     getProducts();
   }, [getProducts]);
 
+  const products = productStore((state) => state.products);
   const filteredCategoryProducts =
     category !== undefined && subcategory === undefined
       ? products.filter((product) => product.category === category)

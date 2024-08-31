@@ -22,6 +22,11 @@ function Order() {
   // const { userLoggedIn } = useAuthStore();
   const { getCarts, editCart } = useCartActions();
   const { deleteCart } = useCartActions();
+  const { getProducts } = useProductActions();
+  useEffect(() => {
+    getProducts();
+    getCarts();
+  }, [getProducts, getCarts]);
   let products = productStore((state) => state.products);
   let carts = cartStore((state) => state.carts);
 

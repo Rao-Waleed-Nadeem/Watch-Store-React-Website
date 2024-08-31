@@ -52,7 +52,10 @@ function Home() {
     { width: 768, slidesPerView: 3 },
     { width: 1200, slidesPerView: 4 },
   ];
-
+  const { getProducts } = useProductActions();
+  useEffect(() => {
+    getProducts();
+  }, [getProducts]);
   const products = productStore((state) => state.products);
   const flare_glaciers = useMemo(
     () => products.find((product) => product.name === "Flare Glaciers"),

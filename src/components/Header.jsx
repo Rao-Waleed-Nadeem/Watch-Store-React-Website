@@ -34,11 +34,11 @@ const DarkBrownBadge = styled(Badge)({
 
 function Header() {
   const navigate = useNavigate();
-
+  const { getCarts } = useCartActions();
+  const { getProducts } = useProductActions();
   const { userLoggedIn, photoURL, displayName, isGoogleUser } = useAuthStore();
   const { Search, SetSearch } = useSearchStore();
-  const products = productStore((state) => state.products);
-  const carts = cartStore((state) => state.carts);
+
   const [leftDrawerOpen, setLeftDrawerOpen] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
   const [search, setSearch] = useState("");
@@ -53,6 +53,12 @@ function Header() {
   const [showList, setShowList] = useState(false);
   const [focus, setFocus] = useState(false);
 
+  useEffect(() => {
+    getCarts();
+    getProducts();
+  }, [getCarts, getProducts]);
+  const products = productStore((state) => state.products);
+  const carts = cartStore((state) => state.carts);
   let totalCarts = 0;
   carts.forEach((cart) => {
     totalCarts += cart.quantity;

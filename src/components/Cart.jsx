@@ -58,7 +58,7 @@ function Cart() {
   const carts = cartStore((state) => state.carts);
   useEffect(() => {
     getCarts();
-  }, [getCarts]);
+  }, [getCarts, addCart]);
   const products = productStore.getState().products;
   const product = useMemo(
     () => products.find((singleProduct) => singleProduct.id == productId),
