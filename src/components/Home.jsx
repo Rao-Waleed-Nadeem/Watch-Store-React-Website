@@ -353,11 +353,12 @@ function Home() {
                   </div>
                   <div className="mt-3 mb-1">
                     <Button
-                      type="submit"
+                      type="button"
+                      onClick={() => navigate(`/cart/${product.id}`)}
                       variant="contained"
                       style={{ backgroundColor: "#0F0703" }}
                     >
-                      ADD TO CART
+                      VIEW PRODUCT
                     </Button>
                   </div>
                 </div>
