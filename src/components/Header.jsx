@@ -216,7 +216,7 @@ function Header() {
           <div
             className={`logo txt text-xl  absolute left-[52%] z-10 ${
               isSearch
-                ? "phone:left-[26%]  phone:transition-all  phone:duration-300"
+                ? "phone:left-[26%] tabletLandscape:left-[50%] phone:transition-all  phone:duration-300"
                 : ""
             } transform -translate-x-[80%]  tabletLandscape:-translate-x-1/2 hover:font-bold transition-all ease-in-out  duration-300`}
           >
@@ -227,7 +227,9 @@ function Header() {
                   src={imgURL}
                   alt=""
                   className={`w-10 h-10 transition-opacity duration-200 ease-in-out ${
-                    isSearch ? "opacity-0 " : "opacity-100"
+                    isSearch
+                      ? "phone:opacity-0 tabletLandscape:opacity-100"
+                      : "opacity-100"
                   }`}
                 />
               </Link>
