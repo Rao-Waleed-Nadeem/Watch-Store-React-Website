@@ -38,7 +38,7 @@ function Header() {
   const { getProducts } = useProductActions();
   const { userLoggedIn, photoURL, displayName, isGoogleUser } = useAuthStore();
   const { Search, SetSearch } = useSearchStore();
-
+  console.log("photoURL", photoURL);
   const [leftDrawerOpen, setLeftDrawerOpen] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
   const [search, setSearch] = useState("");
@@ -223,6 +223,7 @@ function Header() {
             <div className="flex flex-row items-center justify-center tabletLandscape:space-x-2">
               <Link>
                 <img
+                  // src={imgURL}
                   src={imgURL}
                   alt=""
                   className={`w-10 h-10 transition-opacity duration-200 ease-in-out ${
@@ -308,10 +309,11 @@ function Header() {
             ) : photoURL !== "" ? (
               <Tooltip title={`Hi ${displayName}`}>
                 <IconButton onClick={handleOpenDialog}>
-                  {photoURL ? (
+                  {isGoogleUser ? (
                     <img
                       src={photoURL}
                       alt="Profile"
+                      referrerPolicy="no-referrer"
                       className="rounded-full cursor-pointer w-7 h-7"
                     />
                   ) : (

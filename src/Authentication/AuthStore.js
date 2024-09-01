@@ -46,7 +46,7 @@ const useAuthStore = create((set, get) => ({
   loading: true,
   displayName: loadUserFromLocalStorage()?.displayName || "",
   email: loadUserFromLocalStorage()?.email || "",
-  photoURL: loadUserFromLocalStorage()?.photoURL || "",
+  photoURL: loadUserFromLocalStorage()?.photoURL,
 
   setCurrentUser: (user) => {
     localStorage.setItem("currentUser", JSON.stringify(user));
@@ -56,7 +56,7 @@ const useAuthStore = create((set, get) => ({
   setIsEmailUser: (status) => set({ isEmailUser: status }),
   setIsGoogleUser: (status) => set({ isGoogleUser: status }),
   setLoading: (status) => set({ loading: status }),
-
+  setPhotoURL: (url) => set({ photoURL: url }),
   getGmailInfo: () => {
     const { isGoogleUser, currentUser } = get();
     if (isGoogleUser && currentUser) {
@@ -71,6 +71,7 @@ const useAuthStore = create((set, get) => ({
   initializeUser: async (user) => {
     if (user) {
       set({ currentUser: user });
+      localStorage.setItem("currentUser", JSON.stringify(user));
 
       const isGoogle =
         user.providerData?.some(
@@ -80,6 +81,7 @@ const useAuthStore = create((set, get) => ({
 
       if (isGoogle) set({ photoURL: user.photoURL });
       set({ userLoggedIn: true });
+      if (isGoogle) set({ photoURL: user.photoURL });
 
       // Persist user data to localStorage
       localStorage.setItem("currentUser", JSON.stringify(user));

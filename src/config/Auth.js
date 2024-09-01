@@ -77,30 +77,39 @@ export const doSignInWithGoogle = async () => {
   try {
     const isMobile = /Mobi|Android/i.test(navigator.userAgent);
 
+    const {
+      setCurrentUser,
+      setUserLoggedIn,
+      setIsGoogleUser,
+      setLoading,
+      getGmailInfo,
+      setPhotoURL,
+    } = useAuthStore.getState();
+
+    setLoading(true);
+
     if (isMobile) {
       await signInWithRedirect(auth, provider); // Use redirect on mobile
     } else {
       const result = await signInWithPopup(auth, provider); // Use popup on desktop
       const user = result.user;
 
-      const {
-        setCurrentUser,
-        setUserLoggedIn,
-        setIsGoogleUser,
-        setLoading,
-        getGmailInfo,
-        setPhotoURL,
-      } = useAuthStore.getState();
-
-      setLoading(true);
+      // Save user information in Zustand state
       setCurrentUser(user);
       setUserLoggedIn(true);
       setIsGoogleUser(true);
-      setPhotoURL(user.photoURL);
-      console.log("user: ", user);
+      setPhotoURL(user.photoURL); // Save photoURL immediately
+
+      // Save user information in localStorage
+      localStorage.setItem("currentUser", JSON.stringify(user));
+
+      console.log("User signed in with Google: ", user);
+
+      // Now, call the function to set additional info like email and displayName
       getGmailInfo();
-      setLoading(false);
     }
+
+    setLoading(false);
   } catch (error) {
     console.error("Error signing in with Google:", error);
     setLoading(false);
